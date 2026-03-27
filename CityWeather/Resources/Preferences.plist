@@ -3,6 +3,6 @@
 <plist version="1.0">
 <dict>
 	<key>Api environment</key>
-	<string>pro</string>
+	<string>dev</string>
 </dict>
 </plist>
