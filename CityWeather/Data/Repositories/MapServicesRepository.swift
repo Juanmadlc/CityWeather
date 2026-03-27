@@ -16,8 +16,12 @@ final class MapServicesRepository:  MapServicesModelProtocol {
     }
     
     func getDataWeather(city: String) async throws -> MapWrapper {
-        try await apiClient.getDataWeather(city: city)
+        if MocksManager.shared.shouldUseMockData() {
+            return try MocksManager.shared.getMockDataWeather()
+        }
+        return try await apiClient.getDataWeather(city: city)
     }
     
     
 }
+
