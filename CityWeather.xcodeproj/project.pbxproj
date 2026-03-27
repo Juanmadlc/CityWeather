@@ -117,7 +117,6 @@
 			isa = PBXGroup;
 			children = (
 				962A42492F5B392300B79DE9 /* Network */,
-				964055262F76A4F30021407D /* MapServices */,
 				962A42572F5B3B9000B79DE9 /* Commons */,
 				964055352F76BEE70021407D /* Domain */,
 				962A425E2F5B3EC000B79DE9 /* Resources */,
@@ -137,6 +136,7 @@
 				962A424F2F5B3A0500B79DE9 /* NetworkDispatcher.swift */,
 				962A42512F5B3A4300B79DE9 /* NetworkManager.swift */,
 				962A42532F5B3A5900B79DE9 /* Log.swift */,
+				964055262F76A4F30021407D /* MapServices */,
 			);
 			path = Network;
 			sourceTree = "<group>";

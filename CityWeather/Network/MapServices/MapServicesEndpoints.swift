@@ -14,9 +14,14 @@ struct MapServicesEndpoints {
             case .pro: return proEnvironment
         }
     }
-    static var language = "es" // TODO: 01 Revisar el idioma es, en ...
     static let devEnvironment = "http://api.openweathermap.org"
     static let proEnvironment = "http://api.openweathermap.org"
     
     static let dataWeather = "/data/2.5/weather"
+    
+    // MARK: PARAMS
+    static var appid = "768543f20334a8c0ab4d96b800f607e5"
+    static var units = "metric"
+    static var language = "es"
+
 }

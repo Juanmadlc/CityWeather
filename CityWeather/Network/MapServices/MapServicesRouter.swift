@@ -25,14 +25,17 @@ public enum MapServicesRouter: NetworkCall {
     }
 
     var method: String { return HTTPMethod.get }
+    var headers: [String: String]? {
+        return ["Accept": "application/json"]
+    }
     
     private func queryItems() -> [URLQueryItem] {
-        var items: [URLQueryItem] = []
+        var items: [URLQueryItem] = [URLQueryItem(name: "appid", value: MapServicesEndpoints.appid)]
         switch self {
         case .getDataWeather(let city):
-            items.append(contentsOf: [URLQueryItem(name: "lineaId", value: line),
-                                      URLQueryItem(name: "viaId", value: via),
-                                      URLQueryItem(name: "version", value: "2")])
+            items.append(contentsOf: [URLQueryItem(name: "q", value: city),
+                                      URLQueryItem(name: "units", value: MapServicesEndpoints.units),
+                                      URLQueryItem(name: "lang", value: MapServicesEndpoints.language)])
         }
         
         return items
