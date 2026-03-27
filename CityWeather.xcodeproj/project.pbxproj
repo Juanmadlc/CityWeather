@@ -20,6 +20,9 @@
 		962A425B2F5B3CE400B79DE9 /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 962A425A2F5B3CE400B79DE9 /* StringExtension.swift */; };
 		962A425D2F5B3E8E00B79DE9 /* DateExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 962A425C2F5B3E8E00B79DE9 /* DateExtension.swift */; };
 		962A42612F5B3EF000B79DE9 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 962A42602F5B3EF000B79DE9 /* Constants.swift */; };
+		964055282F76A6580021407D /* DataServiceCloudEndpoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 964055272F76A6580021407D /* DataServiceCloudEndpoints.swift */; };
+		9640552A2F76A7A80021407D /* BundleExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 964055292F76A7A80021407D /* BundleExtension.swift */; };
+		9640552C2F76A8A40021407D /* Preferences.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9640552B2F76A8A40021407D /* Preferences.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +56,9 @@
 		962A425A2F5B3CE400B79DE9 /* StringExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
 		962A425C2F5B3E8E00B79DE9 /* DateExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateExtension.swift; sourceTree = "<group>"; };
 		962A42602F5B3EF000B79DE9 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		964055272F76A6580021407D /* DataServiceCloudEndpoints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataServiceCloudEndpoints.swift; sourceTree = "<group>"; };
+		964055292F76A7A80021407D /* BundleExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BundleExtension.swift; sourceTree = "<group>"; };
+		9640552B2F76A8A40021407D /* Preferences.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Preferences.plist; sourceTree = "<group>"; };
 		967690162D95897500DE9D02 /* CityWeather.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CityWeather.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		967690262D95897800DE9D02 /* CityWeatherTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CityWeatherTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		967690302D95897800DE9D02 /* CityWeatherUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CityWeatherUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -105,6 +111,7 @@
 			isa = PBXGroup;
 			children = (
 				962A42492F5B392300B79DE9 /* Network */,
+				964055262F76A4F30021407D /* DataServiceCloud */,
 				962A42572F5B3B9000B79DE9 /* Commons */,
 				962A425E2F5B3EC000B79DE9 /* Resources */,
 				962A424B2F5B397600B79DE9 /* Preview Content */,
@@ -149,6 +156,7 @@
 			children = (
 				962A425A2F5B3CE400B79DE9 /* StringExtension.swift */,
 				962A425C2F5B3E8E00B79DE9 /* DateExtension.swift */,
+				964055292F76A7A80021407D /* BundleExtension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -156,10 +164,19 @@
 		962A425E2F5B3EC000B79DE9 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				9640552B2F76A8A40021407D /* Preferences.plist */,
 				962A42282F5B32BD00B79DE9 /* Assets.xcassets */,
 				962A42602F5B3EF000B79DE9 /* Constants.swift */,
 			);
 			path = Resources;
+			sourceTree = "<group>";
+		};
+		964055262F76A4F30021407D /* DataServiceCloud */ = {
+			isa = PBXGroup;
+			children = (
+				964055272F76A6580021407D /* DataServiceCloudEndpoints.swift */,
+			);
+			path = DataServiceCloud;
 			sourceTree = "<group>";
 		};
 		9676900D2D95897500DE9D02 = {
@@ -303,6 +320,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				962A422E2F5B32BD00B79DE9 /* Assets.xcassets in Resources */,
+				9640552C2F76A8A40021407D /* Preferences.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -330,6 +348,7 @@
 				962A42382F5B34B500B79DE9 /* HTTPMethod.swift in Sources */,
 				962A422B2F5B32BD00B79DE9 /* CityWeatherApp.swift in Sources */,
 				962A425B2F5B3CE400B79DE9 /* StringExtension.swift in Sources */,
+				9640552A2F76A7A80021407D /* BundleExtension.swift in Sources */,
 				962A42542F5B3A5900B79DE9 /* Log.swift in Sources */,
 				962A42362F5B32DB00B79DE9 /* EnvironmentKind.swift in Sources */,
 				962A42502F5B3A0500B79DE9 /* NetworkDispatcher.swift in Sources */,
@@ -338,6 +357,7 @@
 				962A42432F5B364700B79DE9 /* NetworkError.swift in Sources */,
 				962A422C2F5B32BD00B79DE9 /* ContentView.swift in Sources */,
 				962A423A2F5B34E700B79DE9 /* NetworkCall.swift in Sources */,
+				964055282F76A6580021407D /* DataServiceCloudEndpoints.swift in Sources */,
 				962A42612F5B3EF000B79DE9 /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
