@@ -29,13 +29,13 @@
 		964055392F76E4B60021407D /* MapServicesAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 964055382F76E4B60021407D /* MapServicesAPIClient.swift */; };
 		9640553C2F76E8910021407D /* MapWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9640553B2F76E8910021407D /* MapWrapper.swift */; };
 		9640553F2F76ECD70021407D /* MapServicesAPIClientProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9640553E2F76ECD70021407D /* MapServicesAPIClientProtocol.swift */; };
-		964055432F76EF110021407D /* UserDefaultsStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 964055422F76EF110021407D /* UserDefaultsStorage.swift */; };
-		964055452F76EF330021407D /* UserDefaultsStorageProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 964055442F76EF330021407D /* UserDefaultsStorageProtocol.swift */; };
 		964055492F76F1110021407D /* MapServicesRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 964055482F76F1110021407D /* MapServicesRepository.swift */; };
 		9640554C2F76F17C0021407D /* MapServicesModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9640554B2F76F17C0021407D /* MapServicesModelProtocol.swift */; };
 		9640554E2F76F2940021407D /* UserDefaultsRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9640554D2F76F2940021407D /* UserDefaultsRepository.swift */; };
-		964055502F76F2C20021407D /* UserDefaultsModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9640554F2F76F2C20021407D /* UserDefaultsModelProtocol.swift */; };
 		964055532F76F5D40021407D /* MocksManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 964055522F76F5D40021407D /* MocksManager.swift */; };
+		96F5FC092FA3A81F00C490BC /* mockWeather.json in Resources */ = {isa = PBXBuildFile; fileRef = 96F5FC082FA3A81F00C490BC /* mockWeather.json */; };
+		96F5FC0C2FA3ABCE00C490BC /* AsyncUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F5FC0B2FA3ABCE00C490BC /* AsyncUseCase.swift */; };
+		96F5FC122FA3AEC000C490BC /* GetDataWeatherUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F5FC112FA3AEC000C490BC /* GetDataWeatherUseCase.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -78,16 +78,16 @@
 		964055382F76E4B60021407D /* MapServicesAPIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapServicesAPIClient.swift; sourceTree = "<group>"; };
 		9640553B2F76E8910021407D /* MapWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapWrapper.swift; sourceTree = "<group>"; };
 		9640553E2F76ECD70021407D /* MapServicesAPIClientProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapServicesAPIClientProtocol.swift; sourceTree = "<group>"; };
-		964055422F76EF110021407D /* UserDefaultsStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsStorage.swift; sourceTree = "<group>"; };
-		964055442F76EF330021407D /* UserDefaultsStorageProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsStorageProtocol.swift; sourceTree = "<group>"; };
 		964055482F76F1110021407D /* MapServicesRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapServicesRepository.swift; sourceTree = "<group>"; };
 		9640554B2F76F17C0021407D /* MapServicesModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapServicesModelProtocol.swift; sourceTree = "<group>"; };
 		9640554D2F76F2940021407D /* UserDefaultsRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsRepository.swift; sourceTree = "<group>"; };
-		9640554F2F76F2C20021407D /* UserDefaultsModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsModelProtocol.swift; sourceTree = "<group>"; };
 		964055522F76F5D40021407D /* MocksManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MocksManager.swift; sourceTree = "<group>"; };
 		967690162D95897500DE9D02 /* CityWeather.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CityWeather.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		967690262D95897800DE9D02 /* CityWeatherTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CityWeatherTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		967690302D95897800DE9D02 /* CityWeatherUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CityWeatherUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		96F5FC082FA3A81F00C490BC /* mockWeather.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = mockWeather.json; sourceTree = "<group>"; };
+		96F5FC0B2FA3ABCE00C490BC /* AsyncUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncUseCase.swift; sourceTree = "<group>"; };
+		96F5FC112FA3AEC000C490BC /* GetDataWeatherUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetDataWeatherUseCase.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -140,6 +140,7 @@
 				964055362F76E43E0021407D /* Data */,
 				962A42572F5B3B9000B79DE9 /* Commons */,
 				964055352F76BEE70021407D /* Domain */,
+				96F5FC132FA3B29600C490BC /* Platform */,
 				962A425E2F5B3EC000B79DE9 /* Resources */,
 				962A424B2F5B397600B79DE9 /* Preview Content */,
 				962A42562F5B3B4000B79DE9 /* ToDo */,
@@ -193,6 +194,7 @@
 		962A425E2F5B3EC000B79DE9 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				96F5FC072FA3A77500C490BC /* Mocks */,
 				9640552B2F76A8A40021407D /* Preferences.plist */,
 				962A42282F5B32BD00B79DE9 /* Assets.xcassets */,
 				962A42602F5B3EF000B79DE9 /* Constants.swift */,
@@ -214,8 +216,10 @@
 		964055352F76BEE70021407D /* Domain */ = {
 			isa = PBXGroup;
 			children = (
+				96F5FC0B2FA3ABCE00C490BC /* AsyncUseCase.swift */,
 				9640553A2F76E8590021407D /* Model */,
 				9640554A2F76F1400021407D /* ModelProtocol */,
+				96F5FC0E2FA3AC6600C490BC /* UseCase */,
 			);
 			path = Domain;
 			sourceTree = "<group>";
@@ -224,7 +228,6 @@
 			isa = PBXGroup;
 			children = (
 				9640553D2F76EC2F0021407D /* APIClient */,
-				964055402F76EDCB0021407D /* Persistence */,
 				964055472F76F0B70021407D /* Repositories */,
 			);
 			path = Data;
@@ -255,23 +258,6 @@
 			path = APIClient;
 			sourceTree = "<group>";
 		};
-		964055402F76EDCB0021407D /* Persistence */ = {
-			isa = PBXGroup;
-			children = (
-				964055412F76EEDF0021407D /* UserDefaultsStorage */,
-			);
-			path = Persistence;
-			sourceTree = "<group>";
-		};
-		964055412F76EEDF0021407D /* UserDefaultsStorage */ = {
-			isa = PBXGroup;
-			children = (
-				964055422F76EF110021407D /* UserDefaultsStorage.swift */,
-				964055442F76EF330021407D /* UserDefaultsStorageProtocol.swift */,
-			);
-			path = UserDefaultsStorage;
-			sourceTree = "<group>";
-		};
 		964055472F76F0B70021407D /* Repositories */ = {
 			isa = PBXGroup;
 			children = (
@@ -285,7 +271,6 @@
 			isa = PBXGroup;
 			children = (
 				9640554B2F76F17C0021407D /* MapServicesModelProtocol.swift */,
-				9640554F2F76F2C20021407D /* UserDefaultsModelProtocol.swift */,
 			);
 			path = ModelProtocol;
 			sourceTree = "<group>";
@@ -316,6 +301,45 @@
 				967690302D95897800DE9D02 /* CityWeatherUITests.xctest */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		96F5FC072FA3A77500C490BC /* Mocks */ = {
+			isa = PBXGroup;
+			children = (
+				96F5FC082FA3A81F00C490BC /* mockWeather.json */,
+			);
+			path = Mocks;
+			sourceTree = "<group>";
+		};
+		96F5FC0D2FA3AC3500C490BC /* MapServices */ = {
+			isa = PBXGroup;
+			children = (
+				96F5FC112FA3AEC000C490BC /* GetDataWeatherUseCase.swift */,
+			);
+			path = MapServices;
+			sourceTree = "<group>";
+		};
+		96F5FC0E2FA3AC6600C490BC /* UseCase */ = {
+			isa = PBXGroup;
+			children = (
+				96F5FC0D2FA3AC3500C490BC /* MapServices */,
+			);
+			path = UseCase;
+			sourceTree = "<group>";
+		};
+		96F5FC132FA3B29600C490BC /* Platform */ = {
+			isa = PBXGroup;
+			children = (
+				96F5FC142FA3B2C800C490BC /* Scenes */,
+			);
+			path = Platform;
+			sourceTree = "<group>";
+		};
+		96F5FC142FA3B2C800C490BC /* Scenes */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Scenes;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -439,6 +463,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				962A422E2F5B32BD00B79DE9 /* Assets.xcassets in Resources */,
+				96F5FC092FA3A81F00C490BC /* mockWeather.json in Resources */,
 				9640552C2F76A8A40021407D /* Preferences.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -465,10 +490,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				962A42382F5B34B500B79DE9 /* HTTPMethod.swift in Sources */,
-				964055432F76EF110021407D /* UserDefaultsStorage.swift in Sources */,
 				9640552E2F76B4920021407D /* MapServicesNetworkProtocol.swift in Sources */,
 				9640553C2F76E8910021407D /* MapWrapper.swift in Sources */,
-				964055452F76EF330021407D /* UserDefaultsStorageProtocol.swift in Sources */,
 				964055532F76F5D40021407D /* MocksManager.swift in Sources */,
 				962A422B2F5B32BD00B79DE9 /* CityWeatherApp.swift in Sources */,
 				962A425B2F5B3CE400B79DE9 /* StringExtension.swift in Sources */,
@@ -476,8 +499,9 @@
 				9640552A2F76A7A80021407D /* BundleExtension.swift in Sources */,
 				964055392F76E4B60021407D /* MapServicesAPIClient.swift in Sources */,
 				962A42542F5B3A5900B79DE9 /* Log.swift in Sources */,
+				96F5FC122FA3AEC000C490BC /* GetDataWeatherUseCase.swift in Sources */,
+				96F5FC0C2FA3ABCE00C490BC /* AsyncUseCase.swift in Sources */,
 				962A42362F5B32DB00B79DE9 /* EnvironmentKind.swift in Sources */,
-				964055502F76F2C20021407D /* UserDefaultsModelProtocol.swift in Sources */,
 				962A42502F5B3A0500B79DE9 /* NetworkDispatcher.swift in Sources */,
 				962A425D2F5B3E8E00B79DE9 /* DateExtension.swift in Sources */,
 				962A42522F5B3A4300B79DE9 /* NetworkManager.swift in Sources */,
