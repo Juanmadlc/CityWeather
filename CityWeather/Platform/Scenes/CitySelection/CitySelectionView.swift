@@ -7,18 +7,18 @@
 
 import SwiftUI
 
-struct ContentView: View {
+struct CitySelectionView: View {
     var body: some View {
         VStack {
             Image(systemName: "globe")
                 .imageScale(.large)
                 .foregroundStyle(.tint)
-            Text("City Weather")
+            Text("City Selection")
         }
         .padding()
     }
 }
 
 #Preview {
-    ContentView()
+    CitySelectionView()
 }
