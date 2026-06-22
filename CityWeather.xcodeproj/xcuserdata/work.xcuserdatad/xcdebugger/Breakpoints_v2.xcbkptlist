@@ -20,51 +20,5 @@
             landmarkType = "24">
          </BreakpointContent>
       </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "0FC9BF00-A70A-4F39-90A6-589E6C4BEFFB"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "CityWeather/Representation/ViewModels/CitySelection/CitySelectionViewModel.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "22"
-            endingLineNumber = "22"
-            landmarkName = "init()"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "0FC9BF00-A70A-4F39-90A6-589E6C4BEFFB - c6dbbde9863acf49"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "CityWeather.CitySelectionViewModel.__allocating_init() -&gt; CityWeather.CitySelectionViewModel"
-                  moduleName = "CityWeather.debug.dylib"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/work/Desktop/Projects/XcodeProjects/CityWeather/CityWeather/Representation/ViewModels/CitySelection/CitySelectionViewModel.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "22"
-                  endingLineNumber = "22">
-               </Location>
-               <Location
-                  uuid = "0FC9BF00-A70A-4F39-90A6-589E6C4BEFFB - 96ee27ab422a7522"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "CityWeather.CitySelectionViewModel.init() -&gt; CityWeather.CitySelectionViewModel"
-                  moduleName = "CityWeather.debug.dylib"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/work/Desktop/Projects/XcodeProjects/CityWeather/CityWeather/Representation/ViewModels/CitySelection/CitySelectionViewModel.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "19"
-                  endingLineNumber = "19">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
    </Breakpoints>
 </Bucket>
