@@ -1,0 +1,20 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    "City Selection" : {
+
+    },
+    "City Weather" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Clima Ciudad"
+          }
+        }
+      }
+    }
+  },
+  "version" : "1.2"
+}

@@ -1,24 +1,19 @@
-//
-//  ContentView.swift
-//  CityWeather
-//
-//  Created by Juan Manuel de la Cruz on 27/3/25.
-//
-
 import SwiftUI
 
 struct CitySelectionView: View {
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
+        VStack(spacing: 16) {
             Text("City Selection")
+                .font(.title)
+            Text("Selected city: \(viewModel.selectedCity)")
+            Text("Language: \(viewModel.languageCode)")
         }
         .padding()
     }
 }
 
 #Preview {
-    CitySelectionView()
+    let connector = CitySelectionConnector()
+    let vm = CitySelectionViewModel()
+    return CitySelectionView(viewModel: vm, connector: connector)
 }
