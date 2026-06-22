@@ -1,9 +1,6 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
-    "City Selection" : {
-
-    },
     "City Weather" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -15,6 +12,12 @@
         }
       }
     },
+    "Continue" : {
+
+    },
+    "Get local weather updates.\nAllow access to your location or choose your city." : {
+
+    },
     "Get local weather updates.\\nAllow access to your location or choose your city." : {
       "extractionState" : "manual",
       "localizations" : {
@@ -25,6 +28,12 @@
           }
         }
       }
+    },
+    "Search for a city" : {
+
+    },
+    "Use Current Location" : {
+
     }
   },
   "version" : "1.2"
