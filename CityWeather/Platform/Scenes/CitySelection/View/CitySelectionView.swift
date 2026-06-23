@@ -27,90 +27,120 @@ struct CitySelectionView<ViewModel>: View where ViewModel: CitySelectionViewMode
             Color(.systemGroupedBackground)
                 .ignoresSafeArea()
             
-            VStack(spacing: 24) {
-                    Text("City Weather")
-                        .font(.system(size: 24, weight: .bold))
-                        .foregroundColor(.primary)
-                        .padding(.bottom, 32)
-                    Text("Get local weather updates.\nAllow access to your location or choose your city.")
-                        .font(.system(size: 16))
-                        .foregroundColor(.primary)
-                        .multilineTextAlignment(.center)
-                        .padding(.bottom, 32)
-             
-                // TODO: Botón de Ubicación Actual
-                Button(action: {
-                    // Acción de localización aquí
-                }) {
-                    HStack(spacing: 8) {
-                        Image(systemName: "plus.circle.fill")
-                            .font(.system(size: 20))
-                        Text("Use Current Location")
-                            .font(.system(size: 16, weight: .semibold))
-                    }
-                    .foregroundColor(.white)
-                    .frame(maxWidth: .infinity)
-                    .padding(.vertical, 14)
-                    .background(Color.blue)
-                    .cornerRadius(12)
-                }
+            VStack() {
+                subtitleView
+
+                UseCurrentLocationButton(action: { /* Acción de localización aquí */ })
                 
-                // 3. Barra de Búsqueda
-                HStack(spacing: 10) {
-                    Image(systemName: "magnifyingglass")
-                        .foregroundColor(.secondary)
-                    
-                    TextField("Search for a city", text: $searchText)
-                        .font(.system(size: 16))
-                }
-                .padding(.horizontal, 12)
-                .padding(.vertical, 12)
-                .background(Color(.secondarySystemGroupedBackground))
-                .cornerRadius(12)
+                SearchBar(text: $searchText)
                 
-                // 4. Lista de Ciudades (Diseño de tarjeta agrupada)
-                VStack(spacing: 0) {
-                    CityRow(name: "New York") {
+                ScrollView(showsIndicators: true) {
+                    CityList(cities: cities, onSelect: { _ in
                         // Acción al pulsar
-                    }
-                    Divider().padding(.leading, 16)
-                    
-                    CityRow(name: "New Angeles") {
-                        // Acción al pulsar
-                    }
-                    Divider().padding(.leading, 16)
-                    
-                    CityRow(name: "Chicago") {
-                        // Acción al pulsar
-                    }
+                    })
                 }
-                .background(Color(.secondarySystemGroupedBackground))
-                .cornerRadius(12)
+                .frame(maxHeight: 300)
                 
                 Spacer()
                 
-                // 5. Botón de Continuar
-                Button(action: {
-                    // Acción de continuar
-                }) {
-                    Text("Continue")
-                        .font(.system(size: 16, weight: .semibold))
-                        .foregroundColor(.white)
-                        .frame(maxWidth: .infinity)
-                        .padding(.vertical, 14)
-                        .background(Color.blue)
-                        .cornerRadius(12)
-                }
-                .padding(.bottom, 10)
+                NextButton(title: "Continue", action: { /* Acción de continuar */ })
+                    .padding(.bottom, 10)
             }
             .padding(.horizontal, 24)
         }
-        // Ocultamos la navigation bar nativa si el título ya está integrado en el diseño central
-        .navigationBarHidden(true)
+        .navigationTitle(navBarTitle)
+    }
+    
+    // MARK: - Subviews
+    private var subtitleView: some View {
+        Text("Get local weather updates.\nAllow access to your location or choose your city.")
+            .font(.system(size: 16))
+            .foregroundColor(.primary)
+            .multilineTextAlignment(.center)
+            .padding(.top, 32)
+            .padding(.bottom, 32)
     }
 }
 
-// MARK: - Componente Reutilizable: Fila de Ciudad
+
+// MARK: - Components
+struct UseCurrentLocationButton: View {
+    let action: () -> Void
+
+    var body: some View {
+        Button(action: action) {
+            HStack(spacing: 8) {
+                Image(systemName: "plus.circle.fill")
+                    .font(.system(size: 20))
+                Text("Use Current Location")
+                    .font(.system(size: 16, weight: .semibold))
+            }
+            .foregroundColor(.white)
+            .frame(maxWidth: .infinity)
+            .padding(.vertical, 14)
+            .background(Color.blue)
+            .cornerRadius(12)
+            .padding(.bottom, 16)
+        }
+    }
+}
+
+// MARK: - Componente Reutilizable: Botón Primario
+struct NextButton: View {
+    let title: String
+    let action: () -> Void
+
+    var body: some View {
+        Button(action: action) {
+            Text(title)
+                .font(.system(size: 16, weight: .semibold))
+                .foregroundColor(.white)
+                .frame(maxWidth: .infinity)
+                .padding(.vertical, 14)
+                .background(Color.blue)
+                .cornerRadius(12)
+        }
+    }
+}
+
+struct SearchBar: View {
+    @Binding var text: String
+
+    var body: some View {
+        HStack(spacing: 10) {
+            Image(systemName: "magnifyingglass")
+                .foregroundColor(.secondary)
+            TextField("Search for a city", text: $text)
+                .font(.system(size: 16))
+        }
+        .padding(.horizontal, 12)
+        .padding(.vertical, 12)
+        .background(Color(.secondarySystemGroupedBackground))
+        .cornerRadius(12)
+    }
+}
+
+// MARK: - Componente Reutilizable: Lista de Ciudades
+struct CityList: View {
+    let cities: [String]
+    let onSelect: (String) -> Void
+
+    var body: some View {
+        VStack(spacing: 0) {
+            ForEach(Array(cities.enumerated()), id: \.offset) { index, name in
+                CityRow(name: name) {
+                    onSelect(name)
+                }
+                if index < cities.count - 1 {
+                    Divider().padding(.leading, 16)
+                }
+            }
+        }
+        .background(Color(.secondarySystemGroupedBackground))
+        .cornerRadius(12)
+    }
+}
+
 struct CityRow: View {
     let name: String
     let action: () -> Void
@@ -132,6 +162,7 @@ struct CityRow: View {
     }
 }
 
+// MARK: Preview
 struct CitySelectionView_Previews: PreviewProvider {
     class MySeasonViewViewModel: CitySelectionViewModelProtocol {
     }
@@ -144,3 +175,4 @@ struct CitySelectionView_Previews: PreviewProvider {
         CitySelectionView(viewModel: viewModel, connector: connector)
     }
 }
+
