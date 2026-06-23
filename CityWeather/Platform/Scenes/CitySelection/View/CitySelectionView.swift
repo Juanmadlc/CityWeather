@@ -14,6 +14,8 @@ struct CitySelectionView<ViewModel>: View where ViewModel: CitySelectionViewMode
     private let navBarTitle = "City Weather"
     
     @State private var searchText = ""
+    // TODO: 01 CREAMOS EL ARRAY (Temporalmente aquí, en el futuro vendrá del viewModel)
+        private let cities = ["New York", "New Angeles", "Chicago"]
     
     init(viewModel: ViewModel, connector: CitySelectionConnector) {
         self._viewModel = StateObject(wrappedValue: viewModel)
@@ -26,21 +28,17 @@ struct CitySelectionView<ViewModel>: View where ViewModel: CitySelectionViewMode
                 .ignoresSafeArea()
             
             VStack(spacing: 24) {
-                
-                VStack(spacing: 12) {
                     Text("City Weather")
                         .font(.system(size: 24, weight: .bold))
                         .foregroundColor(.primary)
                         .padding(.bottom, 32)
                     Text("Get local weather updates.\nAllow access to your location or choose your city.")
-                        .font(.system(size: 18))
+                        .font(.system(size: 16))
                         .foregroundColor(.primary)
                         .multilineTextAlignment(.center)
                         .padding(.bottom, 32)
-                }
-                .padding(.top, 20)
-                
-                // 2. Botón de Ubicación Actual
+             
+                // TODO: Botón de Ubicación Actual
                 Button(action: {
                     // Acción de localización aquí
                 }) {

@@ -13,27 +13,44 @@
       }
     },
     "Continue" : {
-
-    },
-    "Get local weather updates.\nAllow access to your location or choose your city." : {
-
-    },
-    "Get local weather updates.\\nAllow access to your location or choose your city." : {
-      "extractionState" : "manual",
       "localizations" : {
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Reciba actualizaciones meteorológicas locales.\\nPermita el acceso a su ubicación o seleccione su ciudad.\n\n"
+            "value" : "Continuar"
+          }
+        }
+      }
+    },
+    "Get local weather updates.\nAllow access to your location or choose your city." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Reciba actualizaciones meteorológicas locales.\nPermita el acceso a su ubicación o seleccione su ciudad."
           }
         }
       }
     },
     "Search for a city" : {
-
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Buscar una ciudad"
+          }
+        }
+      }
     },
     "Use Current Location" : {
-
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Usar ubicación actual"
+          }
+        }
+      }
     }
   },
   "version" : "1.2"
