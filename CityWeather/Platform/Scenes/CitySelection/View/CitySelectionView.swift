@@ -15,7 +15,18 @@ struct CitySelectionView<ViewModel>: View where ViewModel: CitySelectionViewMode
     
     @State private var searchText = ""
     // TODO: 01 CREAMOS EL ARRAY (Temporalmente aquí, en el futuro vendrá del viewModel)
-    private let cities = ["New York", "New Angeles", "Chicago"]
+    private let cities = [
+        "New York",
+        "Los Angeles",
+        "Chicago",
+        "Houston",
+        "Phoenix",
+        "Philadelphia",
+        "San Antonio",
+        "San Diego",
+        "Dallas",
+        "Miami"
+    ]
     
     init(viewModel: ViewModel, connector: CitySelectionConnector) {
         self._viewModel = StateObject(wrappedValue: viewModel)
@@ -36,12 +47,12 @@ struct CitySelectionView<ViewModel>: View where ViewModel: CitySelectionViewMode
                 
                 SearchBar(text: $searchText)
                 
-                ScrollView(showsIndicators: true) {
+                ScrollView {
                     CityList(cities: cities, onSelect: { _ in
                         
                     })
                 }
-                .frame(maxHeight: 300)
+                .frame(maxHeight: .infinity)
                 
                 Spacer()
                 
@@ -89,8 +100,6 @@ struct UseCurrentLocationButton: View {
     }
 }
 
-// MARK: - Components
-
 struct SearchBar: View {
     @Binding var text: String
 
@@ -108,13 +117,13 @@ struct SearchBar: View {
     }
 }
 
-// MARK: - Componente Reutilizable: Lista de Ciudades
+// MARK: - Components
 struct CityList: View {
     let cities: [String]
     let onSelect: (String) -> Void
 
     var body: some View {
-        VStack(spacing: 0) {
+        LazyVStack {
             ForEach(Array(cities.enumerated()), id: \.offset) { index, name in
                 CityRow(name: name) {
                     onSelect(name)
