@@ -15,7 +15,7 @@ struct CitySelectionView<ViewModel>: View where ViewModel: CitySelectionViewMode
     
     @State private var searchText = ""
     // TODO: 01 CREAMOS EL ARRAY (Temporalmente aquí, en el futuro vendrá del viewModel)
-        private let cities = ["New York", "New Angeles", "Chicago"]
+    private let cities = ["New York", "New Angeles", "Chicago"]
     
     init(viewModel: ViewModel, connector: CitySelectionConnector) {
         self._viewModel = StateObject(wrappedValue: viewModel)
@@ -30,21 +30,25 @@ struct CitySelectionView<ViewModel>: View where ViewModel: CitySelectionViewMode
             VStack() {
                 subtitleView
 
-                UseCurrentLocationButton(action: { /* Acción de localización aquí */ })
+                UseCurrentLocationButton(action: {
+                    
+                })
                 
                 SearchBar(text: $searchText)
                 
                 ScrollView(showsIndicators: true) {
                     CityList(cities: cities, onSelect: { _ in
-                        // Acción al pulsar
+                        
                     })
                 }
                 .frame(maxHeight: 300)
                 
                 Spacer()
                 
-                NextButton(title: "Continue", action: { /* Acción de continuar */ })
-                    .padding(.bottom, 10)
+                NextButton(title: "Continue", action: {
+                    
+                })
+                    
             }
             .padding(.horizontal, 24)
         }
@@ -85,23 +89,7 @@ struct UseCurrentLocationButton: View {
     }
 }
 
-// MARK: - Componente Reutilizable: Botón Primario
-struct NextButton: View {
-    let title: String
-    let action: () -> Void
-
-    var body: some View {
-        Button(action: action) {
-            Text(title)
-                .font(.system(size: 16, weight: .semibold))
-                .foregroundColor(.white)
-                .frame(maxWidth: .infinity)
-                .padding(.vertical, 14)
-                .background(Color.blue)
-                .cornerRadius(12)
-        }
-    }
-}
+// MARK: - Components
 
 struct SearchBar: View {
     @Binding var text: String
