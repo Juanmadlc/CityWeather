@@ -40,7 +40,7 @@ struct CitySelectionView<ViewModel>: View where ViewModel: CitySelectionViewMode
             
             VStack() {
                 subtitleView
-
+                
                 UseCurrentLocationButton(action: {
                     
                 })
@@ -59,7 +59,7 @@ struct CitySelectionView<ViewModel>: View where ViewModel: CitySelectionViewMode
                 NextButton(title: "Continue", action: {
                     
                 })
-                    
+                
             }
             .padding(.horizontal, 24)
         }
@@ -81,7 +81,7 @@ struct CitySelectionView<ViewModel>: View where ViewModel: CitySelectionViewMode
 // MARK: - Components
 struct UseCurrentLocationButton: View {
     let action: () -> Void
-
+    
     var body: some View {
         Button(action: action) {
             HStack(spacing: 8) {
@@ -102,7 +102,7 @@ struct UseCurrentLocationButton: View {
 
 struct SearchBar: View {
     @Binding var text: String
-
+    
     var body: some View {
         HStack(spacing: 10) {
             Image(systemName: "magnifyingglass")
@@ -121,16 +121,14 @@ struct SearchBar: View {
 struct CityList: View {
     let cities: [String]
     let onSelect: (String) -> Void
-
+    
     var body: some View {
         LazyVStack {
-            ForEach(Array(cities.enumerated()), id: \.offset) { index, name in
-                CityRow(name: name) {
-                    onSelect(name)
+            ForEach(cities, id: \.self) { city in
+                CityRow(name: city) {
+                    onSelect(city)
                 }
-                if index < cities.count - 1 {
-                    Divider().padding(.leading, 16)
-                }
+                Divider().padding(.leading, 16)
             }
         }
         .background(Color(.secondarySystemGroupedBackground))
@@ -153,8 +151,7 @@ struct CityRow: View {
                     .font(.system(size: 14, weight: .semibold))
                     .foregroundColor(.secondary)
             }
-            .padding(.horizontal, 16)
-            .padding(.vertical, 14)
+            .padding(16)
         }
     }
 }

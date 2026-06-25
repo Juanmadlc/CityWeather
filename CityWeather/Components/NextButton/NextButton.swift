@@ -21,7 +21,7 @@ struct NextButton: View {
                .cornerRadius(12)
        }
        .padding(.horizontal)
-       .padding(.bottom, 10)
+       .padding(.bottom, 12)
    }
 }
 
