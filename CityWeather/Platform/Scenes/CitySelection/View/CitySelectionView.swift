@@ -42,7 +42,12 @@ struct CitySelectionView<ViewModel>: View where ViewModel: CitySelectionViewMode
                 subtitleView
                 
                 UseCurrentLocationButton(action: {
-                    
+                    /* llamarlo desde el viewmodel creando funcion
+                     // Para mostrar la ciudad obtenida:
+                     if let city = locationHelper.city {
+                         Text("Tu ciudad: \(city)")
+                     }
+                     */
                 })
                 
                 SearchBar(text: $searchText)
