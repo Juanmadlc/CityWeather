@@ -52,13 +52,13 @@ struct CitySelectionView<ViewModel>: View where ViewModel: CitySelectionViewMode
                         
                     })
                 }
-                .frame(maxHeight: .infinity)
+                .cornerRadius(12)
+                .clipped()
                 
-                Spacer()
                 
                 NextButton(title: "Continue", action: {
                     
-                })
+                }).padding(.top,16)
                 
             }
             .padding(.horizontal, 24)
@@ -132,7 +132,8 @@ struct CityList: View {
             }
         }
         .background(Color(.secondarySystemGroupedBackground))
-        .cornerRadius(12)
+        .padding(.top, 12)
+        .frame(maxHeight: .infinity)
     }
 }
 

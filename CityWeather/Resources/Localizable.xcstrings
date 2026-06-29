@@ -13,8 +13,14 @@
       }
     },
     "Continue" : {
-      "extractionState" : "stale",
+      "extractionState" : "manual",
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Continue"
+          }
+        },
         "es" : {
           "stringUnit" : {
             "state" : "translated",

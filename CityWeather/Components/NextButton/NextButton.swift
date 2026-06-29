@@ -12,7 +12,7 @@ struct NextButton: View {
 
    var body: some View {
        Button(action: action) {
-           Text(title)
+            Text(LocalizedStringKey(title))
                .font(.system(size: 16, weight: .semibold))
                .foregroundColor(.white)
                .frame(maxWidth: .infinity)
