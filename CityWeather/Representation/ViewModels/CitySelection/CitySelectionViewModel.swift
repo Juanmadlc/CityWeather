@@ -8,6 +8,7 @@
 import Foundation
 
 protocol CitySelectionViewModelOutput: ObservableObject {
+    func getCurrentCity() -> String?
 }
 
 protocol CitySelectionViewModelInput: ObservableObject {
@@ -22,4 +23,7 @@ class CitySelectionViewModel: CitySelectionViewModelProtocol {
     init() {
     }
     
+    func getCurrentCity() -> String? {
+        LocationsManager.shared.getCity()
+    }
 }

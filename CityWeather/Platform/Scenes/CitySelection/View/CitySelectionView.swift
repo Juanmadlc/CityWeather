@@ -12,6 +12,7 @@ struct CitySelectionView<ViewModel>: View where ViewModel: CitySelectionViewMode
     @StateObject private var viewModel: ViewModel
     private let connector: CitySelectionConnector
     private let navBarTitle = "City Weather"
+    @State private var city: String = ""
     
     @State private var searchText = ""
     // TODO: 01 CREAMOS EL ARRAY (Temporalmente aquí, en el futuro vendrá del viewModel)
@@ -42,19 +43,14 @@ struct CitySelectionView<ViewModel>: View where ViewModel: CitySelectionViewMode
                 subtitleView
                 
                 UseCurrentLocationButton(action: {
-                    /* llamarlo desde el viewmodel creando funcion
-                     // Para mostrar la ciudad obtenida:
-                     if let city = locationHelper.city {
-                         Text("Tu ciudad: \(city)")
-                     }
-                     */
+                    self.city = viewModel.getCurrentCity() ?? ""
                 })
                 
                 SearchBar(text: $searchText)
                 
                 ScrollView {
                     CityList(cities: cities, onSelect: { _ in
-                        
+                         
                     })
                 }
                 .cornerRadius(12)
@@ -165,6 +161,10 @@ struct CityRow: View {
 // MARK: Preview
 struct CitySelectionView_Previews: PreviewProvider {
     class MySeasonViewViewModel: CitySelectionViewModelProtocol {
+        func getCurrentCity() -> String? {
+            return "Barcelona"
+        }
+        
     }
     class PreviewMySeasonConnector: CitySelectionConnector {}
     

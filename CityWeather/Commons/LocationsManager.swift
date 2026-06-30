@@ -1,5 +1,5 @@
 //
-//  LocationHelper.swift
+//  LocationManager.swift
 //  CityWeather
 //
 //  Created by Juan Manuel de la Cruz on 29/06/2026.
@@ -7,21 +7,21 @@
 
 import CoreLocation
 
-class LocationHelper: NSObject, ObservableObject, CLLocationManagerDelegate {
+class LocationsManager: NSObject, ObservableObject, CLLocationManagerDelegate {
     private let manager = CLLocationManager()
-    static let shared = LocationHelper()
+    static let shared = LocationsManager()
     @Published var city: String?
-
+    
     override init() {
         super.init()
         manager.delegate = self
     }
-
+    
     func requestCity() {
         manager.requestWhenInUseAuthorization()
         manager.requestLocation()
     }
-
+    
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         guard let location = locations.first else { return }
         let geocoder = CLGeocoder()
@@ -33,7 +33,13 @@ class LocationHelper: NSObject, ObservableObject, CLLocationManagerDelegate {
             }
         }
     }
-
+    
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
     }
+    
+    func getCity() -> String? {
+        return self.city
+    }
+    
+    
 }
