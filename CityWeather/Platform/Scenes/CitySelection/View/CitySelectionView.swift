@@ -58,7 +58,7 @@ struct CitySelectionView<ViewModel>: View where ViewModel: CitySelectionViewMode
                 
                 
                 NextButton(title: "Continue", action: {
-                    
+                    print(self.city)
                 }).padding(.top,16)
                 
             }

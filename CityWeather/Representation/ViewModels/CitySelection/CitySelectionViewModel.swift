@@ -24,6 +24,14 @@ class CitySelectionViewModel: CitySelectionViewModelProtocol {
     }
     
     func getCurrentCity() -> String? {
-        LocationsManager.shared.getCity()
+        Task { @MainActor in
+            do {
+                let cityCurrent = try await LocationsManager.shared.currentCity()
+                return cityCurrent
+            } catch {
+               return ""
+            }
+        }
+        return ""
     }
 }
