@@ -8,7 +8,7 @@
 import Foundation
 
 protocol CitySelectionViewModelOutput: ObservableObject {
-    func getCurrentCity() -> String?
+    func getCurrentCity() async -> String?
 }
 
 protocol CitySelectionViewModelInput: ObservableObject {
@@ -25,19 +25,17 @@ class CitySelectionViewModel: CitySelectionViewModelProtocol {
         locationManager = LocationManager.shared
     }
     
-    func getCurrentCity() -> String? {
-        Task { @MainActor in
-            do {
-                await getLocations()
-                let cityCurrent = try await LocationManager.shared.currentCity()
-                return cityCurrent
-            } catch {
-               return ""
-            }
+    func getCurrentCity() async -> String? {
+        do {
+            await getLocations()
+            let cityCurrent = try await LocationManager.shared.currentCity()
+            return cityCurrent
+        } catch {
+            print("getCurrentCity error:", error)
+            return nil
         }
-        return ""
     }
-    
+
     func getLocations() async {
         if locationManager.locationActivated {
             locationManager.requestLocation()

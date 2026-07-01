@@ -43,7 +43,9 @@ struct CitySelectionView<ViewModel>: View where ViewModel: CitySelectionViewMode
                 subtitleView
                 
                 UseCurrentLocationButton(action: {
-                    self.city = viewModel.getCurrentCity() ?? ""
+                    Task {
+                        self.city = await viewModel.getCurrentCity() ?? ""
+                    }
                 })
                 
                 SearchBar(text: $searchText)
@@ -161,18 +163,16 @@ struct CityRow: View {
 // MARK: Preview
 struct CitySelectionView_Previews: PreviewProvider {
     class MySeasonViewViewModel: CitySelectionViewModelProtocol {
-        func getCurrentCity() -> String? {
-            return "Barcelona"
+        func getCurrentCity() async -> String? {
+            "Barcelona"
         }
-        
     }
     class PreviewMySeasonConnector: CitySelectionConnector {}
-    
+
     static let viewModel = MySeasonViewViewModel()
     static let connector = PreviewMySeasonConnector()
-    
+
     static var previews: some View {
         CitySelectionView(viewModel: viewModel, connector: connector)
     }
 }
-
