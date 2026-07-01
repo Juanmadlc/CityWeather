@@ -176,3 +176,4 @@ struct CitySelectionView_Previews: PreviewProvider {
         CitySelectionView(viewModel: viewModel, connector: connector)
     }
 }
+

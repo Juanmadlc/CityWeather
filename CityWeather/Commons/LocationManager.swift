@@ -32,6 +32,8 @@ final class LocationManager: NSObject, ObservableObject {
 
     @Published var locationActivated: Bool = false
 
+    private var locationContinuation: CheckedContinuation<CLLocation, Error>?
+
     override init() {
         super.init()
         locationManager.delegate = self
@@ -51,6 +53,9 @@ final class LocationManager: NSObject, ObservableObject {
         case .restricted, .denied:
             // Keep state updated; UI can guide user to Settings
             self.locationActivated = false
+            Task { @MainActor in
+                resumeOnce(throwing: NSError(domain: "LocationManager", code: 4, userInfo: [NSLocalizedDescriptionKey: "Location permission denied or restricted"]))
+            }
         @unknown default:
             break
         }
@@ -82,77 +87,91 @@ final class LocationManager: NSObject, ObservableObject {
 
     // MARK: - Private helpers
     private func nextLocation() async throws -> CLLocation {
-        // Ensure we have authorization and start updates
+        // Ensure authorization on main thread
         await MainActor.run { [weak self] in
             self?.requestLocationAuthorization()
         }
-        return try await withCheckedThrowingContinuation { continuation in
-            var resumed = false
-            let resumeOnce: (Result<CLLocation, Error>) -> Void = { result in
-                guard !resumed else { return }
-                resumed = true
-                continuation.resume(with: result)
-            }
 
-            // Temporary delegate proxy via closure
-            let originalDelegate = self.locationManager.delegate
+        // If a previous request is in flight, cancel it by throwing and clearing
+        if locationContinuation != nil {
+            // Prevent overlapping requests
+            throw NSError(domain: "LocationManager", code: 1, userInfo: [NSLocalizedDescriptionKey: "Location request already in progress"])
+        }
 
-            class DelegateProxy: NSObject, CLLocationManagerDelegate {
-                let onLocation: (Result<CLLocation, Error>) -> Void
-                init(onLocation: @escaping (Result<CLLocation, Error>) -> Void) { self.onLocation = onLocation }
-                func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-                    if let last = locations.last { onLocation(.success(last)) }
-                    manager.stopUpdatingLocation()
-                }
-                func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-                    onLocation(.failure(error))
-                    manager.stopUpdatingLocation()
-                }
-            }
+        return try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<CLLocation, Error>) in
+            // Store continuation to resume from delegate callbacks
+            self.locationContinuation = continuation
 
-            let proxy = DelegateProxy(onLocation: resumeOnce)
-            self.locationManager.delegate = proxy
+            // Start updating location
             self.locationManager.startUpdatingLocation()
 
-            // Restore the original delegate after we resume
-            Task { @MainActor in
-                _ = try? await Task.sleep(nanoseconds: 1_000_000_000) // safety timeout to restore delegate later if needed
-                if !resumed {
-                    // If not resumed yet, keep proxy; otherwise restore
-                } else {
-                    self.locationManager.delegate = originalDelegate
-                }
+            // Add a timeout to avoid leaking the continuation
+            Task { [weak self] in
+                try? await Task.sleep(nanoseconds: 10 * 1_000_000_000)
+                await self?.timeoutIfNeeded()
             }
         }
+    }
+
+    @MainActor
+    private func resumeOnce(returning location: CLLocation) {
+        guard let cont = locationContinuation else { return }
+        locationContinuation = nil
+        locationManager.stopUpdatingLocation()
+        cont.resume(returning: location)
+    }
+
+    @MainActor
+    private func resumeOnce(throwing error: Error) {
+        guard let cont = locationContinuation else { return }
+        locationContinuation = nil
+        locationManager.stopUpdatingLocation()
+        cont.resume(throwing: error)
+    }
+
+    @MainActor
+    private func timeoutIfNeeded() {
+        guard let _ = locationContinuation else { return }
+        resumeOnce(throwing: NSError(domain: "LocationManager", code: 3, userInfo: [NSLocalizedDescriptionKey: "Location request timed out"]))
     }
 }
 
 // MARK: - CLLocationManagerDelegate
 extension LocationManager: CLLocationManagerDelegate {
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
-        switch manager.authorizationStatus {
-        case .authorizedWhenInUse, .authorizedAlways:
-            locationActivated = true
-        case .denied, .restricted:
-            locationActivated = false
-        case .notDetermined:
-            locationActivated = false
-        @unknown default:
-            break
+        Task { @MainActor in
+            switch manager.authorizationStatus {
+            case .authorizedWhenInUse, .authorizedAlways:
+                locationActivated = true
+            case .denied, .restricted:
+                locationActivated = false
+                resumeOnce(throwing: NSError(domain: "LocationManager", code: 4, userInfo: [NSLocalizedDescriptionKey: "Location permission denied or restricted"]))
+            case .notDetermined:
+                locationActivated = false
+            @unknown default:
+                break
+            }
         }
     }
 
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         guard let location = locations.last else { return }
-        self.userLocation = location
-        // NOTE: Fix longitude bug (was using latitude twice)
-        self.userCoordinateRegion = MKCoordinateRegion(
-            center: CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude),
-            span: MKCoordinateSpan(latitudeDelta: Constants.Location.deltaZoom, longitudeDelta: Constants.Location.deltaZoom)
-        )
+        Task { @MainActor in
+            // If someone is awaiting nextLocation, resume it
+            resumeOnce(returning: location)
+            self.userLocation = location
+            self.userCoordinateRegion = MKCoordinateRegion(
+                center: CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude),
+                span: MKCoordinateSpan(latitudeDelta: Constants.Location.deltaZoom, longitudeDelta: Constants.Location.deltaZoom)
+            )
+        }
     }
 
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        Log.error("Location error: \(error.localizedDescription)")
+        Task { @MainActor in
+            resumeOnce(throwing: error)
+            Log.error("Location error: \(error.localizedDescription)")
+        }
     }
 }
+

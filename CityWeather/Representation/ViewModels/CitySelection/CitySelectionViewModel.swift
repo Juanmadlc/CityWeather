@@ -37,9 +37,9 @@ class CitySelectionViewModel: CitySelectionViewModelProtocol {
     }
 
     func getLocations() async {
-        if locationManager.locationActivated {
+     //   if locationManager.locationActivated {
             locationManager.requestLocation()
-        }
+     //   }
     }
     
 }
