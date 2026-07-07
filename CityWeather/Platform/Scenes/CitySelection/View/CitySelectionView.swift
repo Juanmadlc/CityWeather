@@ -44,15 +44,18 @@ struct CitySelectionView<ViewModel>: View where ViewModel: CitySelectionViewMode
                 
                 UseCurrentLocationButton(action: {
                     Task {
-                        self.city = await viewModel.getCurrentCity() ?? ""
+                        let current = await viewModel.getCurrentCity() ?? ""
+                        self.city = current
+                        self.searchText = current
                     }
                 })
                 
                 SearchBar(text: $searchText)
                 
                 ScrollView {
-                    CityList(cities: cities, onSelect: { _ in
-                         
+                    CityList(cities: cities, onSelect: { selected in
+                        self.city = selected
+                        self.searchText = selected
                     })
                 }
                 .cornerRadius(12)

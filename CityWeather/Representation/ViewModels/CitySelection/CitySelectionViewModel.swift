@@ -27,19 +27,17 @@ class CitySelectionViewModel: CitySelectionViewModelProtocol {
     
     func getCurrentCity() async -> String? {
         do {
-            await getLocations()
-            let cityCurrent = try await LocationManager.shared.currentCity()
-            return cityCurrent
+            return try await getLocations()
         } catch {
             print("getCurrentCity error:", error)
             return nil
         }
     }
 
-    func getLocations() async {
-     //   if locationManager.locationActivated {
-            locationManager.requestLocation()
-     //   }
+    func getLocations() async throws -> String? {
+        locationManager.requestLocation()
+
+        return try await LocationManager.shared.currentCity()
     }
     
 }
