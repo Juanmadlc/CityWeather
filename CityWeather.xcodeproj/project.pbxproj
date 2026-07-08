@@ -172,9 +172,9 @@
 		960F43F92FEBF373003542BA /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				96F1C00F2FFE72A9005EEF71 /* CommonsNavigationBar */,
 				96F1C0062FFE6BA4005EEF71 /* SearchBar */,
 				960F43FA2FEBF3C6003542BA /* NextButton */,
-				96F1C00D2FFE6EB6005EEF71 /* CommonsNavigationBar.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -380,6 +380,14 @@
 				96F1C0072FFE6BBA005EEF71 /* SearchBar.swift */,
 			);
 			path = SearchBar;
+			sourceTree = "<group>";
+		};
+		96F1C00F2FFE72A9005EEF71 /* CommonsNavigationBar */ = {
+			isa = PBXGroup;
+			children = (
+				96F1C00D2FFE6EB6005EEF71 /* CommonsNavigationBar.swift */,
+			);
+			path = CommonsNavigationBar;
 			sourceTree = "<group>";
 		};
 		96F5FC072FA3A77500C490BC /* Mocks */ = {
