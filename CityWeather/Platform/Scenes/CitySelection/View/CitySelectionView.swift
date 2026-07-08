@@ -96,6 +96,8 @@ struct CitySelectionView<ViewModel>: View where ViewModel: CitySelectionViewMode
             .font(.system(size: 16))
             .foregroundColor(.primary)
             .multilineTextAlignment(.center)
+            .lineLimit(6)
+            .fixedSize(horizontal: false, vertical: true)
             .padding(.top, 32)
             .padding(.bottom, 32)
     }

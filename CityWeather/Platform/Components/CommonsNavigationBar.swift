@@ -12,7 +12,7 @@ private struct CommonsNavigationBar: ViewModifier {
 
     func body(content: Content) -> some View {
         content
-            .navigationTitle("")
+            .navigationTitle(title)
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .principal) {
