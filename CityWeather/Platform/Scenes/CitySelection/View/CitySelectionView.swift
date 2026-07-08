@@ -1,5 +1,5 @@
 //
-//  ContentView.swift
+//  CitySelectionView.swift
 //  CityWeather
 //
 //  Created by Juan Manuel de la Cruz on 27/3/25.
@@ -15,6 +15,24 @@ struct CitySelectionView<ViewModel>: View where ViewModel: CitySelectionViewMode
     @State private var city: String = ""
     
     @State private var searchText = ""
+    @State private var isEditing = false
+    private var filteredCities: [String] {
+        let query = searchText.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard !query.isEmpty else { return cities }
+        
+        let normalizedTokens = query
+            .folding(options: .diacriticInsensitive, locale: .current)
+            .lowercased()
+            .split(whereSeparator: { $0.isWhitespace })
+            .map(String.init)
+
+        return cities.filter { city in
+            let haystack = city
+                .folding(options: .diacriticInsensitive, locale: .current)
+                .lowercased()
+            return normalizedTokens.allSatisfy { token in haystack.contains(token) }
+        }
+    }
     // TODO: 01 CREAMOS EL ARRAY (Temporalmente aquí, en el futuro vendrá del viewModel)
     private let cities = [
         "New York",
@@ -53,7 +71,7 @@ struct CitySelectionView<ViewModel>: View where ViewModel: CitySelectionViewMode
                 SearchBar(text: $searchText)
                 
                 ScrollView {
-                    CityList(cities: cities, onSelect: { selected in
+                    CityList(cities: filteredCities, onSelect: { selected in
                         self.city = selected
                         self.searchText = selected
                     })
@@ -106,24 +124,6 @@ struct UseCurrentLocationButton: View {
     }
 }
 
-struct SearchBar: View {
-    @Binding var text: String
-    
-    var body: some View {
-        HStack(spacing: 10) {
-            Image(systemName: "magnifyingglass")
-                .foregroundColor(.secondary)
-            TextField("Search for a city", text: $text)
-                .font(.system(size: 16))
-        }
-        .padding(.horizontal, 12)
-        .padding(.vertical, 12)
-        .background(Color(.secondarySystemGroupedBackground))
-        .cornerRadius(12)
-    }
-}
-
-// MARK: - Components
 struct CityList: View {
     let cities: [String]
     let onSelect: (String) -> Void
@@ -162,6 +162,46 @@ struct CityRow: View {
         }
     }
 }
+/*
+struct SearchBar: View {
+    @Binding var text: String
+    @FocusState private var isFocused: Bool
+
+    var body: some View {
+        HStack {
+            HStack(spacing: 8) {
+                Image(systemName: "magnifyingglass")
+                    .foregroundColor(.secondary)
+                    .padding(.leading, 8)
+
+                TextField("Search for a city", text: $text)
+                    .focused($isFocused)
+                    .font(.system(size: 16))
+                    .padding(.vertical, 8)
+
+                if !text.isEmpty {
+                    Button(action: { text = "" }) {
+                        Image(systemName: "xmark.circle.fill")
+                            .foregroundColor(.secondary)
+                    }
+                    .padding(.trailing, 8)
+                }
+            }
+            .frame(height: 44)
+            .background(Color(.secondarySystemGroupedBackground))
+            .cornerRadius(12)
+
+            if isFocused {
+                Button("Cancel") {
+                    text = ""
+                    isFocused = false
+                }
+            }
+        }
+        .padding(.top, 4)
+        .animation(.default, value: isFocused)
+    }
+}*/
 
 // MARK: Preview
 struct CitySelectionView_Previews: PreviewProvider {

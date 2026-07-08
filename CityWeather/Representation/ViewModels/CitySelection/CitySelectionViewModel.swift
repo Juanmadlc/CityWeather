@@ -34,7 +34,7 @@ class CitySelectionViewModel: CitySelectionViewModelProtocol {
         }
     }
 
-    func getLocations() async throws -> String? {
+    private func getLocations() async throws -> String? {
         locationManager.requestLocation()
 
         return try await LocationManager.shared.currentCity()
