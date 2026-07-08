@@ -1,8 +1,18 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
-    "Cancel" : {
+    "" : {
 
+    },
+    "Cancel" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cancelar"
+          }
+        }
+      }
     },
     "City Weather" : {
       "extractionState" : "manual",
