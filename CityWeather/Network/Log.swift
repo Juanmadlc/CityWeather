@@ -79,7 +79,7 @@ class Log {
             let url = request.url ?? URL(string: "")
             let urlString = url?.absoluteURL.description
 
-            let bodyString = String(decoding: request.httpBody ?? Data(), as: UTF8.self)
+            let bodyString = string(from: request.httpBody)
             let method = request.httpMethod ?? ""
             let headers = request.allHTTPHeaderFields ?? [:]
 
@@ -109,7 +109,7 @@ class Log {
             let urlString = url?.absoluteURL.description
             let headers = unwrappedResponse.allHeaderFields
             let status = unwrappedResponse.statusCode
-            let stringResponse = String(decoding: data ?? Data(), as: UTF8.self)
+            let stringResponse = string(from: data)
 
             var logEvent = LogEvent.networkResponse.rawValue
 
@@ -120,6 +120,11 @@ class Log {
             print("\nLOG \(Date().toString()) \(logEvent) -> Response with:\n\tURL: \(urlString ?? "")" +
                   "\n\tStatusCode: \(status)\n\tHeaders: \(headers)\n\tResponse: \(stringResponse)\n")
         }
+    }
+
+    private class func string(from data: Data?) -> String {
+        guard let data else { return "" }
+        return String(bytes: data, encoding: .utf8) ?? ""
     }
 
     private class func sourceFileName(filePath: String) -> String {

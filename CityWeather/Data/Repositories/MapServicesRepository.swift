@@ -7,7 +7,7 @@
 
 import Foundation
 
-final class MapServicesRepository:  MapServicesModelProtocol {
+final class MapServicesRepository: MapServicesModelProtocol {
     
     private let apiClient: MapServicesAPIClientProtocol
     

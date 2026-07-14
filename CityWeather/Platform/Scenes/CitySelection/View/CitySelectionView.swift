@@ -57,7 +57,7 @@ struct CitySelectionView<ViewModel>: View where ViewModel: CitySelectionViewMode
             Color(.systemGroupedBackground)
                 .ignoresSafeArea()
             
-            VStack() {
+            VStack {
                 subtitleView
                 
                 UseCurrentLocationButton(action: {
@@ -68,7 +68,8 @@ struct CitySelectionView<ViewModel>: View where ViewModel: CitySelectionViewMode
                     }
                 })
                 
-                SearchBar(text: $searchText).padding(.bottom,16)
+                SearchBar(text: $searchText)
+                    .padding(.bottom, 16)
                 
                 ScrollView {
                     CityList(cities: filteredCities, onSelect: { selected in
@@ -81,7 +82,7 @@ struct CitySelectionView<ViewModel>: View where ViewModel: CitySelectionViewMode
                 
                 NextButton(title: "Continue", action: {
                     print(self.city)
-                }).padding(.top,16)
+                }).padding(.top, 16)
                 
             }
             .padding(.horizontal, 24)

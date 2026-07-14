@@ -122,7 +122,7 @@ final class LocationManager: NSObject, ObservableObject {
 
     @MainActor
     private func timeoutIfNeeded() {
-        guard let _ = locationContinuation else { return }
+        guard locationContinuation != nil else { return }
         resumeOnce(throwing: NSError(domain: "LocationManager", code: 3, userInfo: [NSLocalizedDescriptionKey: "Location request timed out"]))
     }
 }

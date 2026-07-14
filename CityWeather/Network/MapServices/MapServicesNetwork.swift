@@ -9,7 +9,7 @@ import Foundation
 
 class MapServicesNetwork: NetworkManager, MapServicesNetworkProtocol {
     
-    func getDataWeather(city: String,) async throws -> Data {
+    func getDataWeather(city: String) async throws -> Data {
         try await call(endpoint: MapServicesRouter.getDataWeather(city: city))
     }
 }
