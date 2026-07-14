@@ -1,0 +1,44 @@
+# ==========================================
+# Xcode y macOS - .gitignore Recomendado
+# ==========================================
+
+# Archivos de usuario
+xcuserdata/
+*.xcuserstate
+*.xcworkspace/xcuserdata/
+*.xcodeproj/xcuserdata/
+*.xcodeproj/project.xcworkspace/xcuserdata/
+
+# Archivos de compilación y datos derivados (DerivedData)
+build/
+DerivedData/
+*.moved-aside
+
+# Playgrounds de Xcode
+timeline.xctimeline
+playground.xcworkspace
+
+# Swift Package Manager (SPM)
+.build/
+Packages/
+Package.pins
+Package.resolved
+.swiftpm/xcode/
+
+# CocoaPods (Descomenta las líneas de abajo si usas Pods y NO quieres subirlos a Git)
+# Pods/
+# Podfile.lock
+
+# Carthage (Descomenta si usas Carthage)
+# Carthage/Build/
+
+# Fastlane (Descomenta si usas Fastlane para automatizar)
+# fastlane/report.xml
+# fastlane/Preview.html
+# fastlane/screenshots/**/*.png
+# fastlane/test_output
+
+# Archivos temporales del sistema Mac
+.DS_Store
+*.swp
+*~
