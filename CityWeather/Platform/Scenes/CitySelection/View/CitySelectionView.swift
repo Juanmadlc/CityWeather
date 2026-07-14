@@ -1,5 +1,5 @@
 //
-//  ContentView.swift
+//  CitySelectionView.swift
 //  CityWeather
 //
 //  Created by Juan Manuel de la Cruz on 27/3/25.
@@ -11,10 +11,28 @@ struct CitySelectionView<ViewModel>: View where ViewModel: CitySelectionViewMode
     
     @StateObject private var viewModel: ViewModel
     private let connector: CitySelectionConnector
-    private let navBarTitle = "City Weather"
+    private let navBarTitle = Constants.Config.cityWeather
     @State private var city: String = ""
     
     @State private var searchText = ""
+    @State private var isEditing = false
+    private var filteredCities: [String] {
+        let query = searchText.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard !query.isEmpty else { return cities }
+        
+        let normalizedTokens = query
+            .folding(options: .diacriticInsensitive, locale: .current)
+            .lowercased()
+            .split(whereSeparator: { $0.isWhitespace })
+            .map(String.init)
+
+        return cities.filter { city in
+            let haystack = city
+                .folding(options: .diacriticInsensitive, locale: .current)
+                .lowercased()
+            return normalizedTokens.allSatisfy { token in haystack.contains(token) }
+        }
+    }
     // TODO: 01 CREAMOS EL ARRAY (Temporalmente aquí, en el futuro vendrá del viewModel)
     private let cities = [
         "New York",
@@ -44,20 +62,22 @@ struct CitySelectionView<ViewModel>: View where ViewModel: CitySelectionViewMode
                 
                 UseCurrentLocationButton(action: {
                     Task {
-                        self.city = await viewModel.getCurrentCity() ?? ""
+                        let current = await viewModel.getCurrentCity() ?? ""
+                        self.city = current
+                        self.searchText = current
                     }
                 })
                 
-                SearchBar(text: $searchText)
+                SearchBar(text: $searchText).padding(.bottom,16)
                 
                 ScrollView {
-                    CityList(cities: cities, onSelect: { _ in
-                         
+                    CityList(cities: filteredCities, onSelect: { selected in
+                        self.city = selected
+                        self.searchText = selected
                     })
                 }
                 .cornerRadius(12)
                 .clipped()
-                
                 
                 NextButton(title: "Continue", action: {
                     print(self.city)
@@ -66,7 +86,7 @@ struct CitySelectionView<ViewModel>: View where ViewModel: CitySelectionViewMode
             }
             .padding(.horizontal, 24)
         }
-        .navigationTitle(navBarTitle)
+        .commonsNavigationBar(title: navBarTitle)
     }
     
     // MARK: - Subviews
@@ -75,6 +95,8 @@ struct CitySelectionView<ViewModel>: View where ViewModel: CitySelectionViewMode
             .font(.system(size: 16))
             .foregroundColor(.primary)
             .multilineTextAlignment(.center)
+            .lineLimit(6)
+            .fixedSize(horizontal: false, vertical: true)
             .padding(.top, 32)
             .padding(.bottom, 32)
     }
@@ -103,24 +125,6 @@ struct UseCurrentLocationButton: View {
     }
 }
 
-struct SearchBar: View {
-    @Binding var text: String
-    
-    var body: some View {
-        HStack(spacing: 10) {
-            Image(systemName: "magnifyingglass")
-                .foregroundColor(.secondary)
-            TextField("Search for a city", text: $text)
-                .font(.system(size: 16))
-        }
-        .padding(.horizontal, 12)
-        .padding(.vertical, 12)
-        .background(Color(.secondarySystemGroupedBackground))
-        .cornerRadius(12)
-    }
-}
-
-// MARK: - Components
 struct CityList: View {
     let cities: [String]
     let onSelect: (String) -> Void
@@ -135,7 +139,6 @@ struct CityList: View {
             }
         }
         .background(Color(.secondarySystemGroupedBackground))
-        .padding(.top, 12)
         .frame(maxHeight: .infinity)
     }
 }
@@ -159,6 +162,7 @@ struct CityRow: View {
         }
     }
 }
+
 
 // MARK: Preview
 struct CitySelectionView_Previews: PreviewProvider {

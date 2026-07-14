@@ -10,7 +10,7 @@ import Foundation
 struct Constants {
     
     struct Config {
-        //static let cityWeather = "City Weather"
+        static let cityWeather = "City Weather"
     }
     
     struct Locale {

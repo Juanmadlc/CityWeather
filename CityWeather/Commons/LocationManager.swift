@@ -27,7 +27,7 @@ final class LocationManager: NSObject, ObservableObject {
                 span: MKCoordinateSpan(latitudeDelta: Constants.Location.deltaZoom, longitudeDelta: Constants.Location.deltaZoom)
             )
         }
-        set { /* no-op setter to keep same API surface if used with @State */ }
+        set {  }
     }
 
     @Published var locationActivated: Bool = false
@@ -39,11 +39,9 @@ final class LocationManager: NSObject, ObservableObject {
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.distanceFilter = kCLDistanceFilterNone
-        // Do not start updating until authorized; request on demand
         self.userLocation = locationManager.location
     }
 
-    // Call from UI to request permission and possibly kick off updates
     func requestLocationAuthorization() {
         switch locationManager.authorizationStatus {
         case .notDetermined:
@@ -51,7 +49,6 @@ final class LocationManager: NSObject, ObservableObject {
         case .authorizedWhenInUse, .authorizedAlways:
             locationManager.startUpdatingLocation()
         case .restricted, .denied:
-            // Keep state updated; UI can guide user to Settings
             self.locationActivated = false
             Task { @MainActor in
                 resumeOnce(throwing: NSError(domain: "LocationManager", code: 4, userInfo: [NSLocalizedDescriptionKey: "Location permission denied or restricted"]))
@@ -61,15 +58,13 @@ final class LocationManager: NSObject, ObservableObject {
         }
     }
 
-    // Convenience to explicitly request a one-shot location
     func requestLocation() {
         requestLocationAuthorization()
         locationManager.requestLocation()
     }
 
-    // Async API to obtain the current city name. Falls back to cached reverse-geocode if available.
+ 
     func currentCity() async throws -> String {
-        // If we already have a recent location, use it; otherwise request one
         let location: CLLocation
         if let existing = self.userLocation, existing.timestamp > Date(timeIntervalSinceNow: -60) {
             location = existing
@@ -81,31 +76,27 @@ final class LocationManager: NSObject, ObservableObject {
         guard let placemark = placemarks.first else {
             throw NSError(domain: "LocationManager", code: 2, userInfo: [NSLocalizedDescriptionKey: "No placemark found for location"])
         }
-        // Choose the best available component to represent a city
+        
         return placemark.locality ?? placemark.subAdministrativeArea ?? placemark.administrativeArea ?? "Unknown"
     }
 
     // MARK: - Private helpers
     private func nextLocation() async throws -> CLLocation {
-        // Ensure authorization on main thread
+        
         await MainActor.run { [weak self] in
             self?.requestLocationAuthorization()
         }
 
-        // If a previous request is in flight, cancel it by throwing and clearing
+      
         if locationContinuation != nil {
-            // Prevent overlapping requests
             throw NSError(domain: "LocationManager", code: 1, userInfo: [NSLocalizedDescriptionKey: "Location request already in progress"])
         }
 
         return try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<CLLocation, Error>) in
-            // Store continuation to resume from delegate callbacks
             self.locationContinuation = continuation
 
-            // Start updating location
             self.locationManager.startUpdatingLocation()
 
-            // Add a timeout to avoid leaking the continuation
             Task { [weak self] in
                 try? await Task.sleep(nanoseconds: 10 * 1_000_000_000)
                 await self?.timeoutIfNeeded()
