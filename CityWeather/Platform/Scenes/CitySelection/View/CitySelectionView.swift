@@ -68,7 +68,7 @@ struct CitySelectionView<ViewModel>: View where ViewModel: CitySelectionViewMode
                     }
                 })
                 
-                SearchBar(text: $searchText)
+                SearchBar(text: $searchText).padding(.bottom,16)
                 
                 ScrollView {
                     CityList(cities: filteredCities, onSelect: { selected in
@@ -78,7 +78,6 @@ struct CitySelectionView<ViewModel>: View where ViewModel: CitySelectionViewMode
                 }
                 .cornerRadius(12)
                 .clipped()
-                
                 
                 NextButton(title: "Continue", action: {
                     print(self.city)
@@ -140,7 +139,6 @@ struct CityList: View {
             }
         }
         .background(Color(.secondarySystemGroupedBackground))
-        .padding(.top, 12)
         .frame(maxHeight: .infinity)
     }
 }
