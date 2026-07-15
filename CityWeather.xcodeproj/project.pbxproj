@@ -23,6 +23,10 @@
 		962A425B2F5B3CE400B79DE9 /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 962A425A2F5B3CE400B79DE9 /* StringExtension.swift */; };
 		962A425D2F5B3E8E00B79DE9 /* DateExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 962A425C2F5B3E8E00B79DE9 /* DateExtension.swift */; };
 		962A42612F5B3EF000B79DE9 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 962A42602F5B3EF000B79DE9 /* Constants.swift */; };
+		962B758630079EF30068E3D2 /* DashboardConnector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 962B758530079EF30068E3D2 /* DashboardConnector.swift */; };
+		962B758930079FB60068E3D2 /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 962B758830079FB60068E3D2 /* DashboardView.swift */; };
+		962B758C3007A0180068E3D2 /* DashboardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 962B758B3007A0180068E3D2 /* DashboardViewModel.swift */; };
+		962B758E3007A5360068E3D2 /* MapServiceUseCaseFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 962B758D3007A5360068E3D2 /* MapServiceUseCaseFactory.swift */; };
 		964055282F76A6580021407D /* MapServicesEndpoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 964055272F76A6580021407D /* MapServicesEndpoints.swift */; };
 		9640552A2F76A7A80021407D /* BundleExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 964055292F76A7A80021407D /* BundleExtension.swift */; };
 		9640552C2F76A8A40021407D /* Preferences.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9640552B2F76A8A40021407D /* Preferences.plist */; };
@@ -78,6 +82,10 @@
 		962A425A2F5B3CE400B79DE9 /* StringExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
 		962A425C2F5B3E8E00B79DE9 /* DateExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateExtension.swift; sourceTree = "<group>"; };
 		962A42602F5B3EF000B79DE9 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		962B758530079EF30068E3D2 /* DashboardConnector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardConnector.swift; sourceTree = "<group>"; };
+		962B758830079FB60068E3D2 /* DashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardView.swift; sourceTree = "<group>"; };
+		962B758B3007A0180068E3D2 /* DashboardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardViewModel.swift; sourceTree = "<group>"; };
+		962B758D3007A5360068E3D2 /* MapServiceUseCaseFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapServiceUseCaseFactory.swift; sourceTree = "<group>"; };
 		964055272F76A6580021407D /* MapServicesEndpoints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapServicesEndpoints.swift; sourceTree = "<group>"; };
 		964055292F76A7A80021407D /* BundleExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BundleExtension.swift; sourceTree = "<group>"; };
 		9640552B2F76A8A40021407D /* Preferences.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Preferences.plist; sourceTree = "<group>"; };
@@ -148,6 +156,7 @@
 		960E30302FE9440F00EB974A /* Representation */ = {
 			isa = PBXGroup;
 			children = (
+				962B758D3007A5360068E3D2 /* MapServiceUseCaseFactory.swift */,
 				960E30312FE9443400EB974A /* ViewModels */,
 			);
 			path = Representation;
@@ -156,6 +165,7 @@
 		960E30312FE9443400EB974A /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
+				962B758A30079FD20068E3D2 /* Dashboard */,
 				960E30322FE9446300EB974A /* CitySelection */,
 			);
 			path = ViewModels;
@@ -247,6 +257,31 @@
 				960E30352FE9475000EB974A /* Localizable.xcstrings */,
 			);
 			path = Resources;
+			sourceTree = "<group>";
+		};
+		962B758430079EC70068E3D2 /* Dashboard */ = {
+			isa = PBXGroup;
+			children = (
+				962B758530079EF30068E3D2 /* DashboardConnector.swift */,
+				962B758730079F910068E3D2 /* View */,
+			);
+			path = Dashboard;
+			sourceTree = "<group>";
+		};
+		962B758730079F910068E3D2 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				962B758830079FB60068E3D2 /* DashboardView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		962B758A30079FD20068E3D2 /* Dashboard */ = {
+			isa = PBXGroup;
+			children = (
+				962B758B3007A0180068E3D2 /* DashboardViewModel.swift */,
+			);
+			path = Dashboard;
 			sourceTree = "<group>";
 		};
 		962FC0F42FE408CE00BF0A1F /* App */ = {
@@ -427,6 +462,7 @@
 		96F5FC142FA3B2C800C490BC /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
+				962B758430079EC70068E3D2 /* Dashboard */,
 				962FC0F52FE40A4D00BF0A1F /* CitySelection */,
 			);
 			path = Scenes;
@@ -609,6 +645,7 @@
 				9640553C2F76E8910021407D /* MapWrapper.swift in Sources */,
 				964055532F76F5D40021407D /* MocksManager.swift in Sources */,
 				962A422B2F5B32BD00B79DE9 /* CityWeatherApp.swift in Sources */,
+				962B758630079EF30068E3D2 /* DashboardConnector.swift in Sources */,
 				962A425B2F5B3CE400B79DE9 /* StringExtension.swift in Sources */,
 				9640552A2F76A7A80021407D /* BundleExtension.swift in Sources */,
 				96E095CA2FE940E1005C2313 /* CitySelectionConnector.swift in Sources */,
@@ -627,11 +664,14 @@
 				962A42432F5B364700B79DE9 /* NetworkError.swift in Sources */,
 				964055322F76B9860021407D /* MapServicesRouter.swift in Sources */,
 				964055492F76F1110021407D /* MapServicesRepository.swift in Sources */,
+				962B758C3007A0180068E3D2 /* DashboardViewModel.swift in Sources */,
 				962A422C2F5B32BD00B79DE9 /* CitySelectionView.swift in Sources */,
 				962A423A2F5B34E700B79DE9 /* NetworkCall.swift in Sources */,
 				964055282F76A6580021407D /* MapServicesEndpoints.swift in Sources */,
+				962B758930079FB60068E3D2 /* DashboardView.swift in Sources */,
 				962A42612F5B3EF000B79DE9 /* Constants.swift in Sources */,
 				9640553F2F76ECD70021407D /* MapServicesAPIClientProtocol.swift in Sources */,
+				962B758E3007A5360068E3D2 /* MapServiceUseCaseFactory.swift in Sources */,
 				9640554C2F76F17C0021407D /* MapServicesModelProtocol.swift in Sources */,
 				964055302F76B6250021407D /* MapServicesNetwork.swift in Sources */,
 			);
