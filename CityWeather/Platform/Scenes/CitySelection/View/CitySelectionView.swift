@@ -16,6 +16,8 @@ struct CitySelectionView<ViewModel>: View where ViewModel: CitySelectionViewMode
     
     @State private var searchText = ""
     @State private var isEditing = false
+    @State private var isShowingDashboard = false
+    
     private var filteredCities: [String] {
         let query = searchText.trimmingCharacters(in: .whitespacesAndNewlines)
         guard !query.isEmpty else { return cities }
@@ -81,13 +83,16 @@ struct CitySelectionView<ViewModel>: View where ViewModel: CitySelectionViewMode
                 .clipped()
                 
                 NextButton(title: "Continue", action: {
-                    print(self.city)
+                    viewModel.didTapContinue(city: city)
                 }).padding(.top, 16)
                 
             }
             .padding(.horizontal, 24)
         }
         .commonsNavigationBar(title: navBarTitle)
+        .navigationDestination(isPresented: $viewModel.shouldNavigateToDashboard) {
+            connector.navigateToDashboard(city: city)
+        }
     }
     
     // MARK: - Subviews
@@ -168,8 +173,14 @@ struct CityRow: View {
 // MARK: Preview
 struct CitySelectionView_Previews: PreviewProvider {
     class MySeasonViewViewModel: CitySelectionViewModelProtocol {
+        var shouldNavigateToDashboard = false
+
         func getCurrentCity() async -> String? {
             "Barcelona"
+        }
+
+        func didTapContinue(city: String) {
+            shouldNavigateToDashboard = true
         }
     }
     class PreviewMySeasonConnector: CitySelectionConnector {}

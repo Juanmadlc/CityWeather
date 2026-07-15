@@ -49,9 +49,6 @@
         }
       }
     },
-    "Hello, World!" : {
-
-    },
     "Search for a city" : {
       "localizations" : {
         "es" : {

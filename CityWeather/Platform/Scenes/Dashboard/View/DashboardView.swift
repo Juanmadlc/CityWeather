@@ -10,17 +10,26 @@ import SwiftUI
 struct DashboardView<ViewModel>: View where ViewModel: DashboardViewModelProtocol {
     @StateObject private var viewModel: ViewModel
     private let connector: DashboardConnector
+    private let city: String
 
-    init(viewModel: ViewModel, connector: DashboardConnector) {
+    init(viewModel: ViewModel, connector: DashboardConnector, city: String) {
         self._viewModel = StateObject(wrappedValue: viewModel)
         self.connector = connector
+        self.city = city
     }
 
     var body: some View {
-        Text("Hello, World!")
+        Text(city)
+            .task {
+                await viewModel.fetchDataWeather(city: city)
+            }
     }
 }
 
 #Preview {
-    DashboardView(viewModel: DashboardViewModel(mapServicesUseCaseFactory: MapServicesUseCaseFactory()), connector: DashboardConnector())
+    DashboardView(
+        viewModel: DashboardViewModel(mapServicesUseCaseFactory: MapServicesUseCaseFactory()),
+        connector: DashboardConnector(),
+        city: "Barcelona"
+    )
 }

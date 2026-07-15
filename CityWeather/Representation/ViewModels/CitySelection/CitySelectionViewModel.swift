@@ -8,10 +8,12 @@
 import Foundation
 
 protocol CitySelectionViewModelOutput: ObservableObject {
+    var shouldNavigateToDashboard: Bool { get set }
 }
 
 protocol CitySelectionViewModelInput: ObservableObject {
     func getCurrentCity() async -> String?
+    func didTapContinue(city: String)
 }
 
 protocol CitySelectionViewModelProtocol: CitySelectionViewModelOutput, CitySelectionViewModelInput {}
@@ -20,10 +22,13 @@ class CitySelectionViewModel: CitySelectionViewModelProtocol {
     let lang: String = Constants.Locale.esLanguage // TODO: 01 Cambiar por dato persistente con el idioma escogido anteriormente y si no tiene poner por defecto idioma del iphone
     let city: String = "Barcelona" // TODO: 01 Crear una variable con dato persistente para la seleccion de la ciudad escogida y guardada anteriormente
     @Published var locationManager: LocationManager
+    @Published var shouldNavigateToDashboard = false
   
     init() {
         locationManager = LocationManager.shared
     }
+    
+    // MARK: Funcs
     
     func getCurrentCity() async -> String? {
         do {
@@ -40,4 +45,8 @@ class CitySelectionViewModel: CitySelectionViewModelProtocol {
         return try await LocationManager.shared.currentCity()
     }
     
+    func didTapContinue(city: String) {
+        guard !city.isEmpty else { return }
+        shouldNavigateToDashboard = true
+    }
 }
