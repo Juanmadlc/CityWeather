@@ -8,10 +8,10 @@
 import Foundation
 
 protocol CitySelectionViewModelOutput: ObservableObject {
-    func getCurrentCity() async -> String?
 }
 
 protocol CitySelectionViewModelInput: ObservableObject {
+    func getCurrentCity() async -> String?
 }
 
 protocol CitySelectionViewModelProtocol: CitySelectionViewModelOutput, CitySelectionViewModelInput {}

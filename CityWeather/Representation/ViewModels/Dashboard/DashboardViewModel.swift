@@ -8,10 +8,10 @@
 import Foundation
 
 protocol DashboardViewModelOutput: ObservableObject {
-    func fetchDataWeather(city: String) async
 }
 
 protocol DashboardViewModelInput: ObservableObject {
+    func fetchDataWeather(city: String) async
 }
 
 protocol DashboardViewModelProtocol: DashboardViewModelOutput, DashboardViewModelInput {}
