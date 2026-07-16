@@ -186,9 +186,9 @@ struct CityRow: View {
 
 // MARK: Preview
 struct CitySelectionView_Previews: PreviewProvider {
-    class MySeasonViewViewModel: CitySelectionViewModelProtocol {
-        var shouldNavigateToDashboard = false
-        private(set) var dashboardCity = ""
+    class PreviewCitySelectionViewModel: CitySelectionViewModelProtocol {
+        @Published var shouldNavigateToDashboard: Bool = false
+        private(set) var dashboardCity: String = ""
         var errorMessage: String?
 
         func onAppear() async {}
@@ -202,13 +202,13 @@ struct CitySelectionView_Previews: PreviewProvider {
             shouldNavigateToDashboard = true
         }
     }
-    class PreviewMySeasonConnector: CitySelectionConnector {}
 
-    static let viewModel = MySeasonViewViewModel()
-    static let connector = PreviewMySeasonConnector()
+    class PreviewCitySelectionConnector: CitySelectionConnector {}
+
+    static let viewModel = PreviewCitySelectionViewModel()
+    static let connector = PreviewCitySelectionConnector()
 
     static var previews: some View {
         CitySelectionView(viewModel: viewModel, connector: connector)
     }
 }
-
