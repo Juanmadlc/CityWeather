@@ -37,7 +37,7 @@ class CitySelectionViewModel: CitySelectionViewModelProtocol {
             return try await getLocations()
         } catch {
             print("getCurrentCity error:", error)
-            return nil
+            return ""
         }
     }
 

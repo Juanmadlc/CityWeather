@@ -12,12 +12,9 @@ struct CitySelectionView<ViewModel>: View where ViewModel: CitySelectionViewMode
     @StateObject private var viewModel: ViewModel
     private let connector: CitySelectionConnector
     private let navBarTitle = Constants.Config.cityWeather
-    @State private var city: String = ""
     
     @State private var searchText = ""
-    @State private var isEditing = false
-    @State private var isShowingDashboard = false
-    
+
     private var filteredCities: [String] {
         let query = searchText.trimmingCharacters(in: .whitespacesAndNewlines)
         guard !query.isEmpty else { return cities }
@@ -65,7 +62,6 @@ struct CitySelectionView<ViewModel>: View where ViewModel: CitySelectionViewMode
                 UseCurrentLocationButton(action: {
                     Task {
                         let current = await viewModel.getCurrentCity() ?? ""
-                        self.city = current
                         self.searchText = current
                     }
                 })
@@ -75,7 +71,6 @@ struct CitySelectionView<ViewModel>: View where ViewModel: CitySelectionViewMode
                 
                 ScrollView {
                     CityList(cities: filteredCities, onSelect: { selected in
-                        self.city = selected
                         self.searchText = selected
                     })
                 }
