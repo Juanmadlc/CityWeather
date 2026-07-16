@@ -22,6 +22,12 @@ struct MapServicesEndpoints {
     // MARK: PARAMS
     static var appid = "768543f20334a8c0ab4d96b800f607e5"
     static var units = "metric"
-    static var language = "es"
+    static var language: String {
+        guard let preferredLanguage = Locale.preferredLanguages.first,
+              let languageCode = Locale(identifier: preferredLanguage).language.languageCode?.identifier else {
+            return Constants.Locale.enLanguage
+        }
+        return languageCode
+    }
 
 }

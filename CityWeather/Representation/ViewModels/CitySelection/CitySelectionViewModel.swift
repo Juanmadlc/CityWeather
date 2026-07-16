@@ -10,9 +10,11 @@ import Foundation
 protocol CitySelectionViewModelOutput: ObservableObject {
     var shouldNavigateToDashboard: Bool { get set }
     var dashboardCity: String { get }
+    var errorMessage: String? { get }
 }
 
 protocol CitySelectionViewModelInput: ObservableObject {
+    func onAppear() async
     func getCurrentCity() async -> String?
     func didTapContinue(city: String)
 }
@@ -20,17 +22,43 @@ protocol CitySelectionViewModelInput: ObservableObject {
 protocol CitySelectionViewModelProtocol: CitySelectionViewModelOutput, CitySelectionViewModelInput {}
 
 class CitySelectionViewModel: CitySelectionViewModelProtocol {
-    let lang: String = Constants.Locale.esLanguage // TODO: 01 Cambiar por dato persistente con el idioma escogido anteriormente y si no tiene poner por defecto idioma del iphone
-    let city: String = "Barcelona" // TODO: 01 Crear una variable con dato persistente para la seleccion de la ciudad escogida y guardada anteriormente
     @Published var locationManager: LocationManager
     @Published var shouldNavigateToDashboard = false
     @Published private(set) var dashboardCity = ""
+    @Published private(set) var errorMessage: String?
+
+    private let cityStorage: CityStorageProtocol
+    private let mapServicesUseCaseFactory: MapServicesUseCaseFactory
+    private var hasCheckedSavedCity = false
   
-    init() {
+    init(
+        cityStorage: CityStorageProtocol = UserDefaultsCityStorage(),
+        mapServicesUseCaseFactory: MapServicesUseCaseFactory = MapServicesUseCaseFactory()
+    ) {
+        self.cityStorage = cityStorage
+        self.mapServicesUseCaseFactory = mapServicesUseCaseFactory
         locationManager = LocationManager.shared
     }
     
     // MARK: Funcs
+
+    func onAppear() async {
+        guard !hasCheckedSavedCity else { return }
+        hasCheckedSavedCity = true
+
+        guard let savedCity = cityStorage.getSelectedCity()?.trimmingCharacters(in: .whitespacesAndNewlines),
+              !savedCity.isEmpty else { return }
+
+        do {
+            let useCase = mapServicesUseCaseFactory.getDataWeather(city: savedCity)
+            _ = try await useCase.execute()
+            dashboardCity = savedCity
+            shouldNavigateToDashboard = true
+        } catch {
+            errorMessage = "Could not load saved city"
+            Log.error("Saved city validation failed: \(error)")
+        }
+    }
     
     func getCurrentCity() async -> String? {
         do {
@@ -50,6 +78,7 @@ class CitySelectionViewModel: CitySelectionViewModelProtocol {
     func didTapContinue(city: String) {
         let trimmedCity = city.trimmingCharacters(in: .whitespacesAndNewlines)
         guard !trimmedCity.isEmpty else { return }
+        cityStorage.saveSelectedCity(trimmedCity)
         dashboardCity = trimmedCity
         shouldNavigateToDashboard = true
     }
