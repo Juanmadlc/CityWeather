@@ -14,8 +14,8 @@ struct MapServicesEndpoints {
             case .pro: return proEnvironment
         }
     }
-    static let devEnvironment = "http://api.openweathermap.org"
-    static let proEnvironment = "http://api.openweathermap.org"
+    static let devEnvironment = "api.openweathermap.org"
+    static let proEnvironment = "api.openweathermap.org"
     
     static let dataWeather = "/data/2.5/weather"
     

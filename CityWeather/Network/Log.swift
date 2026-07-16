@@ -74,6 +74,23 @@ class Log {
         }
     }
 
+    class func networkCall(path: URLComponents, method: String, headers: [String: String]?) {
+        if isLoggingEnabled {
+            let queryItems = path.queryItems ?? []
+            let query = queryItems.map { "\($0.name)=\($0.value ?? "")" }.joined(separator: "&")
+            let urlString = path.url?.absoluteString ?? "Invalid URL"
+
+            print("\nLOG \(Date().toString()) \(LogEvent.networkRequest.rawValue) -> Network call with:" +
+                  "\n\tURL: \(urlString)" +
+                  "\n\tScheme: \(path.scheme ?? "")" +
+                  "\n\tHost: \(path.host ?? "")" +
+                  "\n\tPath: \(path.path)" +
+                  "\n\tQuery: \(query)" +
+                  "\n\tMethod: \(method)" +
+                  "\n\tHeaders: \(headers ?? [:])\n")
+        }
+    }
+
     class func networkRequest(request: URLRequest) {
         if isLoggingEnabled {
             let url = request.url ?? URL(string: "")

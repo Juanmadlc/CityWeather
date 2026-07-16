@@ -15,6 +15,8 @@ protocol NetworkCall {
 
 extension NetworkCall {
     func urlRequest(baseURL: String) throws -> URLRequest {
+        Log.networkCall(path: path, method: method, headers: headers)
+
         guard let url = path.url else {
             throw NetworkError.urlNotFound(path.url?.absoluteString ?? "")
         }
