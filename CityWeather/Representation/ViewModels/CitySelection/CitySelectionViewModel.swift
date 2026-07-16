@@ -13,7 +13,7 @@ protocol CitySelectionViewModelOutput: ObservableObject {
 }
 
 protocol CitySelectionViewModelInput: ObservableObject {
-    func onAppear() async
+    func onAppear()
     func getCurrentCity() async -> String?
     func didTapContinue(city: String)
 }

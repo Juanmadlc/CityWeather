@@ -89,7 +89,7 @@ struct CitySelectionView<ViewModel>: View where ViewModel: CitySelectionViewMode
             connector.navigateToDashboard(city: viewModel.dashboardCity)
         }
         .task {
-            await viewModel.onAppear()
+            viewModel.onAppear()
         }
     }
     
@@ -176,7 +176,7 @@ struct CitySelectionView_Previews: PreviewProvider {
         private(set) var dashboardCity: String = ""
         var errorMessage: String?
 
-        func onAppear() async {}
+        func onAppear() {}
 
         func getCurrentCity() async -> String? {
             "Barcelona"
