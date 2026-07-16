@@ -83,7 +83,7 @@ struct CitySelectionView<ViewModel>: View where ViewModel: CitySelectionViewMode
                 .clipped()
                 
                 NextButton(title: "Continue", action: {
-                    viewModel.didTapContinue(city: city)
+                    viewModel.didTapContinue(city: searchText)
                 }).padding(.top, 16)
                 
             }
@@ -91,7 +91,7 @@ struct CitySelectionView<ViewModel>: View where ViewModel: CitySelectionViewMode
         }
         .commonsNavigationBar(title: navBarTitle)
         .navigationDestination(isPresented: $viewModel.shouldNavigateToDashboard) {
-            connector.navigateToDashboard(city: city)
+            connector.navigateToDashboard(city: viewModel.dashboardCity)
         }
     }
     
@@ -174,12 +174,14 @@ struct CityRow: View {
 struct CitySelectionView_Previews: PreviewProvider {
     class MySeasonViewViewModel: CitySelectionViewModelProtocol {
         var shouldNavigateToDashboard = false
+        private(set) var dashboardCity = ""
 
         func getCurrentCity() async -> String? {
             "Barcelona"
         }
 
         func didTapContinue(city: String) {
+            dashboardCity = city.trimmingCharacters(in: .whitespacesAndNewlines)
             shouldNavigateToDashboard = true
         }
     }

@@ -9,6 +9,7 @@ import Foundation
 
 protocol CitySelectionViewModelOutput: ObservableObject {
     var shouldNavigateToDashboard: Bool { get set }
+    var dashboardCity: String { get }
 }
 
 protocol CitySelectionViewModelInput: ObservableObject {
@@ -23,6 +24,7 @@ class CitySelectionViewModel: CitySelectionViewModelProtocol {
     let city: String = "Barcelona" // TODO: 01 Crear una variable con dato persistente para la seleccion de la ciudad escogida y guardada anteriormente
     @Published var locationManager: LocationManager
     @Published var shouldNavigateToDashboard = false
+    @Published private(set) var dashboardCity = ""
   
     init() {
         locationManager = LocationManager.shared
@@ -46,7 +48,9 @@ class CitySelectionViewModel: CitySelectionViewModelProtocol {
     }
     
     func didTapContinue(city: String) {
-        guard !city.isEmpty else { return }
+        let trimmedCity = city.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard !trimmedCity.isEmpty else { return }
+        dashboardCity = trimmedCity
         shouldNavigateToDashboard = true
     }
 }
