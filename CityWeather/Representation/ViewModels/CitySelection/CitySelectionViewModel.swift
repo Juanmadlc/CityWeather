@@ -38,7 +38,7 @@ class CitySelectionViewModel: CitySelectionViewModelProtocol {
     
     // MARK: Funcs
     
-    func onAppear() async {
+    func onAppear() {
         guard !hasCheckedSavedCity else { return }
         hasCheckedSavedCity = true
         
