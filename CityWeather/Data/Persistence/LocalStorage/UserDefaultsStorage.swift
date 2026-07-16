@@ -1,5 +1,5 @@
 //
-//  CityStorage.swift
+//  UserDefaultsStorage.swift
 //  CityWeather
 //
 //  Created by Juan Manuel de la Cruz on 16/07/2026.
@@ -8,7 +8,7 @@
 import Foundation
 
 
-class UserDefaultsCityStorage: CityStorageProtocol {
+class UserDefaultsStorage: UserDefaultsStorageProtocol {
     private enum Keys {
         static let selectedCity = "selectedCity"
     }

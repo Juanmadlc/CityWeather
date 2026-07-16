@@ -10,7 +10,6 @@ import Foundation
 protocol CitySelectionViewModelOutput: ObservableObject {
     var shouldNavigateToDashboard: Bool { get set }
     var dashboardCity: String { get }
-    var errorMessage: String? { get }
 }
 
 protocol CitySelectionViewModelInput: ObservableObject {
@@ -27,37 +26,28 @@ class CitySelectionViewModel: CitySelectionViewModelProtocol {
     @Published private(set) var dashboardCity = ""
     @Published private(set) var errorMessage: String?
 
-    private let cityStorage: CityStorageProtocol
-    private let mapServicesUseCaseFactory: MapServicesUseCaseFactory
+    private let cityStorage: UserDefaultsStorageProtocol
     private var hasCheckedSavedCity = false
   
     init(
-        cityStorage: CityStorageProtocol = UserDefaultsCityStorage(),
-        mapServicesUseCaseFactory: MapServicesUseCaseFactory = MapServicesUseCaseFactory()
+        cityStorage: UserDefaultsStorageProtocol = UserDefaultsStorage()
     ) {
         self.cityStorage = cityStorage
-        self.mapServicesUseCaseFactory = mapServicesUseCaseFactory
         locationManager = LocationManager.shared
     }
     
     // MARK: Funcs
-
+    
     func onAppear() async {
         guard !hasCheckedSavedCity else { return }
         hasCheckedSavedCity = true
-
+        
         guard let savedCity = cityStorage.getSelectedCity()?.trimmingCharacters(in: .whitespacesAndNewlines),
               !savedCity.isEmpty else { return }
-
-        do {
-            let useCase = mapServicesUseCaseFactory.getDataWeather(city: savedCity)
-            _ = try await useCase.execute()
-            dashboardCity = savedCity
-            shouldNavigateToDashboard = true
-        } catch {
-            errorMessage = "Could not load saved city"
-            Log.error("Saved city validation failed: \(error)")
-        }
+        
+        dashboardCity = savedCity
+        shouldNavigateToDashboard = true
+        
     }
     
     func getCurrentCity() async -> String? {
@@ -83,3 +73,4 @@ class CitySelectionViewModel: CitySelectionViewModelProtocol {
         shouldNavigateToDashboard = true
     }
 }
+

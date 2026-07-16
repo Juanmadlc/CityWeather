@@ -23,8 +23,8 @@
 		962A425B2F5B3CE400B79DE9 /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 962A425A2F5B3CE400B79DE9 /* StringExtension.swift */; };
 		962A425D2F5B3E8E00B79DE9 /* DateExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 962A425C2F5B3E8E00B79DE9 /* DateExtension.swift */; };
 		962A42612F5B3EF000B79DE9 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 962A42602F5B3EF000B79DE9 /* Constants.swift */; };
-		962AE7773008F8A2001D4F1A /* CityStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 962AE7763008F8A2001D4F1A /* CityStorage.swift */; };
-		962AE77B3009013D001D4F1A /* CityStorageProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 962AE77A3009013D001D4F1A /* CityStorageProtocol.swift */; };
+		962AE7773008F8A2001D4F1A /* UserDefaultsStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 962AE7763008F8A2001D4F1A /* UserDefaultsStorage.swift */; };
+		962AE77B3009013D001D4F1A /* UserDefaultsStorageProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 962AE77A3009013D001D4F1A /* UserDefaultsStorageProtocol.swift */; };
 		962B758630079EF30068E3D2 /* DashboardConnector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 962B758530079EF30068E3D2 /* DashboardConnector.swift */; };
 		962B758930079FB60068E3D2 /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 962B758830079FB60068E3D2 /* DashboardView.swift */; };
 		962B758C3007A0180068E3D2 /* DashboardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 962B758B3007A0180068E3D2 /* DashboardViewModel.swift */; };
@@ -84,8 +84,8 @@
 		962A425A2F5B3CE400B79DE9 /* StringExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
 		962A425C2F5B3E8E00B79DE9 /* DateExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateExtension.swift; sourceTree = "<group>"; };
 		962A42602F5B3EF000B79DE9 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
-		962AE7763008F8A2001D4F1A /* CityStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityStorage.swift; sourceTree = "<group>"; };
-		962AE77A3009013D001D4F1A /* CityStorageProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityStorageProtocol.swift; sourceTree = "<group>"; };
+		962AE7763008F8A2001D4F1A /* UserDefaultsStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsStorage.swift; sourceTree = "<group>"; };
+		962AE77A3009013D001D4F1A /* UserDefaultsStorageProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsStorageProtocol.swift; sourceTree = "<group>"; };
 		962B758530079EF30068E3D2 /* DashboardConnector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardConnector.swift; sourceTree = "<group>"; };
 		962B758830079FB60068E3D2 /* DashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardView.swift; sourceTree = "<group>"; };
 		962B758B3007A0180068E3D2 /* DashboardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardViewModel.swift; sourceTree = "<group>"; };
@@ -266,8 +266,8 @@
 		962AE7753008F89A001D4F1A /* LocalStorage */ = {
 			isa = PBXGroup;
 			children = (
-				962AE7763008F8A2001D4F1A /* CityStorage.swift */,
-				962AE77A3009013D001D4F1A /* CityStorageProtocol.swift */,
+				962AE7763008F8A2001D4F1A /* UserDefaultsStorage.swift */,
+				962AE77A3009013D001D4F1A /* UserDefaultsStorageProtocol.swift */,
 			);
 			path = LocalStorage;
 			sourceTree = "<group>";
@@ -688,7 +688,7 @@
 				964055492F76F1110021407D /* MapServicesRepository.swift in Sources */,
 				962B758C3007A0180068E3D2 /* DashboardViewModel.swift in Sources */,
 				962A422C2F5B32BD00B79DE9 /* CitySelectionView.swift in Sources */,
-				962AE77B3009013D001D4F1A /* CityStorageProtocol.swift in Sources */,
+				962AE77B3009013D001D4F1A /* UserDefaultsStorageProtocol.swift in Sources */,
 				962A423A2F5B34E700B79DE9 /* NetworkCall.swift in Sources */,
 				964055282F76A6580021407D /* MapServicesEndpoints.swift in Sources */,
 				962B758930079FB60068E3D2 /* DashboardView.swift in Sources */,
@@ -696,7 +696,7 @@
 				9640553F2F76ECD70021407D /* MapServicesAPIClientProtocol.swift in Sources */,
 				962B758E3007A5360068E3D2 /* MapServiceUseCaseFactory.swift in Sources */,
 				9640554C2F76F17C0021407D /* MapServicesModelProtocol.swift in Sources */,
-				962AE7773008F8A2001D4F1A /* CityStorage.swift in Sources */,
+				962AE7773008F8A2001D4F1A /* UserDefaultsStorage.swift in Sources */,
 				964055302F76B6250021407D /* MapServicesNetwork.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

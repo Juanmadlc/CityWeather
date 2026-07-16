@@ -58,10 +58,6 @@ struct CitySelectionView<ViewModel>: View where ViewModel: CitySelectionViewMode
             
             VStack {
                 subtitleView
-
-                if let errorMessage = viewModel.errorMessage {
-                    ErrorMessageView(message: errorMessage)
-                }
                 
                 UseCurrentLocationButton(action: {
                     Task {
@@ -112,17 +108,6 @@ struct CitySelectionView<ViewModel>: View where ViewModel: CitySelectionViewMode
 
 
 // MARK: - Components
-struct ErrorMessageView: View {
-    let message: String
-
-    var body: some View {
-        Text(message)
-            .font(.system(size: 14))
-            .foregroundColor(.red)
-            .multilineTextAlignment(.center)
-            .padding(.bottom, 16)
-    }
-}
 
 struct UseCurrentLocationButton: View {
     let action: () -> Void
