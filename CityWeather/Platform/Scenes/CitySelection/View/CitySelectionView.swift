@@ -173,8 +173,7 @@ struct CityRow: View {
 struct CitySelectionView_Previews: PreviewProvider {
     class PreviewCitySelectionViewModel: CitySelectionViewModelProtocol {
         @Published var shouldNavigateToDashboard: Bool = false
-        private(set) var dashboardCity: String = ""
-        var errorMessage: String?
+        var dashboardCity: String = ""
 
         func onAppear() {}
 

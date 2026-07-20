@@ -26,10 +26,21 @@ struct DashboardView<ViewModel>: View where ViewModel: DashboardViewModelProtoco
     }
 }
 
-#Preview {
-    DashboardView(
-        viewModel: DashboardViewModel(mapServicesUseCaseFactory: MapServicesUseCaseFactory()),
-        connector: DashboardConnector(),
-        city: "Barcelona"
-    )
+// MARK: Preview
+struct DashboardView_Previews: PreviewProvider {
+    class PreviewDashboardViewModel: DashboardViewModelProtocol {
+        
+        func fetchDataWeather(city: String) async {
+            return
+        }
+    }
+
+    class PreviewDashboardConnector: DashboardConnector {}
+
+    static let viewModel = PreviewDashboardViewModel()
+    static let connector = PreviewDashboardConnector()
+
+    static var previews: some View {
+        DashboardView(viewModel: viewModel, connector: connector, city: "Barcelona")
+    }
 }
