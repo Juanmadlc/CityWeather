@@ -11,42 +11,28 @@ struct DashboardView<ViewModel>: View where ViewModel: DashboardViewModelProtoco
     @StateObject private var viewModel: ViewModel
     private let connector: DashboardConnector
     private let city: String
-
+    
     init(viewModel: ViewModel, connector: DashboardConnector, city: String) {
         self._viewModel = StateObject(wrappedValue: viewModel)
         self.connector = connector
         self.city = city
     }
-
+    
     var body: some View {
         VStack(spacing: 0) {
-
-            HStack {
-                Spacer()
-                
-                Text(city)
-                    .font(.system(size: 22, weight: .bold))
-                    .foregroundColor(.primary)
-                
-                Spacer()
-            }
-            .overlay(
-                Button(action: {
-                    // Acción para abrir la pantalla de ajustes
-                }) {
-                    Image(systemName: "gearshape.fill")
-                        .font(.system(size: 20))
-                        .foregroundColor(Color(UIColor.systemGray2))
-                }
-                .padding(.trailing, 20),
-                alignment: .trailing
-            )
-            .padding(.top, 16)
-
             TemperatureView()
             Spacer()
         }
         .background(Color(UIColor.systemBackground))
+        .commonsNavigationBar(title: city) {
+            Button(action: {
+                // TODO: 01 Acción para abrir pantalla de Ajustes (Settings)
+            }) {
+                Image(systemName: "gearshape.fill")
+                    .font(.system(size: 18))
+                    .foregroundColor(Color(UIColor.systemGray2))
+            }
+        }
         .task {
             await viewModel.fetchDataWeather(city: city)
         }
