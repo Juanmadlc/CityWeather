@@ -19,10 +19,58 @@ struct DashboardView<ViewModel>: View where ViewModel: DashboardViewModelProtoco
     }
 
     var body: some View {
-        Text(city)
-            .task {
-                await viewModel.fetchDataWeather(city: city)
+        VStack(spacing: 0) {
+
+            HStack {
+                Spacer()
+                
+                Text(city)
+                    .font(.system(size: 22, weight: .bold))
+                    .foregroundColor(.primary)
+                
+                Spacer()
             }
+            .overlay(
+                Button(action: {
+                    // Acción para abrir la pantalla de ajustes
+                }) {
+                    Image(systemName: "gearshape.fill")
+                        .font(.system(size: 20))
+                        .foregroundColor(Color(UIColor.systemGray2))
+                }
+                .padding(.trailing, 20),
+                alignment: .trailing
+            )
+            .padding(.top, 16)
+
+            TemperatureView()
+            Spacer()
+        }
+        .background(Color(UIColor.systemBackground))
+        .task {
+            await viewModel.fetchDataWeather(city: city)
+        }
+    }
+}
+
+// MARK: - Components
+
+struct TemperatureView: View {
+    var body: some View {
+        VStack(spacing: 4) {
+            Text("28°")
+                .font(.system(size: 78, weight: .light))
+                .foregroundColor(.primary)
+            
+            Text("Sunny")
+                .font(.system(size: 18, weight: .medium))
+                .foregroundColor(.primary)
+            
+            Text("H: 32°  L: 22°")
+                .font(.system(size: 15, weight: .regular))
+                .foregroundColor(.secondary)
+        }
+        .padding(.top, 20)
     }
 }
 
