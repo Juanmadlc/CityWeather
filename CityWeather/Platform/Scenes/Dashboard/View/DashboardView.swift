@@ -11,6 +11,7 @@ struct DashboardView<ViewModel>: View where ViewModel: DashboardViewModelProtoco
     @StateObject private var viewModel: ViewModel
     private let connector: DashboardConnector
     private let city: String
+    @Environment(\.scenePhase) var scenePhase
     
     init(viewModel: ViewModel, connector: DashboardConnector, city: String) {
         self._viewModel = StateObject(wrappedValue: viewModel)
@@ -35,6 +36,13 @@ struct DashboardView<ViewModel>: View where ViewModel: DashboardViewModelProtoco
         }
         .task {
             await viewModel.fetchDataWeather(city: city)
+        }
+        .onChange(of: scenePhase) { oldPhase, newPhase in 
+            if newPhase == .active {
+                Task {
+                    await viewModel.fetchDataWeather(city: city)
+                }
+            }
         }
     }
 }
