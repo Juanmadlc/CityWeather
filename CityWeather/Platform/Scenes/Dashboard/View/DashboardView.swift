@@ -37,13 +37,6 @@ struct DashboardView<ViewModel>: View where ViewModel: DashboardViewModelProtoco
         .task {
             await viewModel.fetchDataWeather(city: city)
         }
-        .onChange(of: scenePhase) { oldPhase, newPhase in 
-            if newPhase == .active {
-                Task {
-                    await viewModel.fetchDataWeather(city: city)
-                }
-            }
-        }
     }
 }
 

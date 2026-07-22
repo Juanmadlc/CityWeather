@@ -23,18 +23,10 @@ class DashboardViewModel: DashboardViewModelProtocol {
   
     init(mapServicesUseCaseFactory: MapServicesUseCaseFactory) {
         self.mapServicesUseCaseFactory = mapServicesUseCaseFactory
-        /*
-        print("DEBUG: DashboardViewModel init")
-        Task { { @MainActor in
-            await
-                
-            self.fetchDataWeather(city: "test")}
-        }*/
     }
 
     // MARK: - Fetchs
     @MainActor func fetchDataWeather(city: String) async {
-     //   print("DEBUG: fetchDataWeather called for \(city)")
         do {
             let useCase = mapServicesUseCaseFactory.getDataWeather(city: city)
             mapWrapper = try await useCase.execute() as? MapWrapper
