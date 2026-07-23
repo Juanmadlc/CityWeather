@@ -21,7 +21,11 @@ struct DashboardView<ViewModel>: View where ViewModel: DashboardViewModelProtoco
     
     var body: some View {
         VStack(spacing: 0) {
-            TemperatureView()
+            if let displayModel = viewModel.weatherDisplayModel {
+                TemperatureView(model: displayModel)
+            } else {
+                ProgressView() // TODO: 01 Implementar mensaje Ocurrió un error con la ciudad escogida puedes cambiar la ciudad desde Ajustes , e implementar para pulsar en ajustes
+            }
             Spacer()
         }
         .background(Color(UIColor.systemBackground))
@@ -52,17 +56,19 @@ struct DashboardView<ViewModel>: View where ViewModel: DashboardViewModelProtoco
 // MARK: - Components
 
 struct TemperatureView: View {
+    let model: WeatherDisplayModel
+    
     var body: some View {
         VStack(spacing: 4) {
-            Text("28°")
+            Text(model.temp)
                 .font(.system(size: 78, weight: .light))
                 .foregroundColor(.primary)
             
-            Text("Sunny")
+            Text(model.description)
                 .font(.system(size: 18, weight: .medium))
                 .foregroundColor(.primary)
             
-            Text("H: 32°  L: 22°")
+            Text("Min: \(model.minTemp)  Max: \(model.maxTemp)")
                 .font(.system(size: 15, weight: .regular))
                 .foregroundColor(.secondary)
         }
@@ -73,6 +79,7 @@ struct TemperatureView: View {
 // MARK: Preview
 struct DashboardView_Previews: PreviewProvider {
     class PreviewDashboardViewModel: DashboardViewModelProtocol {
+        var weatherDisplayModel: WeatherDisplayModel? = .init(temp: "28°", description: "Sunny", minTemp: "22°", maxTemp: "32°")
         
         func fetchDataWeather(city: String) async {
             return
