@@ -25,7 +25,7 @@ final class MapServicesRepository: MapServicesModelProtocol {
     }
     
     func getDataForecast(city: String) async throws -> MapForestWrapper {
-        // TODO: 01 Implement mock logic for forecast if needed
+        // TODO: 01 Falta el mock
         return try await apiClient.getDataForecast(city: city)
     }
     

@@ -49,6 +49,16 @@
         }
       }
     },
+    "Min: %@  Max: %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Min: %1$@  Max: %2$@"
+          }
+        }
+      }
+    },
     "Search for a city" : {
       "localizations" : {
         "es" : {

@@ -27,7 +27,10 @@ struct DashboardView<ViewModel>: View where ViewModel: DashboardViewModelProtoco
             VStack(spacing: 0) {
                 if let displayModel = viewModel.weatherDisplayModel {
                     TemperatureView(model: displayModel)
-                    TimeHoursView()
+                    if !displayModel.hourlyForecast.isEmpty {
+                        TimeHoursView(hours: displayModel.hourlyForecast)
+                            .padding(.top, 40)
+                    }
                 } else {
                     ProgressView()
                 }
@@ -45,12 +48,14 @@ struct DashboardView<ViewModel>: View where ViewModel: DashboardViewModelProtoco
         }
         .task {
             await viewModel.fetchDataWeather(city: city)
+            await viewModel.fetchDataWeatherForecast(city: city)
         }
         
         .onChange(of: scenePhase) { oldPhase, newPhase in
             if newPhase == .active {
                 Task {
                     await viewModel.fetchDataWeather(city: city)
+                    await viewModel.fetchDataWeatherForecast(city: city)
                 }
             }
         }
@@ -82,31 +87,20 @@ struct TemperatureView: View {
 }
 
 struct TimeHoursView: View {
-    struct HourModel: Identifiable {
-        let id = UUID()
-        let time: String
-        let icon: String
-    }
-    
-    let hours: [HourModel] = [
-        HourModel(time: "Now", icon: "sun.max.fill"),
-        HourModel(time: "1 PM", icon: "sun.max.fill"),
-        HourModel(time: "2 PM", icon: "sun.max.fill"),
-        HourModel(time: "2 PM", icon: "sun.max.fill"),
-        HourModel(time: "3 PM", icon: "sun.max.fill")
-    ]
+    let hours: [HourlyForecast]
     
     var body: some View {
         ScrollView(.horizontal, showsIndicators: false) {
             HStack(spacing: 20) {
-                ForEach(hours) { hour in
+                ForEach(0..<hours.count, id: \.self) { index in
+                    let hour = hours[index]
                     VStack(spacing: 8) {
                         Text(hour.time)
                             .font(.system(size: 14, weight: .medium))
                             .foregroundColor(.primary)
                         Image(systemName: hour.icon)
-                            .font(.system(size: 20))
-                            .foregroundColor(.yellow)
+                            .font(.system(size: 22))
+                            .foregroundColor(hour.color)
                     }
                 }
             }
@@ -115,14 +109,19 @@ struct TimeHoursView: View {
         .frame(height: 80)
         .background(RoundedRectangle(cornerRadius: 16).fill(Color.white))
         .padding(.horizontal, 20)
-        .padding(.top,16)
     }
 }
 
 // MARK: Preview
 struct DashboardView_Previews: PreviewProvider {
     class PreviewDashboardViewModel: DashboardViewModelProtocol {
-        var weatherDisplayModel: WeatherDisplayModel? = .init(temp: "28°", description: "Sunny", minTemp: "22°", maxTemp: "32°")
+        var weatherDisplayModel: WeatherDisplayModel? = .init(temp: "28°", description: "Sunny", minTemp: "22°", maxTemp: "32°", hourlyForecast: [
+            .init(time: "Now", icon: "sun.max.fill", color: .yellow),
+            .init(time: "1 PM", icon: "sun.max.fill", color: .yellow),
+            .init(time: "2 PM", icon: "cloud.sun.fill", color: .orange),
+            .init(time: "3 PM", icon: "cloud.fill", color: .gray),
+            .init(time: "4 PM", icon: "moon.fill", color: .indigo)
+        ])
         
         func fetchDataWeather(city: String) async {
             return
