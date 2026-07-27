@@ -18,6 +18,7 @@ struct MapServicesEndpoints {
     static let proEnvironment = "api.openweathermap.org"
     
     static let dataWeather = "/data/2.5/weather"
+    static let dataForecast = "/data/2.5/forecast"
     
     // MARK: PARAMS
     static var appid = "768543f20334a8c0ab4d96b800f607e5"
