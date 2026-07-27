@@ -84,13 +84,17 @@ struct DashboardView_Previews: PreviewProvider {
         func fetchDataWeather(city: String) async {
             return
         }
+        
+        func fetchDataWeatherForecast(city: String) async {
+            return
+        }
     }
-
+    
     class PreviewDashboardConnector: DashboardConnector {}
-
+    
     static let viewModel = PreviewDashboardViewModel()
     static let connector = PreviewDashboardConnector()
-
+    
     static var previews: some View {
         DashboardView(viewModel: viewModel, connector: connector, city: "Barcelona")
     }

@@ -13,6 +13,7 @@ protocol DashboardViewModelOutput: ObservableObject {
 
 protocol DashboardViewModelInput: ObservableObject {
     func fetchDataWeather(city: String) async
+    func fetchDataWeatherForecast(city: String) async
 }
 
 protocol DashboardViewModelProtocol: DashboardViewModelOutput, DashboardViewModelInput {}
@@ -33,6 +34,16 @@ class DashboardViewModel: DashboardViewModelProtocol {
             if let wrapper = try await useCase.execute() as? MapWrapper {
                 updateDisplayModel(from: wrapper)
             }
+        } catch {
+            Log.error("Error: \(error)")
+        }
+    }
+    
+    @MainActor func fetchDataWeatherForecast(city: String) async {
+        do {
+            let useCase = mapServicesUseCaseFactory.getDataWeatherForecast(city: city)
+            let result = try await useCase.execute()
+            print("Forecast data received: \(result)")
         } catch {
             Log.error("Error: \(error)")
         }
@@ -60,4 +71,3 @@ struct WeatherDisplayModel {
     let minTemp: String
     let maxTemp: String
 }
-

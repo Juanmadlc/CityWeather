@@ -9,4 +9,5 @@ import Foundation
 
 protocol MapServicesNetworkProtocol {
     func getDataWeather(city: String) async throws -> Data
+    func getDataForecast(city: String) async throws -> Data
 }

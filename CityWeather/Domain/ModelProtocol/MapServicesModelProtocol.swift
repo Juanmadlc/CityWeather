@@ -13,4 +13,5 @@ enum MapServicesModelProtocolError: Error {
 
 protocol MapServicesModelProtocol {
     func getDataWeather(city: String) async throws -> MapWrapper
+    func getDataForecast(city: String) async throws -> MapForestWrapper
 }

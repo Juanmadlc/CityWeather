@@ -20,6 +20,10 @@ final class MapServicesAPIClient: MapServicesAPIClientProtocol {
         let response = try await network.getDataWeather(city: city)
         return try JSONDecoder().decode(MapWrapper.self, from: response)
     }
-
+    
+    func getDataForecast(city: String) async throws -> MapForestWrapper {
+        let response = try await network.getDataForecast(city: city)
+        return try JSONDecoder().decode(MapForestWrapper.self, from: response)
+    }
+    
 }
-

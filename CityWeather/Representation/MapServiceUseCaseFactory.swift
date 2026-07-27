@@ -23,12 +23,15 @@ class MapServicesUseCaseFactory {
         let repository = MapServicesRepository(apiClient: apiClient)
         self.modelProtocol = repository
     }
-
+    
     
     // MARK: - Factory methods
     func getDataWeather(city: String) -> any AsyncUseCase {
         GetDataWeatherUseCase(modelProtocol: modelProtocol, city: city)
     }
-
+    
+    func getDataWeatherForecast(city: String) -> any AsyncUseCase {
+        GetDataWeatherForecastUseCase(modelProtocol: modelProtocol, city: city)
+    }
+    
 }
-

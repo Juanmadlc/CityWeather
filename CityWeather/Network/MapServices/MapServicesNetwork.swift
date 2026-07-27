@@ -12,5 +12,8 @@ class MapServicesNetwork: NetworkManager, MapServicesNetworkProtocol {
     func getDataWeather(city: String) async throws -> Data {
         try await call(endpoint: MapServicesRouter.getDataWeather(city: city))
     }
+    
+    func getDataForecast(city: String) async throws -> Data {
+        try await call(endpoint: MapServicesRouter.getDataForecast(city: city))
+    }
 }
-

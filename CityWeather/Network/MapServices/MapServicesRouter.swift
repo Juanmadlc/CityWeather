@@ -9,6 +9,7 @@ import Foundation
 
 public enum MapServicesRouter: NetworkCall {
     case getDataWeather(city: String)
+    case getDataForecast(city: String)
 
     var path: URLComponents {
         var components = URLComponents()
@@ -18,6 +19,8 @@ public enum MapServicesRouter: NetworkCall {
             switch self {
             case .getDataWeather:
                 return MapServicesEndpoints.dataWeather
+            case .getDataForecast:
+                return MapServicesEndpoints.dataForecast
             }
         }()
         components.queryItems = queryItems()
@@ -32,7 +35,7 @@ public enum MapServicesRouter: NetworkCall {
     private func queryItems() -> [URLQueryItem] {
         var items: [URLQueryItem] = [URLQueryItem(name: "appid", value: MapServicesEndpoints.appid)]
         switch self {
-        case .getDataWeather(let city):
+        case .getDataWeather(let city), .getDataForecast(let city):
             items.append(contentsOf: [URLQueryItem(name: "q", value: city),
                                       URLQueryItem(name: "units", value: MapServicesEndpoints.units),
                                       URLQueryItem(name: "lang", value: MapServicesEndpoints.language)])
