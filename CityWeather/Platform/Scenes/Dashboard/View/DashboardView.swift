@@ -98,23 +98,28 @@ struct TimeHoursView: View {
     let hours: [HourlyForecastModel]
     
     var body: some View {
-        ScrollView(.horizontal, showsIndicators: false) {
-            HStack(spacing: 20) {
-                ForEach(0..<hours.count, id: \.self) { index in
-                    let hour = hours[index]
-                    VStack(spacing: 8) {
-                        Text(hour.time)
-                            .font(.system(size: 14, weight: .medium))
-                            .foregroundColor(.primary)
-                        Image(systemName: hour.icon)
-                            .font(.system(size: 22))
-                            .foregroundColor(hour.color)
-                    }
+        HStack(spacing: 0) {
+            ForEach(0..<hours.count, id: \.self) { index in
+                let hour = hours[index]
+                
+                VStack(spacing: 8) {
+                    Text(hour.time)
+                        .font(.system(size: 14, weight: .medium))
+                        .foregroundColor(.primary)
+                    Image(systemName: hour.icon)
+                        .font(.system(size: 22))
+                        .foregroundColor(hour.color)
+                        .frame(height: 22)
+                }
+                .frame(maxWidth: .infinity)
+                
+                if index == 0 {
+                    Divider()
+                        .frame(height: 30)
                 }
             }
-            .padding(.horizontal, 20)
         }
-        .frame(height: 80)
+        .padding(.vertical, 16)
         .background(RoundedRectangle(cornerRadius: 16).fill(Color.white))
         .padding(.horizontal, 20)
         .padding(.top, 16)

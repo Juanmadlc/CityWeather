@@ -113,17 +113,30 @@ class DashboardViewModel: DashboardViewModelProtocol {
     
 }
 
-
-struct WeatherDisplayModel {
-    let temp: String
-    let description: String
-    let minTemp: String
-    let maxTemp: String
-    var hourlyForecast: [HourlyForecastModel]
+public struct WeatherDisplayModel {
+    public let temp: String
+    public let description: String
+    public let minTemp: String
+    public let maxTemp: String
+    public var hourlyForecast: [HourlyForecastModel]
+    
+    public init(temp: String, description: String, minTemp: String, maxTemp: String, hourlyForecast: [HourlyForecastModel]) {
+        self.temp = temp
+        self.description = description
+        self.minTemp = minTemp
+        self.maxTemp = maxTemp
+        self.hourlyForecast = hourlyForecast
+    }
 }
 
-struct HourlyForecastModel {
-    let time: String
-    let icon: String
-    let color: Color
+public struct HourlyForecastModel {
+    public let time: String
+    public let icon: String
+    public let color: Color
+    
+    public init(time: String, icon: String, color: Color) {
+        self.time = time
+        self.icon = icon
+        self.color = color
+    }
 }
