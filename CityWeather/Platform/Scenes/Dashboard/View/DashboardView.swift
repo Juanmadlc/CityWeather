@@ -20,15 +20,20 @@ struct DashboardView<ViewModel>: View where ViewModel: DashboardViewModelProtoco
     }
     
     var body: some View {
-        VStack(spacing: 0) {
-            if let displayModel = viewModel.weatherDisplayModel {
-                TemperatureView(model: displayModel)
-            } else {
-                ProgressView() // TODO: 01 Implementar mensaje Ocurrió un error con la ciudad escogida puedes cambiar la ciudad desde Ajustes , e implementar para pulsar en ajustes
+        ZStack {
+            Color(UIColor.systemGroupedBackground)
+                .ignoresSafeArea()
+            
+            VStack(spacing: 0) {
+                if let displayModel = viewModel.weatherDisplayModel {
+                    TemperatureView(model: displayModel)
+                    TimeHoursView()
+                } else {
+                    ProgressView()
+                }
+                Spacer()
             }
-            Spacer()
         }
-        .background(Color(UIColor.systemBackground))
         .commonsNavigationBar(title: city) {
             Button(action: {
                 // TODO: 01 Acción para abrir pantalla de Ajustes (Settings)
@@ -73,6 +78,44 @@ struct TemperatureView: View {
                 .foregroundColor(.secondary)
         }
         .padding(.top, 20)
+    }
+}
+
+struct TimeHoursView: View {
+    struct HourModel: Identifiable {
+        let id = UUID()
+        let time: String
+        let icon: String
+    }
+    
+    let hours: [HourModel] = [
+        HourModel(time: "Now", icon: "sun.max.fill"),
+        HourModel(time: "1 PM", icon: "sun.max.fill"),
+        HourModel(time: "2 PM", icon: "sun.max.fill"),
+        HourModel(time: "2 PM", icon: "sun.max.fill"),
+        HourModel(time: "3 PM", icon: "sun.max.fill")
+    ]
+    
+    var body: some View {
+        ScrollView(.horizontal, showsIndicators: false) {
+            HStack(spacing: 20) {
+                ForEach(hours) { hour in
+                    VStack(spacing: 8) {
+                        Text(hour.time)
+                            .font(.system(size: 14, weight: .medium))
+                            .foregroundColor(.primary)
+                        Image(systemName: hour.icon)
+                            .font(.system(size: 20))
+                            .foregroundColor(.yellow)
+                    }
+                }
+            }
+            .padding(.horizontal, 20)
+        }
+        .frame(height: 80)
+        .background(RoundedRectangle(cornerRadius: 16).fill(Color.white))
+        .padding(.horizontal, 20)
+        .padding(.top,16)
     }
 }
 
