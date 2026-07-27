@@ -9,6 +9,7 @@ import SwiftUI
 
 protocol DashboardViewModelOutput: ObservableObject {
     var weatherDisplayModel: WeatherDisplayModel? { get }
+    var hasError: Bool { get }
 }
 
 protocol DashboardViewModelInput: ObservableObject {
@@ -21,6 +22,7 @@ protocol DashboardViewModelProtocol: DashboardViewModelOutput, DashboardViewMode
 class DashboardViewModel: DashboardViewModelProtocol {
     // MARK: - Properties
     @Published var weatherDisplayModel: WeatherDisplayModel?
+    @Published var hasError: Bool = false
     private var mapServicesUseCaseFactory: MapServicesUseCaseFactory
     
     init(mapServicesUseCaseFactory: MapServicesUseCaseFactory) {
@@ -29,6 +31,7 @@ class DashboardViewModel: DashboardViewModelProtocol {
     
     // MARK: - Fetchs
     @MainActor func fetchDataWeather(city: String) async {
+        hasError = false
         do {
             let useCase = mapServicesUseCaseFactory.getDataWeather(city: city)
             if let wrapper = try await useCase.execute() as? MapWrapper {
@@ -36,10 +39,12 @@ class DashboardViewModel: DashboardViewModelProtocol {
             }
         } catch {
             Log.error("Error: \(error)")
+            hasError = true
         }
     }
     
     @MainActor func fetchDataWeatherForecast(city: String) async {
+        hasError = false
         do {
             let useCase = mapServicesUseCaseFactory.getDataWeatherForecast(city: city)
             if let wrapper = try await useCase.execute() as? MapForestWrapper {
@@ -47,6 +52,7 @@ class DashboardViewModel: DashboardViewModelProtocol {
             }
         } catch {
             Log.error("Error: \(error)")
+            hasError = true
         }
     }
     

@@ -25,22 +25,13 @@ struct DashboardView<ViewModel>: View where ViewModel: DashboardViewModelProtoco
                 .ignoresSafeArea()
             
             VStack(spacing: 0) {
-                if let displayModel = viewModel.weatherDisplayModel, !displayModel.hourlyForecast.isEmpty {
+                if viewModel.hasError {
+                    ErrorWeatherView(message: "Ocurrió un error al seleccionar la ciudad, comprueba la conexión o cambia de ciudad desde ajustes")
+                } else if let displayModel = viewModel.weatherDisplayModel, !displayModel.hourlyForecast.isEmpty {
                     TemperatureView(model: displayModel)
                     TimeHoursView(hours: displayModel.hourlyForecast)
-                            
                 } else {
-                    VStack(spacing: 16) {
-                        Image(systemName: "exclamationmark.triangle.fill")
-                            .font(.system(size: 40))
-                            .foregroundColor(.secondary)
-                        Text("Ocurrió un error al seleccionar la ciudad, comprueba la conexión o cambia de ciudad desde ajustes")
-                            .font(.system(size: 16, weight: .medium))
-                            .multilineTextAlignment(.center)
-                            .foregroundColor(.secondary)
-                            .padding(.horizontal, 40)
-                    }
-                    .padding(.top, 100)
+                    ProgressView()
                 }
                 Spacer()
             }
@@ -129,6 +120,7 @@ struct TimeHoursView: View {
 // MARK: Preview
 struct DashboardView_Previews: PreviewProvider {
     class PreviewDashboardViewModel: DashboardViewModelProtocol {
+        var hasError: Bool = false
         var weatherDisplayModel: WeatherDisplayModel? = .init(temp: "28°", description: "Sunny", minTemp: "22°", maxTemp: "32°", hourlyForecast: [
             .init(time: "Now", icon: "sun.max.fill", color: .yellow),
             .init(time: "1 PM", icon: "sun.max.fill", color: .yellow),

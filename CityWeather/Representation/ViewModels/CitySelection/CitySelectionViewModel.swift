@@ -10,6 +10,7 @@ import Foundation
 protocol CitySelectionViewModelOutput: ObservableObject {
     var shouldNavigateToDashboard: Bool { get set }
     var dashboardCity: String { get }
+    var isLoading: Bool { get }
 }
 
 protocol CitySelectionViewModelInput: ObservableObject {
@@ -25,6 +26,7 @@ class CitySelectionViewModel: CitySelectionViewModelProtocol {
     @Published var shouldNavigateToDashboard = false
     @Published private(set) var dashboardCity = ""
     @Published private(set) var errorMessage: String?
+    @Published private(set) var isLoading = false
 
     private let cityStorage: UserDefaultsStorageProtocol
     private var hasCheckedSavedCity = false
@@ -70,6 +72,7 @@ class CitySelectionViewModel: CitySelectionViewModelProtocol {
         guard !trimmedCity.isEmpty else { return }
         cityStorage.saveSelectedCity(trimmedCity)
         dashboardCity = trimmedCity
+        isLoading = true
         shouldNavigateToDashboard = true
     }
 }
