@@ -93,6 +93,9 @@ struct CitySelectionView<ViewModel>: View where ViewModel: CitySelectionViewMode
         .navigationDestination(isPresented: $viewModel.shouldNavigateToDashboard) {
             connector.navigateToDashboard(city: viewModel.dashboardCity)
         }
+        .onDisappear {
+            viewModel.resetLoading()
+        }
         .task {
             viewModel.onAppear()
         }
@@ -191,6 +194,7 @@ struct CitySelectionView_Previews: PreviewProvider {
             dashboardCity = city.trimmingCharacters(in: .whitespacesAndNewlines)
             shouldNavigateToDashboard = true
         }
+        func resetLoading() {return}
     }
 
     class PreviewCitySelectionConnector: CitySelectionConnector {}

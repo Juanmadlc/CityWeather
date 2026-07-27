@@ -17,6 +17,7 @@ protocol CitySelectionViewModelInput: ObservableObject {
     func onAppear()
     func getCurrentCity() async -> String?
     func didTapContinue(city: String)
+    func resetLoading()
 }
 
 protocol CitySelectionViewModelProtocol: CitySelectionViewModelOutput, CitySelectionViewModelInput {}
@@ -39,7 +40,7 @@ class CitySelectionViewModel: CitySelectionViewModelProtocol {
     }
     
     // MARK: Funcs
-    
+
     func onAppear() {
         guard !hasCheckedSavedCity else { return }
         hasCheckedSavedCity = true
@@ -48,8 +49,12 @@ class CitySelectionViewModel: CitySelectionViewModelProtocol {
               !savedCity.isEmpty else { return }
         
         dashboardCity = savedCity
+        isLoading = true
         shouldNavigateToDashboard = true
-        
+    }
+    
+    func resetLoading() {
+        isLoading = false
     }
     
     func getCurrentCity() async -> String? {
@@ -60,7 +65,7 @@ class CitySelectionViewModel: CitySelectionViewModelProtocol {
             return ""
         }
     }
-
+    
     private func getLocations() async throws -> String? {
         locationManager.requestLocation()
 
@@ -76,4 +81,3 @@ class CitySelectionViewModel: CitySelectionViewModelProtocol {
         shouldNavigateToDashboard = true
     }
 }
-
