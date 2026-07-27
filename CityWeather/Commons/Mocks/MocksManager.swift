@@ -23,4 +23,13 @@ final class MocksManager {
         let data = try Data(contentsOf: url)
         return data
     }
+    
+    func getMockDataForecast() throws -> Data {
+        guard let path = Bundle.main.path(forResource: "mockForecast", ofType: "json") else {
+            throw NSError(domain: "MapServicesClient", code: 404, userInfo: [NSLocalizedDescriptionKey: "Archivo JSON no encontrado"])
+        }
+        let url = URL(fileURLWithPath: path)
+        let data = try Data(contentsOf: url)
+        return data
+    }
 }

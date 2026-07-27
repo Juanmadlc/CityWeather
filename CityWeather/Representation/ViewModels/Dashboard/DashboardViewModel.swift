@@ -43,7 +43,7 @@ class DashboardViewModel: DashboardViewModelProtocol {
         do {
             let useCase = mapServicesUseCaseFactory.getDataWeatherForecast(city: city)
             if let wrapper = try await useCase.execute() as? MapForestWrapper {
-                updateForecastDisplayModel(from: wrapper)
+                updateHourlyForecastDisplayModel(from: wrapper)
             }
         } catch {
             Log.error("Error: \(error)")
@@ -65,18 +65,18 @@ class DashboardViewModel: DashboardViewModelProtocol {
         )
     }
     
-    private func updateForecastDisplayModel(from wrapper: MapForestWrapper) {
+    private func updateHourlyForecastDisplayModel(from wrapper: MapForestWrapper) {
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
         
         let displayFormatter = DateFormatter()
         displayFormatter.dateFormat = "h a"
         
-        let forecastItems = wrapper.list.prefix(5).enumerated().map { (index, item) -> HourlyForecast in
+        let forecastItems = wrapper.list.prefix(5).enumerated().map { (index, item) -> HourlyForecastModel in
             let date = formatter.date(from: item.dtTxt) ?? Date()
             let timeString = displayFormatter.string(from: date)
             let iconCode = item.weather.first?.icon ?? ""
-            return HourlyForecast(
+            return HourlyForecastModel(
                 time: index == 0 ? "Now" : timeString,
                 icon: weatherAppearance(from: iconCode).icon,
                 color: weatherAppearance(from: iconCode).color
@@ -118,11 +118,12 @@ struct WeatherDisplayModel {
     let description: String
     let minTemp: String
     let maxTemp: String
-    var hourlyForecast: [HourlyForecast]
+    var hourlyForecast: [HourlyForecastModel]
 }
 
-struct HourlyForecast {
+struct HourlyForecastModel {
     let time: String
     let icon: String
     let color: Color
 }
+

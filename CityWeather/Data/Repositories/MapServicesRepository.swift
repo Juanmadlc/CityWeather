@@ -25,7 +25,11 @@ final class MapServicesRepository: MapServicesModelProtocol {
     }
     
     func getDataForecast(city: String) async throws -> MapForestWrapper {
-        // TODO: 01 Falta el mock
+        if MocksManager.shared.shouldUseMockData() {
+            let mockData = try MocksManager.shared.getMockDataForecast()
+            let decoder = JSONDecoder()
+            return try decoder.decode(MapForestWrapper.self, from: mockData)
+        }
         return try await apiClient.getDataForecast(city: city)
     }
     

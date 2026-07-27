@@ -32,7 +32,7 @@ struct DashboardView<ViewModel>: View where ViewModel: DashboardViewModelProtoco
                             .padding(.top, 40)
                     }
                 } else {
-                    ProgressView()
+                    ProgressView() 
                 }
                 Spacer()
             }
@@ -87,7 +87,7 @@ struct TemperatureView: View {
 }
 
 struct TimeHoursView: View {
-    let hours: [HourlyForecast]
+    let hours: [HourlyForecastModel]
     
     var body: some View {
         ScrollView(.horizontal, showsIndicators: false) {
