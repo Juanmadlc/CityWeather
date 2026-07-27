@@ -43,7 +43,7 @@ class DashboardViewModel: DashboardViewModelProtocol {
         do {
             let useCase = mapServicesUseCaseFactory.getDataWeatherForecast(city: city)
             if let wrapper = try await useCase.execute() as? MapForestWrapper {
-                updateHourlyForecastDisplayModel(from: wrapper)
+                updateForecastDisplayModel(from: wrapper)
             }
         } catch {
             Log.error("Error: \(error)")
@@ -65,7 +65,7 @@ class DashboardViewModel: DashboardViewModelProtocol {
         )
     }
     
-    private func updateHourlyForecastDisplayModel(from wrapper: MapForestWrapper) {
+    private func updateForecastDisplayModel(from wrapper: MapForestWrapper) {
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
         
@@ -113,6 +113,7 @@ class DashboardViewModel: DashboardViewModelProtocol {
     
 }
 
+
 struct WeatherDisplayModel {
     let temp: String
     let description: String
@@ -126,4 +127,3 @@ struct HourlyForecastModel {
     let icon: String
     let color: Color
 }
-

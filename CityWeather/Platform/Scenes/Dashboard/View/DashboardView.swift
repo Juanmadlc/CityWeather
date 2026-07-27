@@ -25,14 +25,22 @@ struct DashboardView<ViewModel>: View where ViewModel: DashboardViewModelProtoco
                 .ignoresSafeArea()
             
             VStack(spacing: 0) {
-                if let displayModel = viewModel.weatherDisplayModel {
+                if let displayModel = viewModel.weatherDisplayModel, !displayModel.hourlyForecast.isEmpty {
                     TemperatureView(model: displayModel)
-                    if !displayModel.hourlyForecast.isEmpty {
-                        TimeHoursView(hours: displayModel.hourlyForecast)
-                            .padding(.top, 40)
-                    }
+                    TimeHoursView(hours: displayModel.hourlyForecast)
+                            
                 } else {
-                    ProgressView() 
+                    VStack(spacing: 16) {
+                        Image(systemName: "exclamationmark.triangle.fill")
+                            .font(.system(size: 40))
+                            .foregroundColor(.secondary)
+                        Text("Ocurrió un error al seleccionar la ciudad, comprueba la conexión o cambia de ciudad desde ajustes")
+                            .font(.system(size: 16, weight: .medium))
+                            .multilineTextAlignment(.center)
+                            .foregroundColor(.secondary)
+                            .padding(.horizontal, 40)
+                    }
+                    .padding(.top, 100)
                 }
                 Spacer()
             }
@@ -109,6 +117,7 @@ struct TimeHoursView: View {
         .frame(height: 80)
         .background(RoundedRectangle(cornerRadius: 16).fill(Color.white))
         .padding(.horizontal, 20)
+        .padding(.top, 16)
     }
 }
 

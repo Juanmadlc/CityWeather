@@ -59,6 +59,9 @@
         }
       }
     },
+    "Ocurrió un error al seleccionar la ciudad, comprueba la conexión o cambia de ciudad desde ajustes" : {
+
+    },
     "Search for a city" : {
       "localizations" : {
         "es" : {
