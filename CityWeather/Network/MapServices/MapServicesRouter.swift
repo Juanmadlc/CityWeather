@@ -1,5 +1,5 @@
 //
-//  MapServicesRouter.swift.swift
+//  MapServicesRouter.swift
 //  CityWeather
 //
 //  Created by Juan Manuel de la Cruz on 27/3/26.
@@ -15,14 +15,10 @@ public enum MapServicesRouter: NetworkCall {
         var components = URLComponents()
         components.scheme = HTTPScheme.secure
         components.host = MapServicesEndpoints.environment
-        components.path = {
-            switch self {
-            case .getDataWeather:
-                return MapServicesEndpoints.dataWeather
-            case .getDataForecast:
-                return MapServicesEndpoints.dataForecast
-            }
-        }()
+        components.path = switch self {
+        case .getDataWeather: MapServicesEndpoints.dataWeather
+        case .getDataForecast: MapServicesEndpoints.dataForecast
+        }
         components.queryItems = queryItems()
         return components
     }
