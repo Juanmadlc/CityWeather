@@ -41,4 +41,4 @@ Package.resolved
 # Archivos temporales del sistema Mac
 .DS_Store
 *.swp
-*~
+*~MapServicesApiKey.swift
