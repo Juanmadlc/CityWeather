@@ -11,7 +11,7 @@ final class MocksManager {
     let isMockMode = false
     static let shared = MocksManager()
         
-    func shouldUseMockData() -> Bool { // TODO: 01 Falta comprobar
+    func shouldUseMockData() -> Bool {
         return isMockMode
     }
     // MARK: MOCKS

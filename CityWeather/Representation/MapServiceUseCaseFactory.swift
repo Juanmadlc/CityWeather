@@ -18,10 +18,17 @@ class MapServicesUseCaseFactory {
     }
     
     init() {
-        let apiNetwork = MapServicesNetwork(baseURL: MapServicesEndpoints.environment)
-        let apiClient = MapServicesAPIClient(network: apiNetwork)
-        let repository = MapServicesRepository(apiClient: apiClient)
+        let repository = MapServicesRepository(apiClient: Self.makeAPIClient())
         self.modelProtocol = repository
+    }
+    
+    private static func makeAPIClient() -> MapServicesAPIClientProtocol {
+        if MocksManager.shared.shouldUseMockData() {
+            return MockMapServicesAPIClient()
+        } else {
+            let apiNetwork = MapServicesNetwork(baseURL: MapServicesEndpoints.environment)
+            return MapServicesAPIClient(network: apiNetwork)
+        }
     }
     
     
