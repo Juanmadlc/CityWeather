@@ -8,12 +8,13 @@
 import Foundation
 
 extension Date {
+    private static let formatter = DateFormatter()
+
     func toString(as format: DateFormat = .simpleDate,
                   for locale: String = Constants.Locale.esLocale) -> String {
-        let dateFormatter = DateFormatter()
-        dateFormatter.locale = Locale(identifier: locale)
-        dateFormatter.dateFormat = format.rawValue
-        return dateFormatter.string(from: self)
+        Self.formatter.locale = Locale(identifier: locale)
+        Self.formatter.dateFormat = format.rawValue
+        return Self.formatter.string(from: self)
     }
 }
 
