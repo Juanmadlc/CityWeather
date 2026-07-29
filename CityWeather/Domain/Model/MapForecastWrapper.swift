@@ -1,5 +1,5 @@
 //
-//  MapForestWrapper.swift
+//  MapForecastWrapper.swift
 //  CityWeather
 //
 //  Created by Juan Manuel de la Cruz on 27/7/26.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct MapForestWrapper: Decodable {
+struct MapForecastWrapper: Decodable {
     let cod: String
     let message, cnt: Int
     let list: [ForecastItem]

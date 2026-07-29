@@ -41,14 +41,14 @@
 		964055492F76F1110021407D /* MapServicesRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 964055482F76F1110021407D /* MapServicesRepository.swift */; };
 		9640554C2F76F17C0021407D /* MapServicesModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9640554B2F76F17C0021407D /* MapServicesModelProtocol.swift */; };
 		964055532F76F5D40021407D /* MocksManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 964055522F76F5D40021407D /* MocksManager.swift */; };
-		96486758301777EB008E1D71 /* MapForestWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96486757301777EB008E1D71 /* MapForestWrapper.swift */; };
+		96486758301777EB008E1D71 /* MapForecastWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96486757301777EB008E1D71 /* MapForecastWrapper.swift */; };
 		9648675A301779AD008E1D71 /* GetDataWeatherForecastUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96486759301779AD008E1D71 /* GetDataWeatherForecastUseCase.swift */; };
 		9648675E30178B27008E1D71 /* mockForecast.json in Resources */ = {isa = PBXBuildFile; fileRef = 9648675D30178B27008E1D71 /* mockForecast.json */; };
 		9648676930179BE6008E1D71 /* ErrorWeatherView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9648676830179BE6008E1D71 /* ErrorWeatherView.swift */; };
 		9650E9A02FF520240036882D /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9650E99F2FF520240036882D /* LocationManager.swift */; };
 		96E095CA2FE940E1005C2313 /* CitySelectionConnector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E095C92FE940E1005C2313 /* CitySelectionConnector.swift */; };
 		96ED46DA3018CEFF002195D0 /* HTTPMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 962A42372F5B34B500B79DE9 /* HTTPMethod.swift */; };
-		96ED46DB3018CEFF002195D0 /* MapForestWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96486757301777EB008E1D71 /* MapForestWrapper.swift */; };
+		96ED46DB3018CEFF002195D0 /* MapForecastWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96486757301777EB008E1D71 /* MapForecastWrapper.swift */; };
 		96ED46DC3018CEFF002195D0 /* MapServicesNetworkProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9640552D2F76B4920021407D /* MapServicesNetworkProtocol.swift */; };
 		96ED46DD3018CEFF002195D0 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9650E99F2FF520240036882D /* LocationManager.swift */; };
 		96ED46DE3018CEFF002195D0 /* MapWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9640553B2F76E8910021407D /* MapWrapper.swift */; };
@@ -153,7 +153,7 @@
 		964055482F76F1110021407D /* MapServicesRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapServicesRepository.swift; sourceTree = "<group>"; };
 		9640554B2F76F17C0021407D /* MapServicesModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapServicesModelProtocol.swift; sourceTree = "<group>"; };
 		964055522F76F5D40021407D /* MocksManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MocksManager.swift; sourceTree = "<group>"; };
-		96486757301777EB008E1D71 /* MapForestWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapForestWrapper.swift; sourceTree = "<group>"; };
+		96486757301777EB008E1D71 /* MapForecastWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapForecastWrapper.swift; sourceTree = "<group>"; };
 		96486759301779AD008E1D71 /* GetDataWeatherForecastUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetDataWeatherForecastUseCase.swift; sourceTree = "<group>"; };
 		9648675D30178B27008E1D71 /* mockForecast.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = mockForecast.json; sourceTree = "<group>"; };
 		9648676830179BE6008E1D71 /* ErrorWeatherView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorWeatherView.swift; sourceTree = "<group>"; };
@@ -446,7 +446,7 @@
 			isa = PBXGroup;
 			children = (
 				9640553B2F76E8910021407D /* MapWrapper.swift */,
-				96486757301777EB008E1D71 /* MapForestWrapper.swift */,
+				96486757301777EB008E1D71 /* MapForecastWrapper.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -808,7 +808,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				962A42382F5B34B500B79DE9 /* HTTPMethod.swift in Sources */,
-				96486758301777EB008E1D71 /* MapForestWrapper.swift in Sources */,
+				96486758301777EB008E1D71 /* MapForecastWrapper.swift in Sources */,
 				9640552E2F76B4920021407D /* MapServicesNetworkProtocol.swift in Sources */,
 				9650E9A02FF520240036882D /* LocationManager.swift in Sources */,
 				9640553C2F76E8910021407D /* MapWrapper.swift in Sources */,
@@ -870,7 +870,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				96ED46DA3018CEFF002195D0 /* HTTPMethod.swift in Sources */,
-				96ED46DB3018CEFF002195D0 /* MapForestWrapper.swift in Sources */,
+				96ED46DB3018CEFF002195D0 /* MapForecastWrapper.swift in Sources */,
 				96ED46DC3018CEFF002195D0 /* MapServicesNetworkProtocol.swift in Sources */,
 				96ED46DD3018CEFF002195D0 /* LocationManager.swift in Sources */,
 				96ED46DE3018CEFF002195D0 /* MapWrapper.swift in Sources */,

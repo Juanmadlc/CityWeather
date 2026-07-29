@@ -9,5 +9,5 @@ import Foundation
 
 protocol MapServicesAPIClientProtocol {
     func getDataWeather(city: String) async throws -> MapWrapper
-    func getDataForecast(city: String) async throws -> MapForestWrapper
+    func getDataForecast(city: String) async throws -> MapForecastWrapper
 }

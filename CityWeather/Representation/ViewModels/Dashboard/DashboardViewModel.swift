@@ -47,7 +47,7 @@ class DashboardViewModel: DashboardViewModelProtocol {
         hasError = false
         do {
             let useCase = mapServicesUseCaseFactory.getDataWeatherForecast(city: city)
-            if let wrapper = try await useCase.execute() as? MapForestWrapper {
+            if let wrapper = try await useCase.execute() as? MapForecastWrapper {
                 updateForecastDisplayModel(from: wrapper)
             }
         } catch {
@@ -71,7 +71,7 @@ class DashboardViewModel: DashboardViewModelProtocol {
         )
     }
     
-    private func updateForecastDisplayModel(from wrapper: MapForestWrapper) {
+    private func updateForecastDisplayModel(from wrapper: MapForecastWrapper) {
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
         
