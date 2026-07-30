@@ -120,7 +120,9 @@ struct TimeHoursView: View {
 
 struct DayForecast: View {
     
-    private let forecastDays: [(day: String, temperature: String, description: String)] = [
+    private let forecastDays: [
+        (day: String, temperature: String, description: String)
+    ] = [
         (day: "Tuesday", temperature: "24°", description: "Mostly Sunny"),
         (day: "Wednesday", temperature: "23°", description: "Partly Cloudy"),
         (day: "Thursday", temperature: "29°", description: "Showers"),
@@ -129,23 +131,25 @@ struct DayForecast: View {
     ]
     
     var body: some View {
-        VStack(spacing: 0) {
+        VStack(alignment: .leading, spacing: 8) {
             
             header
-            ForEach(forecastDays.indices, id: \.self) { index in
-                forecastRow(for: forecastDays[index])
-                
-               Divider().padding(.leading, 16)
+            
+            VStack(spacing: 0) {
+                ForEach(forecastDays.indices, id: \.self) { index in
+                    forecastRow(for: forecastDays[index])
+                    Divider().padding(.leading, 16)
+                }
             }
-        }
-        .background(Color(UIColor.systemBackground))
-        .clipShape(RoundedRectangle(cornerRadius: 16))
-        .overlay {
-            RoundedRectangle(cornerRadius: 16)
-                .stroke(
-                    Color(UIColor.separator).opacity(0.25),
-                    lineWidth: 1
-                )
+            .background(Color(UIColor.systemBackground))
+            .clipShape(RoundedRectangle(cornerRadius: 16))
+            .overlay {
+                RoundedRectangle(cornerRadius: 16)
+                    .stroke(
+                        Color(UIColor.separator).opacity(0.25),
+                        lineWidth: 1
+                    )
+            }
         }
         .padding(.horizontal, 20)
         .padding(.top, 16)
@@ -162,13 +166,15 @@ struct DayForecast: View {
             Spacer()
         }
         .foregroundColor(.secondary)
-        .padding(.horizontal, 16)
-        .frame(height: 38)
-        .background(Color(UIColor.secondarySystemGroupedBackground))
+        .padding(.horizontal, 4)
     }
     
     private func forecastRow(
-        for forecast: (day: String, temperature: String, description: String)
+        for forecast: (
+            day: String,
+            temperature: String,
+            description: String
+        )
     ) -> some View {
         HStack(spacing: 12) {
             Text(forecast.day)
