@@ -67,7 +67,8 @@ class DashboardViewModel: DashboardViewModelProtocol {
             description: description,
             minTemp: minTemp,
             maxTemp: maxTemp,
-            hourlyForecast: self.weatherDisplayModel?.hourlyForecast ?? []
+            hourlyForecast: self.weatherDisplayModel?.hourlyForecast ?? [],
+            dailyForecast: self.weatherDisplayModel?.dailyForecast ?? []
         )
     }
     
@@ -89,17 +90,49 @@ class DashboardViewModel: DashboardViewModelProtocol {
             )
         }
         
+        let dailyForecastItems = filterDailyForecast(from: wrapper)
+        
         if self.weatherDisplayModel != nil {
             self.weatherDisplayModel?.hourlyForecast = Array(forecastItems)
+            self.weatherDisplayModel?.dailyForecast = Array(dailyForecastItems)
         } else {
             self.weatherDisplayModel = WeatherDisplayModel(
                 temp: "--°",
                 description: "",
                 minTemp: "--°",
                 maxTemp: "--°",
-                hourlyForecast: Array(forecastItems)
+                hourlyForecast: Array(forecastItems),
+                dailyForecast: Array(dailyForecastItems)
             )
         }
+    }
+    
+    private func filterDailyForecast(from wrapper: MapForecastWrapper) -> [DailyForecastModel] {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        
+        let dayFormatter = DateFormatter()
+        dayFormatter.dateFormat = "EEEE"
+        
+        let dailyItems = wrapper.list.filter { $0.dtTxt.contains("12:00:00") }
+            .prefix(5)
+            .map { item -> DailyForecastModel in
+                let date = formatter.date(from: item.dtTxt) ?? Date()
+                let dayName = dayFormatter.string(from: date).capitalized
+                let iconCode = item.weather.first?.icon ?? ""
+                let appearance = weatherAppearance(from: iconCode)
+                let temp = String(format: "%.0f°", item.main.temp)
+                let description = item.weather.first?.description.capitalized ?? ""
+                
+                return DailyForecastModel(
+                    day: dayName,
+                    temperature: temp,
+                    description: description,
+                    icon: appearance.icon,
+                    color: appearance.color
+                )
+            }
+        return Array(dailyItems)
     }
     
     private func weatherAppearance(from icon: String) -> (icon: String, color: Color) {
@@ -116,7 +149,6 @@ class DashboardViewModel: DashboardViewModelProtocol {
         default: return ("cloud.fill", .gray)
         }
     }
-    
 }
 
 public struct WeatherDisplayModel {
@@ -125,13 +157,31 @@ public struct WeatherDisplayModel {
     public let minTemp: String
     public let maxTemp: String
     public var hourlyForecast: [HourlyForecastModel]
+    public var dailyForecast: [DailyForecastModel]
     
-    public init(temp: String, description: String, minTemp: String, maxTemp: String, hourlyForecast: [HourlyForecastModel]) {
+    public init(temp: String, description: String, minTemp: String, maxTemp: String, hourlyForecast: [HourlyForecastModel], dailyForecast: [DailyForecastModel] = []) {
         self.temp = temp
         self.description = description
         self.minTemp = minTemp
         self.maxTemp = maxTemp
         self.hourlyForecast = hourlyForecast
+        self.dailyForecast = dailyForecast
+    }
+}
+
+public struct DailyForecastModel {
+    public let day: String
+    public let temperature: String
+    public let description: String
+    public let icon: String
+    public let color: Color
+    
+    public init(day: String, temperature: String, description: String, icon: String, color: Color) {
+        self.day = day
+        self.temperature = temperature
+        self.description = description
+        self.icon = icon
+        self.color = color
     }
 }
 

@@ -30,7 +30,7 @@ struct DashboardView<ViewModel>: View where ViewModel: DashboardViewModelProtoco
                 } else if let displayModel = viewModel.weatherDisplayModel, !displayModel.hourlyForecast.isEmpty {
                     TemperatureView(model: displayModel)
                     TimeHoursView(hours: displayModel.hourlyForecast)
-                    DayForecast()
+                    DayForecast(forecastDays: displayModel.dailyForecast)
                 } else {
                     ProgressView()
                 }
@@ -119,16 +119,7 @@ struct TimeHoursView: View {
 }
 
 struct DayForecast: View {
-    
-    private let forecastDays: [
-        (day: String, temperature: String, description: String)
-    ] = [
-        (day: "Tuesday", temperature: "24°", description: "Mostly Sunny"),
-        (day: "Wednesday", temperature: "23°", description: "Partly Cloudy"),
-        (day: "Thursday", temperature: "29°", description: "Showers"),
-        (day: "Friday", temperature: "22°", description: "Thunderstorms"),
-        (day: "Saturday", temperature: "26°", description: "Cloudy")
-    ]
+    let forecastDays: [DailyForecastModel]
     
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
@@ -136,7 +127,7 @@ struct DayForecast: View {
             header
             
             VStack(spacing: 0) {
-                ForEach(forecastDays.indices, id: \.self) { index in
+                ForEach(0..<forecastDays.count, id: \.self) { index in
                     forecastRow(for: forecastDays[index])
                     Divider().padding(.leading, 16)
                 }
@@ -169,22 +160,17 @@ struct DayForecast: View {
         .padding(.horizontal, 4)
     }
     
-    private func forecastRow(
-        for forecast: (
-            day: String,
-            temperature: String,
-            description: String
-        )
-    ) -> some View {
+    private func forecastRow(for forecast: DailyForecastModel) -> some View {
         HStack(spacing: 12) {
             Text(forecast.day)
                 .font(.system(size: 15, weight: .medium))
                 .foregroundColor(.primary)
                 .frame(width: 92, alignment: .leading)
             
-            Image(systemName: "cloud.sun.fill")
+            Image(systemName: forecast.icon)
                 .font(.system(size: 23))
                 .symbolRenderingMode(.multicolor)
+                .foregroundColor(forecast.color)
                 .frame(width: 32)
             
             Text(forecast.temperature)
@@ -213,6 +199,8 @@ struct DashboardView_Previews: PreviewProvider {
             .init(time: "2 PM", icon: "cloud.sun.fill", color: .orange),
             .init(time: "3 PM", icon: "cloud.fill", color: .gray),
             .init(time: "4 PM", icon: "moon.fill", color: .indigo)
+        ], dailyForecast: [
+            .init(day: "Tuesday", temperature: "24°", description: "Mostly Sunny", icon: "sun.max.fill", color: .yellow)
         ])
         
         func fetchDataWeather(city: String) async {
