@@ -30,6 +30,7 @@ struct DashboardView<ViewModel>: View where ViewModel: DashboardViewModelProtoco
                 } else if let displayModel = viewModel.weatherDisplayModel, !displayModel.hourlyForecast.isEmpty {
                     TemperatureView(model: displayModel)
                     TimeHoursView(hours: displayModel.hourlyForecast)
+                    DayForecast()
                 } else {
                     ProgressView()
                 }
@@ -114,6 +115,85 @@ struct TimeHoursView: View {
         .background(RoundedRectangle(cornerRadius: 16).fill(Color.white))
         .padding(.horizontal, 20)
         .padding(.top, 16)
+    }
+}
+
+struct DayForecast: View {
+    
+    private let forecastDays: [(day: String, temperature: String, description: String)] = [
+        (day: "Tuesday", temperature: "24°", description: "Mostly Sunny"),
+        (day: "Wednesday", temperature: "23°", description: "Partly Cloudy"),
+        (day: "Thursday", temperature: "29°", description: "Showers"),
+        (day: "Friday", temperature: "22°", description: "Thunderstorms"),
+        (day: "Saturday", temperature: "26°", description: "Cloudy")
+    ]
+    
+    var body: some View {
+        VStack(spacing: 0) {
+            
+            header
+            ForEach(forecastDays.indices, id: \.self) { index in
+                forecastRow(for: forecastDays[index])
+                
+               Divider().padding(.leading, 16)
+            }
+        }
+        .background(Color(UIColor.systemBackground))
+        .clipShape(RoundedRectangle(cornerRadius: 16))
+        .overlay {
+            RoundedRectangle(cornerRadius: 16)
+                .stroke(
+                    Color(UIColor.separator).opacity(0.25),
+                    lineWidth: 1
+                )
+        }
+        .padding(.horizontal, 20)
+        .padding(.top, 16)
+    }
+    
+    private var header: some View {
+        HStack(spacing: 6) {
+            Image(systemName: "calendar")
+                .font(.system(size: 12, weight: .semibold))
+            
+            Text("5-DAY FORECAST")
+                .font(.system(size: 13, weight: .semibold))
+            
+            Spacer()
+        }
+        .foregroundColor(.secondary)
+        .padding(.horizontal, 16)
+        .frame(height: 38)
+        .background(Color(UIColor.secondarySystemGroupedBackground))
+    }
+    
+    private func forecastRow(
+        for forecast: (day: String, temperature: String, description: String)
+    ) -> some View {
+        HStack(spacing: 12) {
+            Text(forecast.day)
+                .font(.system(size: 15, weight: .medium))
+                .foregroundColor(.primary)
+                .frame(width: 92, alignment: .leading)
+            
+            Image(systemName: "cloud.sun.fill")
+                .font(.system(size: 23))
+                .symbolRenderingMode(.multicolor)
+                .frame(width: 32)
+            
+            Text(forecast.temperature)
+                .font(.system(size: 16, weight: .semibold))
+                .foregroundColor(.primary)
+                .frame(width: 42, alignment: .trailing)
+            
+            Text(forecast.description)
+                .font(.system(size: 14))
+                .foregroundColor(.secondary)
+                .lineLimit(1)
+                .frame(maxWidth: .infinity, alignment: .leading)
+        }
+        .padding(.horizontal, 16)
+        .frame(height: 54)
     }
 }
 
