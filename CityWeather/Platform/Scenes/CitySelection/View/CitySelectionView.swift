@@ -32,6 +32,11 @@ struct CitySelectionView<ViewModel>: View where ViewModel: CitySelectionViewMode
             return normalizedTokens.allSatisfy { token in haystack.contains(token) }
         }
     }
+    
+    private var cityListHeight: CGFloat {
+        CGFloat(min(filteredCities.count, CitySelectionLayout.visibleCityRows)) * CitySelectionLayout.cityRowHeight
+    }
+    
     // TODO: 01 CREAMOS EL ARRAY (Temporalmente aquí, en el futuro vendrá del viewModel)
     private let cities = [
         "New York",
@@ -79,6 +84,7 @@ struct CitySelectionView<ViewModel>: View where ViewModel: CitySelectionViewMode
                                 self.searchText = selected
                             })
                         }
+                        .frame(height: cityListHeight)
                         .cornerRadius(12)
                         .clipped()
                         
@@ -119,6 +125,11 @@ struct CitySelectionView<ViewModel>: View where ViewModel: CitySelectionViewMode
 
 // MARK: - Components
 
+private enum CitySelectionLayout {
+    static let visibleCityRows = 6
+    static let cityRowHeight: CGFloat = 56
+}
+
 struct UseCurrentLocationButton: View {
     let action: () -> Void
     
@@ -154,7 +165,6 @@ struct CityList: View {
             }
         }
         .background(Color(.secondarySystemGroupedBackground))
-        .frame(maxHeight: .infinity)
     }
 }
 
@@ -174,6 +184,7 @@ struct CityRow: View {
                     .foregroundColor(.secondary)
             }
             .padding(16)
+            .frame(height: CitySelectionLayout.cityRowHeight)
         }
     }
 }
