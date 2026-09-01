@@ -96,11 +96,17 @@ class DashboardViewModel: DashboardViewModelProtocol {
             self.weatherDisplayModel?.hourlyForecast = Array(forecastItems)
             self.weatherDisplayModel?.dailyForecast = Array(dailyForecastItems)
         } else {
+            let currentItem = wrapper.list.first
+            let temp = String(format: "%.0f°", currentItem?.main.temp ?? 0)
+            let minTemp = String(format: "%.0f°", currentItem?.main.tempMin ?? 0)
+            let maxTemp = String(format: "%.0f°", currentItem?.main.tempMax ?? 0)
+            let description = currentItem?.weather.first?.description.capitalized ?? ""
+
             self.weatherDisplayModel = WeatherDisplayModel(
-                temp: "--°",
-                description: "",
-                minTemp: "--°",
-                maxTemp: "--°",
+                temp: temp,
+                description: description,
+                minTemp: minTemp,
+                maxTemp: maxTemp,
                 hourlyForecast: Array(forecastItems),
                 dailyForecast: Array(dailyForecastItems)
             )
