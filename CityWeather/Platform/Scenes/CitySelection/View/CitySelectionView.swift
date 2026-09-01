@@ -60,33 +60,35 @@ struct CitySelectionView<ViewModel>: View where ViewModel: CitySelectionViewMode
                 ProgressView()
                     .scaleEffect(1.5)
             } else {
-                VStack {
-                    subtitleView
-                    
-                    UseCurrentLocationButton(action: {
-                        Task {
-                            let current = await viewModel.getCurrentCity() ?? ""
-                            self.searchText = current
-                        }
-                    })
-                    
-                    SearchBar(text: $searchText)
-                        .padding(.bottom, 16)
-                    
-                    ScrollView {
-                        CityList(cities: filteredCities, onSelect: { selected in
-                            self.searchText = selected
+                ScrollView {
+                    VStack {
+                        subtitleView
+                        
+                        UseCurrentLocationButton(action: {
+                            Task {
+                                let current = await viewModel.getCurrentCity() ?? ""
+                                self.searchText = current
+                            }
                         })
-                    }
-                    .cornerRadius(12)
-                    .clipped()
-                    
-                    NextButton(title: "Continue", action: {
-                        viewModel.didTapContinue(city: searchText)
-                    }).padding(.top, 16)
-                    
+                        
+                        SearchBar(text: $searchText)
+                            .padding(.bottom, 16)
+                        
+                        ScrollView {
+                            CityList(cities: filteredCities, onSelect: { selected in
+                                self.searchText = selected
+                            })
+                        }
+                        .cornerRadius(12)
+                        .clipped()
+                        
+                        NextButton(title: "Continue", action: {
+                            viewModel.didTapContinue(city: searchText)
+                        }).padding(.top, 16)
+                        
+                    }.padding(.horizontal, 24)
+
                 }
-                .padding(.horizontal, 24)
             }
         }
         .commonsNavigationBar(title: navBarTitle)

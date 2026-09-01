@@ -24,17 +24,18 @@ struct DashboardView<ViewModel>: View where ViewModel: DashboardViewModelProtoco
             Color(UIColor.systemGroupedBackground)
                 .ignoresSafeArea()
             
-            VStack(spacing: 0) {
-                if viewModel.hasError {
-                    ErrorWeatherView(message: "Ocurrió un error al seleccionar la ciudad, comprueba la conexión o cambia de ciudad desde ajustes")
-                } else if let displayModel = viewModel.weatherDisplayModel, !displayModel.hourlyForecast.isEmpty {
-                    TemperatureView(model: displayModel)
-                    TimeHoursView(hours: displayModel.hourlyForecast)
-                    DayForecast(forecastDays: displayModel.dailyForecast)
-                } else {
-                    ProgressView()
+            ScrollView {
+                VStack(spacing: 0) {
+                    if viewModel.hasError {
+                        ErrorWeatherView(message: "Ocurrió un error al seleccionar la ciudad, comprueba la conexión o cambia de ciudad desde ajustes")
+                    } else if let displayModel = viewModel.weatherDisplayModel, !displayModel.hourlyForecast.isEmpty {
+                        TemperatureView(model: displayModel)
+                        TimeHoursView(hours: displayModel.hourlyForecast)
+                        DayForecast(forecastDays: displayModel.dailyForecast)
+                    } else {
+                        ProgressView()
+                    }
                 }
-                Spacer()
             }
         }
         .commonsNavigationBar(title: city) {
