@@ -47,15 +47,13 @@ struct DashboardView<ViewModel>: View where ViewModel: DashboardViewModelProtoco
             }
         }
         .task {
-            await viewModel.fetchDataWeather(city: city)
-            await viewModel.fetchDataWeatherForecast(city: city)
+            await viewModel.loadWeather(city: city)
         }
         
         .onChange(of: scenePhase) { oldPhase, newPhase in
             if newPhase == .active {
                 Task {
-                    await viewModel.fetchDataWeather(city: city)
-                    await viewModel.fetchDataWeatherForecast(city: city)
+                    await viewModel.loadWeather(city: city)
                 }
             }
         }
@@ -203,11 +201,7 @@ struct DashboardView_Previews: PreviewProvider {
             .init(day: "Tuesday", temperature: "24°", description: "Mostly Sunny", icon: "sun.max.fill", color: .yellow)
         ])
         
-        func fetchDataWeather(city: String) async {
-            return
-        }
-        
-        func fetchDataWeatherForecast(city: String) async {
+        func loadWeather(city: String) async {
             return
         }
     }

@@ -13,8 +13,7 @@ protocol DashboardViewModelOutput: ObservableObject {
 }
 
 protocol DashboardViewModelInput: ObservableObject {
-    func fetchDataWeather(city: String) async
-    func fetchDataWeatherForecast(city: String) async
+    func loadWeather(city: String) async
 }
 
 protocol DashboardViewModelProtocol: DashboardViewModelOutput, DashboardViewModelInput {}
@@ -30,24 +29,17 @@ class DashboardViewModel: DashboardViewModelProtocol {
     }
     
     // MARK: - Fetchs
-    @MainActor func fetchDataWeather(city: String) async {
+    @MainActor func loadWeather(city: String) async {
         hasError = false
+        
         do {
-            let useCase = mapServicesUseCaseFactory.getDataWeather(city: city)
-            if let wrapper = try await useCase.execute() as? MapWrapper {
+            let weatherUseCase = mapServicesUseCaseFactory.getDataWeather(city: city)
+            if let wrapper = try await weatherUseCase.execute() as? MapWrapper {
                 updateDisplayModel(from: wrapper)
             }
-        } catch {
-            Log.error("Error: \(error)")
-            hasError = true
-        }
-    }
-    
-    @MainActor func fetchDataWeatherForecast(city: String) async {
-        hasError = false
-        do {
-            let useCase = mapServicesUseCaseFactory.getDataWeatherForecast(city: city)
-            if let wrapper = try await useCase.execute() as? MapForecastWrapper {
+            
+            let forecastUseCase = mapServicesUseCaseFactory.getDataWeatherForecast(city: city)
+            if let wrapper = try await forecastUseCase.execute() as? MapForecastWrapper {
                 updateForecastDisplayModel(from: wrapper)
             }
         } catch {
@@ -84,33 +76,18 @@ class DashboardViewModel: DashboardViewModelProtocol {
             let timeString = displayFormatter.string(from: date)
             let iconCode = item.weather.first?.icon ?? ""
             return HourlyForecastModel(
-                time: index == 0 ? "Now" : timeString,
+                time: timeString,
                 icon: weatherAppearance(from: iconCode).icon,
                 color: weatherAppearance(from: iconCode).color
             )
         }
         
         let dailyForecastItems = filterDailyForecast(from: wrapper)
+        guard var displayModel = weatherDisplayModel else { return }
         
-        if self.weatherDisplayModel != nil {
-            self.weatherDisplayModel?.hourlyForecast = Array(forecastItems)
-            self.weatherDisplayModel?.dailyForecast = Array(dailyForecastItems)
-        } else {
-            let currentItem = wrapper.list.first
-            let temp = String(format: "%.0f°", currentItem?.main.temp ?? 0)
-            let minTemp = String(format: "%.0f°", currentItem?.main.tempMin ?? 0)
-            let maxTemp = String(format: "%.0f°", currentItem?.main.tempMax ?? 0)
-            let description = currentItem?.weather.first?.description.capitalized ?? ""
-
-            self.weatherDisplayModel = WeatherDisplayModel(
-                temp: temp,
-                description: description,
-                minTemp: minTemp,
-                maxTemp: maxTemp,
-                hourlyForecast: Array(forecastItems),
-                dailyForecast: Array(dailyForecastItems)
-            )
-        }
+        displayModel.hourlyForecast = Array(forecastItems)
+        displayModel.dailyForecast = Array(dailyForecastItems)
+        weatherDisplayModel = displayModel
     }
     
     private func filterDailyForecast(from wrapper: MapForecastWrapper) -> [DailyForecastModel] {
