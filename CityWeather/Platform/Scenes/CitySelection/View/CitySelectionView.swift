@@ -19,17 +19,15 @@ struct CitySelectionView<ViewModel>: View where ViewModel: CitySelectionViewMode
         let query = searchText.trimmingCharacters(in: .whitespacesAndNewlines)
         guard !query.isEmpty else { return viewModel.cities }
         
-        let normalizedTokens = query
+        let normalizedQuery = query
             .folding(options: .diacriticInsensitive, locale: .current)
             .lowercased()
-            .split(whereSeparator: { $0.isWhitespace })
-            .map(String.init)
 
         return viewModel.cities.filter { city in
             let haystack = city
                 .folding(options: .diacriticInsensitive, locale: .current)
                 .lowercased()
-            return normalizedTokens.allSatisfy { token in haystack.contains(token) }
+            return haystack.contains(normalizedQuery)
         }
     }
     
