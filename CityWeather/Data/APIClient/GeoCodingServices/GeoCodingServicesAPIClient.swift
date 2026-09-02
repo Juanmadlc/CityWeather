@@ -6,3 +6,19 @@
 //
 
 import Foundation
+
+final class GeoCodingServicesAPIClient: GeoCodingServicesAPIClientProtocol {
+    // MARK: - Properties
+    private var network: GeoCodingServicesNetworkProtocol
+    
+    init(network: GeoCodingServicesNetworkProtocol) {
+        self.network = network
+    }
+    
+    // MARK: - Functions
+    func getDataSearch(name: String) async throws -> GeoCodingSearchWrapper {
+        let response = try await network.getDataSearch(name: name)
+        return try JSONDecoder().decode(GeoCodingSearchWrapper.self, from: response)
+    }
+    
+}

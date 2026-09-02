@@ -7,9 +7,9 @@
 
 import Foundation
 
-class GeoCodingNetwork: NetworkManager, GeoCodingNetworkProtocol {
+class GeoCodingServicesNetwork: NetworkManager, GeoCodingServicesNetworkProtocol {
     
     func getDataSearch(name: String) async throws -> Data {
-        try await call(endpoint: GeoCodingRouter.getDataSearch(name: name))
+        try await call(endpoint: GeoCodingServicesRouter.getDataSearch(name: name))
     }
 }

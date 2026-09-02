@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct GeoCodingEndPoints {
+struct GeoCodingServicesEndPoints {
     static var environment: String {
         switch Bundle.main.apiEnvironment {
             case .dev: return devEnvironment

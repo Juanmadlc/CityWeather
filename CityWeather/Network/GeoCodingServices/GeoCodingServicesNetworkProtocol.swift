@@ -8,6 +8,6 @@
 import Foundation
 
 
-protocol GeoCodingNetworkProtocol {
+protocol GeoCodingServicesNetworkProtocol {
     func getDataSearch(name: String) async throws -> Data
 }
