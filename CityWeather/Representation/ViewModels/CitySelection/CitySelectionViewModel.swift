@@ -11,6 +11,7 @@ protocol CitySelectionViewModelOutput: ObservableObject {
     var shouldNavigateToDashboard: Bool { get set }
     var dashboardCity: String { get }
     var isLoading: Bool { get }
+    var cities: [String] { get }
 }
 
 protocol CitySelectionViewModelInput: ObservableObject {
@@ -28,6 +29,28 @@ class CitySelectionViewModel: CitySelectionViewModelProtocol {
     @Published private(set) var dashboardCity = ""
     @Published private(set) var errorMessage: String?
     @Published private(set) var isLoading = false
+    let cities = [
+        "city.newYork".localized(),
+        "city.london".localized(),
+        "city.paris".localized(),
+        "city.tokyo".localized(),
+        "city.madrid".localized(),
+        "city.rome".localized(),
+        "city.berlin".localized(),
+        "city.beijing".localized(),
+        "city.sydney".localized(),
+        "city.dubai".localized(),
+        "city.losAngeles".localized(),
+        "city.mexicoCity".localized(),
+        "city.buenosAires".localized(),
+        "city.saoPaulo".localized(),
+        "city.toronto".localized(),
+        "city.singapore".localized(),
+        "city.hongKong".localized(),
+        "city.seoul".localized(),
+        "city.cairo".localized(),
+        "city.rioDeJaneiro".localized()
+    ]
 
     private let cityStorage: UserDefaultsStorageProtocol
     private var hasCheckedSavedCity = false

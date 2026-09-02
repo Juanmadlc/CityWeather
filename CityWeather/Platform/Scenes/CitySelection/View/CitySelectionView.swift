@@ -17,7 +17,7 @@ struct CitySelectionView<ViewModel>: View where ViewModel: CitySelectionViewMode
 
     private var filteredCities: [String] {
         let query = searchText.trimmingCharacters(in: .whitespacesAndNewlines)
-        guard !query.isEmpty else { return cities }
+        guard !query.isEmpty else { return viewModel.cities }
         
         let normalizedTokens = query
             .folding(options: .diacriticInsensitive, locale: .current)
@@ -25,7 +25,7 @@ struct CitySelectionView<ViewModel>: View where ViewModel: CitySelectionViewMode
             .split(whereSeparator: { $0.isWhitespace })
             .map(String.init)
 
-        return cities.filter { city in
+        return viewModel.cities.filter { city in
             let haystack = city
                 .folding(options: .diacriticInsensitive, locale: .current)
                 .lowercased()
@@ -36,20 +36,6 @@ struct CitySelectionView<ViewModel>: View where ViewModel: CitySelectionViewMode
     private var cityListHeight: CGFloat {
         CGFloat(min(filteredCities.count, CitySelectionLayout.visibleCityRows)) * CitySelectionLayout.cityRowHeight
     }
-    
-    // TODO: 01 CREAMOS EL ARRAY (Temporalmente aquí, en el futuro vendrá del viewModel)
-    private let cities = [
-        "New York",
-        "Los Angeles",
-        "Chicago",
-        "Houston",
-        "Phoenix",
-        "Philadelphia",
-        "San Antonio",
-        "San Diego",
-        "Dallas",
-        "Miami"
-    ]
     
     init(viewModel: ViewModel, connector: CitySelectionConnector) {
         self._viewModel = StateObject(wrappedValue: viewModel)
@@ -196,6 +182,14 @@ struct CitySelectionView_Previews: PreviewProvider {
         @Published var shouldNavigateToDashboard: Bool = false
         var dashboardCity: String = ""
         var isLoading: Bool = false
+        let cities = [
+            "New York",
+            "London",
+            "Paris",
+            "Tokyo",
+            "Madrid",
+            "Rome"
+        ]
 
         func onAppear() {}
 
