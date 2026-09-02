@@ -64,6 +64,8 @@
 		96D6ABE23048719F003E4E5D /* GeoCodingServicesModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96D6ABE03048719F003E4E5D /* GeoCodingServicesModelProtocol.swift */; };
 		96D6ABE530487225003E4E5D /* GeoCodingServicesRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96D6ABE430487225003E4E5D /* GeoCodingServicesRepository.swift */; };
 		96D6ABE630487225003E4E5D /* GeoCodingServicesRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96D6ABE430487225003E4E5D /* GeoCodingServicesRepository.swift */; };
+		96D6ABE830487B3E003E4E5D /* GetDataSearchGeoUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96D6ABE730487B3E003E4E5D /* GetDataSearchGeoUseCase.swift */; };
+		96D6ABE930487B3E003E4E5D /* GetDataSearchGeoUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96D6ABE730487B3E003E4E5D /* GetDataSearchGeoUseCase.swift */; };
 		96E095CA2FE940E1005C2313 /* CitySelectionConnector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E095C92FE940E1005C2313 /* CitySelectionConnector.swift */; };
 		96E56A3C301A190200DD7EA1 /* MockMapServicesAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E56A3B301A190200DD7EA1 /* MockMapServicesAPIClient.swift */; };
 		96E56A3D301A190200DD7EA1 /* MockMapServicesAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E56A3B301A190200DD7EA1 /* MockMapServicesAPIClient.swift */; };
@@ -190,6 +192,7 @@
 		96D6ABDD30486EFD003E4E5D /* GeoCodingSearchWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeoCodingSearchWrapper.swift; sourceTree = "<group>"; };
 		96D6ABE03048719F003E4E5D /* GeoCodingServicesModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeoCodingServicesModelProtocol.swift; sourceTree = "<group>"; };
 		96D6ABE430487225003E4E5D /* GeoCodingServicesRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeoCodingServicesRepository.swift; sourceTree = "<group>"; };
+		96D6ABE730487B3E003E4E5D /* GetDataSearchGeoUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetDataSearchGeoUseCase.swift; sourceTree = "<group>"; };
 		96E095C92FE940E1005C2313 /* CitySelectionConnector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CitySelectionConnector.swift; sourceTree = "<group>"; };
 		96E56A3B301A190200DD7EA1 /* MockMapServicesAPIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockMapServicesAPIClient.swift; sourceTree = "<group>"; };
 		96ED470D3018CEFF002195D0 /* CityWeatherProRelease.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CityWeatherProRelease.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -571,6 +574,7 @@
 		96D6ABE3304871E2003E4E5D /* GeoCodingServices */ = {
 			isa = PBXGroup;
 			children = (
+				96D6ABE730487B3E003E4E5D /* GetDataSearchGeoUseCase.swift */,
 			);
 			path = GeoCodingServices;
 			sourceTree = "<group>";
@@ -883,6 +887,7 @@
 				964055532F76F5D40021407D /* MocksManager.swift in Sources */,
 				962A422B2F5B32BD00B79DE9 /* CityWeatherApp.swift in Sources */,
 				96D6ABCB30486669003E4E5D /* GeoCodingServicesEndPoints.swift in Sources */,
+				96D6ABE930487B3E003E4E5D /* GetDataSearchGeoUseCase.swift in Sources */,
 				96D6ABD430486AA0003E4E5D /* GeoCodingRouter.swift in Sources */,
 				962B758630079EF30068E3D2 /* DashboardConnector.swift in Sources */,
 				962A425B2F5B3CE400B79DE9 /* StringExtension.swift in Sources */,
@@ -955,6 +960,7 @@
 				96ED46DF3018CEFF002195D0 /* MocksManager.swift in Sources */,
 				96ED46E03018CEFF002195D0 /* CityWeatherApp.swift in Sources */,
 				96D6ABCA30486669003E4E5D /* GeoCodingServicesEndPoints.swift in Sources */,
+				96D6ABE830487B3E003E4E5D /* GetDataSearchGeoUseCase.swift in Sources */,
 				96D6ABD330486AA0003E4E5D /* GeoCodingRouter.swift in Sources */,
 				96ED46E13018CEFF002195D0 /* DashboardConnector.swift in Sources */,
 				96ED46E23018CEFF002195D0 /* StringExtension.swift in Sources */,
