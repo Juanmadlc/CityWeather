@@ -274,22 +274,6 @@
         }
       }
     },
-    "city.rioDeJaneiro" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Rio de Janeiro"
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Río de Janeiro"
-          }
-        }
-      }
-    },
     "city.rome" : {
       "localizations" : {
         "en" : {
@@ -302,22 +286,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Roma"
-          }
-        }
-      }
-    },
-    "city.saoPaulo" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Sao Paulo"
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "São Paulo"
           }
         }
       }

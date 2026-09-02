@@ -43,13 +43,11 @@ class CitySelectionViewModel: CitySelectionViewModelProtocol {
         "city.losAngeles".localized(),
         "city.mexicoCity".localized(),
         "city.buenosAires".localized(),
-        "city.saoPaulo".localized(),
         "city.toronto".localized(),
         "city.singapore".localized(),
         "city.hongKong".localized(),
         "city.seoul".localized(),
-        "city.cairo".localized(),
-        "city.rioDeJaneiro".localized()
+        "city.cairo".localized()
     ]
 
     private let cityStorage: UserDefaultsStorageProtocol
