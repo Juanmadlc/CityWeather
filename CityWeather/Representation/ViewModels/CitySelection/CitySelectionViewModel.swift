@@ -134,7 +134,7 @@ class CitySelectionViewModel: CitySelectionViewModelProtocol {
             
             let city: String
             if shouldShowCountryCode,
-               let country = result.country,
+               let country = result.countryCode,
                !country.isEmpty {
                 city = "\(name), \(country)"
             } else {
@@ -155,12 +155,22 @@ class CitySelectionViewModel: CitySelectionViewModelProtocol {
     }
     
     func didTapContinue(city: String) {
-        let country = citySuggestionCountryCodes[city] ?? ""
+        let country: String
+        if let foundCountry = citySuggestionCountryCodes[city], !foundCountry.isEmpty {
+            country = foundCountry
+        } else if city.contains(","), let components = city.components(separatedBy: ",").last {
+            country = components.trimmingCharacters(in: .whitespacesAndNewlines)
+        } else {
+            country = ""
+        }
+        
         let trimmedCity = city
             .components(separatedBy: ",")
             .first?
             .trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
+        
         guard !trimmedCity.isEmpty else { return }
+        
         cityStorage.saveSelectedCity(trimmedCity)
         cityStorage.saveSelectedCountry(country)
         dashboardCity = trimmedCity

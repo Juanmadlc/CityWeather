@@ -199,9 +199,9 @@ struct CitySelectionView_Previews: PreviewProvider {
         
         func loadCitySuggestions(name: String) async {
             citySuggestions = [
-                "Madrid, ES",
-                "Madrigal de la Vera, ES",
-                "Madridejos, ES"
+                "Madrid, España",
+                "Madrigal de la Vera, España",
+                "Madridejos, España"
             ]
         }
         

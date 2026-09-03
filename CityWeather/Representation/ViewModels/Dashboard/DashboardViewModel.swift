@@ -54,7 +54,7 @@ class DashboardViewModel: DashboardViewModelProtocol {
         let trimmedCountry = country.trimmingCharacters(in: .whitespacesAndNewlines)
         
         guard !trimmedCountry.isEmpty else { return trimmedCity }
-        return "\(trimmedCity),\(trimmedCountry)"
+        return "\(trimmedCity), \(trimmedCountry)"
     }
     
     private func updateDisplayModel(from wrapper: MapWrapper) {
