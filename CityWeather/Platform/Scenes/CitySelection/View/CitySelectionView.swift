@@ -73,7 +73,7 @@ struct CitySelectionView<ViewModel>: View where ViewModel: CitySelectionViewMode
         }
         .commonsNavigationBar(title: navBarTitle)
         .navigationDestination(isPresented: $viewModel.shouldNavigateToDashboard) {
-            connector.navigateToDashboard(city: viewModel.dashboardCity)
+            connector.navigateToDashboard(city: viewModel.dashboardCity, country: viewModel.dashboardCountry)
         }
         .onDisappear {
             viewModel.resetLoading()
@@ -174,6 +174,7 @@ struct CitySelectionView_Previews: PreviewProvider {
     class PreviewCitySelectionViewModel: CitySelectionViewModelProtocol {
         @Published var shouldNavigateToDashboard: Bool = false
         var dashboardCity: String = ""
+        var dashboardCountry: String = ""
         var isLoading: Bool = false
         var citySuggestions: [String] = []
         let cities = [

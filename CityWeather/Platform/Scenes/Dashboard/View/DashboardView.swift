@@ -11,12 +11,14 @@ struct DashboardView<ViewModel>: View where ViewModel: DashboardViewModelProtoco
     @StateObject private var viewModel: ViewModel
     private let connector: DashboardConnector
     private let city: String
+    private let country: String
     @Environment(\.scenePhase) var scenePhase
     
-    init(viewModel: ViewModel, connector: DashboardConnector, city: String) {
+    init(viewModel: ViewModel, connector: DashboardConnector, city: String, country: String) {
         self._viewModel = StateObject(wrappedValue: viewModel)
         self.connector = connector
         self.city = city
+        self.country = country
     }
     
     var body: some View {
@@ -48,13 +50,13 @@ struct DashboardView<ViewModel>: View where ViewModel: DashboardViewModelProtoco
             }
         }
         .task {
-            await viewModel.loadWeather(city: city)
+            await viewModel.loadWeather(city: city, country: country)
         }
         
         .onChange(of: scenePhase) { oldPhase, newPhase in
             if newPhase == .active {
                 Task {
-                    await viewModel.loadWeather(city: city)
+                    await viewModel.loadWeather(city: city, country: country)
                 }
             }
         }
@@ -202,7 +204,7 @@ struct DashboardView_Previews: PreviewProvider {
             .init(day: "Tuesday", temperature: "24°", description: "Mostly Sunny", icon: "sun.max.fill", color: .yellow)
         ])
         
-        func loadWeather(city: String) async {
+        func loadWeather(city: String, country: String) async {
             return
         }
     }
@@ -213,6 +215,6 @@ struct DashboardView_Previews: PreviewProvider {
     static let connector = PreviewDashboardConnector()
     
     static var previews: some View {
-        DashboardView(viewModel: viewModel, connector: connector, city: "Barcelona")
+        DashboardView(viewModel: viewModel, connector: connector, city: "Barcelona", country: "ES")
     }
 }

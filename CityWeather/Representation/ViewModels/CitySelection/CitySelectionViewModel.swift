@@ -10,6 +10,7 @@ import Foundation
 protocol CitySelectionViewModelOutput: ObservableObject {
     var shouldNavigateToDashboard: Bool { get set }
     var dashboardCity: String { get }
+    var dashboardCountry: String { get }
     var isLoading: Bool { get }
     var cities: [String] { get }
     var citySuggestions: [String] { get }
@@ -30,6 +31,7 @@ class CitySelectionViewModel: CitySelectionViewModelProtocol {
     @Published var locationManager: LocationManager
     @Published var shouldNavigateToDashboard = false
     @Published private(set) var dashboardCity = ""
+    @Published private(set) var dashboardCountry = ""
     @Published private(set) var errorMessage: String?
     @Published private(set) var isLoading = false
     @Published private(set) var citySuggestions: [String] = []
@@ -57,6 +59,7 @@ class CitySelectionViewModel: CitySelectionViewModelProtocol {
     private let cityStorage: UserDefaultsStorageProtocol
     private var hasCheckedSavedCity = false
     private var geoCodingServiceUseCaseFactory: GeoCodingServiceUseCaseFactory
+    private var citySuggestionCountryCodes: [String: String] = [:]
   
     init(
         geoCodingServiceUseCaseFactory: GeoCodingServiceUseCaseFactory,
@@ -77,6 +80,7 @@ class CitySelectionViewModel: CitySelectionViewModelProtocol {
               !savedCity.isEmpty else { return }
         
         dashboardCity = savedCity
+        dashboardCountry = cityStorage.getSelectedCountry()?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
         isLoading = true
         shouldNavigateToDashboard = true
     }
@@ -123,6 +127,7 @@ class CitySelectionViewModel: CitySelectionViewModelProtocol {
         let shouldShowCountryCode = results.count > 1
         var seenCities = Set<String>()
         var suggestions: [String] = []
+        var countryCodes: [String: String] = [:]
         
         for result in results {
             guard let name = result.name, !name.isEmpty else { continue }
@@ -139,19 +144,27 @@ class CitySelectionViewModel: CitySelectionViewModelProtocol {
             guard !seenCities.contains(city) else { continue }
             seenCities.insert(city)
             suggestions.append(city)
+            
+            if let countryCode = result.countryCode, !countryCode.isEmpty {
+                countryCodes[city] = countryCode
+            }
         }
         
+        citySuggestionCountryCodes = countryCodes
         citySuggestions = suggestions
     }
     
     func didTapContinue(city: String) {
+        let country = citySuggestionCountryCodes[city] ?? ""
         let trimmedCity = city
             .components(separatedBy: ",")
             .first?
             .trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
         guard !trimmedCity.isEmpty else { return }
         cityStorage.saveSelectedCity(trimmedCity)
+        cityStorage.saveSelectedCountry(country)
         dashboardCity = trimmedCity
+        dashboardCountry = country
         isLoading = true
         shouldNavigateToDashboard = true
     }

@@ -9,10 +9,9 @@ import SwiftUI
 
 @MainActor
 class DashboardConnector {
-    func assembleModule(city: String) -> some View {
+    func assembleModule(city: String, country: String) -> some View {
         let viewModel = DashboardViewModel(mapServicesUseCaseFactory: MapServicesUseCaseFactory())
      
-        return DashboardView(viewModel: viewModel, connector: self, city: city)
+        return DashboardView(viewModel: viewModel, connector: self, city: city, country: country)
     }
 }
-

@@ -13,7 +13,7 @@ protocol DashboardViewModelOutput: ObservableObject {
 }
 
 protocol DashboardViewModelInput: ObservableObject {
-    func loadWeather(city: String) async
+    func loadWeather(city: String, country: String) async
 }
 
 protocol DashboardViewModelProtocol: DashboardViewModelOutput, DashboardViewModelInput {}
@@ -29,16 +29,17 @@ class DashboardViewModel: DashboardViewModelProtocol {
     }
     
     // MARK: - Fetchs
-    @MainActor func loadWeather(city: String) async {
+    @MainActor func loadWeather(city: String, country: String) async {
         hasError = false
+        let queryCity = weatherQuery(city: city, country: country)
         
         do {
-            let weatherUseCase = mapServicesUseCaseFactory.getDataWeather(city: city)
+            let weatherUseCase = mapServicesUseCaseFactory.getDataWeather(city: queryCity)
             if let wrapper = try await weatherUseCase.execute() as? MapWrapper {
                 updateDisplayModel(from: wrapper)
             }
             
-            let forecastUseCase = mapServicesUseCaseFactory.getDataWeatherForecast(city: city)
+            let forecastUseCase = mapServicesUseCaseFactory.getDataWeatherForecast(city: queryCity)
             if let wrapper = try await forecastUseCase.execute() as? MapForecastWrapper {
                 updateForecastDisplayModel(from: wrapper)
             }
@@ -46,6 +47,14 @@ class DashboardViewModel: DashboardViewModelProtocol {
             Log.error("Error: \(error)")
             hasError = true
         }
+    }
+    
+    private func weatherQuery(city: String, country: String) -> String {
+        let trimmedCity = city.trimmingCharacters(in: .whitespacesAndNewlines)
+        let trimmedCountry = country.trimmingCharacters(in: .whitespacesAndNewlines)
+        
+        guard !trimmedCountry.isEmpty else { return trimmedCity }
+        return "\(trimmedCity),\(trimmedCountry)"
     }
     
     private func updateDisplayModel(from wrapper: MapWrapper) {
