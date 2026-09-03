@@ -24,6 +24,7 @@ protocol CitySelectionViewModelInput: ObservableObject {
 protocol CitySelectionViewModelProtocol: CitySelectionViewModelOutput, CitySelectionViewModelInput {}
 
 class CitySelectionViewModel: CitySelectionViewModelProtocol {
+    // MARK: - Properties
     @Published var locationManager: LocationManager
     @Published var shouldNavigateToDashboard = false
     @Published private(set) var dashboardCity = ""
@@ -52,6 +53,7 @@ class CitySelectionViewModel: CitySelectionViewModelProtocol {
 
     private let cityStorage: UserDefaultsStorageProtocol
     private var hasCheckedSavedCity = false
+    private var geoCodingServiceUseCaseFactory: GeoCodingServiceUseCaseFactory
   
     init(
         cityStorage: UserDefaultsStorageProtocol = UserDefaultsStorage()

@@ -46,6 +46,12 @@
 		9648675E30178B27008E1D71 /* mockForecast.json in Resources */ = {isa = PBXBuildFile; fileRef = 9648675D30178B27008E1D71 /* mockForecast.json */; };
 		9648676930179BE6008E1D71 /* ErrorWeatherView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9648676830179BE6008E1D71 /* ErrorWeatherView.swift */; };
 		9650E9A02FF520240036882D /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9650E99F2FF520240036882D /* LocationManager.swift */; };
+		96AF8F1A304984EA00BB11FB /* GeoCodingServiceUseCaseFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96AF8F19304984EA00BB11FB /* GeoCodingServiceUseCaseFactory.swift */; };
+		96AF8F1B304984EA00BB11FB /* GeoCodingServiceUseCaseFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96AF8F19304984EA00BB11FB /* GeoCodingServiceUseCaseFactory.swift */; };
+		96AF8F1D3049876E00BB11FB /* MockGeoCodingServicesAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96AF8F1C3049876E00BB11FB /* MockGeoCodingServicesAPIClient.swift */; };
+		96AF8F1E3049876E00BB11FB /* MockGeoCodingServicesAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96AF8F1C3049876E00BB11FB /* MockGeoCodingServicesAPIClient.swift */; };
+		96AF8F2030498A0500BB11FB /* mockGeoAutocomplete.json in Resources */ = {isa = PBXBuildFile; fileRef = 96AF8F1F30498A0500BB11FB /* mockGeoAutocomplete.json */; };
+		96AF8F2130498A0500BB11FB /* mockGeoAutocomplete.json in Resources */ = {isa = PBXBuildFile; fileRef = 96AF8F1F30498A0500BB11FB /* mockGeoAutocomplete.json */; };
 		96D6ABCA30486669003E4E5D /* GeoCodingServicesEndPoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96D6ABC930486669003E4E5D /* GeoCodingServicesEndPoints.swift */; };
 		96D6ABCB30486669003E4E5D /* GeoCodingServicesEndPoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96D6ABC930486669003E4E5D /* GeoCodingServicesEndPoints.swift */; };
 		96D6ABCD304868D4003E4E5D /* GeoCodingServicesNetworkProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96D6ABCC304868D4003E4E5D /* GeoCodingServicesNetworkProtocol.swift */; };
@@ -183,6 +189,9 @@
 		967690162D95897500DE9D02 /* CityWeather.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CityWeather.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		967690262D95897800DE9D02 /* CityWeatherTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CityWeatherTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		967690302D95897800DE9D02 /* CityWeatherUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CityWeatherUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		96AF8F19304984EA00BB11FB /* GeoCodingServiceUseCaseFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeoCodingServiceUseCaseFactory.swift; sourceTree = "<group>"; };
+		96AF8F1C3049876E00BB11FB /* MockGeoCodingServicesAPIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockGeoCodingServicesAPIClient.swift; sourceTree = "<group>"; };
+		96AF8F1F30498A0500BB11FB /* mockGeoAutocomplete.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = mockGeoAutocomplete.json; sourceTree = "<group>"; };
 		96D6ABC930486669003E4E5D /* GeoCodingServicesEndPoints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeoCodingServicesEndPoints.swift; sourceTree = "<group>"; };
 		96D6ABCC304868D4003E4E5D /* GeoCodingServicesNetworkProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeoCodingServicesNetworkProtocol.swift; sourceTree = "<group>"; };
 		96D6ABCF304869B9003E4E5D /* GeoCodingServicesNetwork.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeoCodingServicesNetwork.swift; sourceTree = "<group>"; };
@@ -270,6 +279,7 @@
 		960E30302FE9440F00EB974A /* Representation */ = {
 			isa = PBXGroup;
 			children = (
+				96AF8F19304984EA00BB11FB /* GeoCodingServiceUseCaseFactory.swift */,
 				962B758D3007A5360068E3D2 /* MapServiceUseCaseFactory.swift */,
 				960E30312FE9443400EB974A /* ViewModels */,
 			);
@@ -518,6 +528,7 @@
 			children = (
 				964055522F76F5D40021407D /* MocksManager.swift */,
 				96E56A3B301A190200DD7EA1 /* MockMapServicesAPIClient.swift */,
+				96AF8F1C3049876E00BB11FB /* MockGeoCodingServicesAPIClient.swift */,
 			);
 			path = Mocks;
 			sourceTree = "<group>";
@@ -606,6 +617,7 @@
 		96F5FC072FA3A77500C490BC /* Mocks */ = {
 			isa = PBXGroup;
 			children = (
+				96AF8F1F30498A0500BB11FB /* mockGeoAutocomplete.json */,
 				96F5FC082FA3A81F00C490BC /* mockWeather.json */,
 				9648675D30178B27008E1D71 /* mockForecast.json */,
 			);
@@ -795,6 +807,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				96AF8F2130498A0500BB11FB /* mockGeoAutocomplete.json in Resources */,
 				9648675E30178B27008E1D71 /* mockForecast.json in Resources */,
 				960E30362FE9475000EB974A /* Localizable.xcstrings in Resources */,
 				962A422E2F5B32BD00B79DE9 /* Assets.xcassets in Resources */,
@@ -826,6 +839,7 @@
 				96ED47063018CEFF002195D0 /* Assets.xcassets in Resources */,
 				96ED47073018CEFF002195D0 /* mockWeather.json in Resources */,
 				96ED47083018CEFF002195D0 /* Preferences.plist in Resources */,
+				96AF8F2030498A0500BB11FB /* mockGeoAutocomplete.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -878,6 +892,7 @@
 				96D6ABE630487225003E4E5D /* GeoCodingServicesRepository.swift in Sources */,
 				962A42382F5B34B500B79DE9 /* HTTPMethod.swift in Sources */,
 				96D6ABDB30486E56003E4E5D /* GeoCodingServicesAPIClientProtocol.swift in Sources */,
+				96AF8F1E3049876E00BB11FB /* MockGeoCodingServicesAPIClient.swift in Sources */,
 				96486758301777EB008E1D71 /* MapForecastWrapper.swift in Sources */,
 				9640552E2F76B4920021407D /* MapServicesNetworkProtocol.swift in Sources */,
 				9650E9A02FF520240036882D /* LocationManager.swift in Sources */,
@@ -904,6 +919,7 @@
 				96F1C0082FFE6BBA005EEF71 /* SearchBar.swift in Sources */,
 				96D6ABDF30486EFD003E4E5D /* GeoCodingSearchWrapper.swift in Sources */,
 				96F1C00E2FFE6EB6005EEF71 /* CommonsNavigationBar.swift in Sources */,
+				96AF8F1A304984EA00BB11FB /* GeoCodingServiceUseCaseFactory.swift in Sources */,
 				962A425D2F5B3E8E00B79DE9 /* DateExtension.swift in Sources */,
 				96ED47423018E0B3002195D0 /* MapServicesApiKey.swift in Sources */,
 				962A42522F5B3A4300B79DE9 /* NetworkManager.swift in Sources */,
@@ -951,6 +967,7 @@
 				96D6ABE530487225003E4E5D /* GeoCodingServicesRepository.swift in Sources */,
 				96ED46DA3018CEFF002195D0 /* HTTPMethod.swift in Sources */,
 				96D6ABDA30486E56003E4E5D /* GeoCodingServicesAPIClientProtocol.swift in Sources */,
+				96AF8F1D3049876E00BB11FB /* MockGeoCodingServicesAPIClient.swift in Sources */,
 				96ED46DB3018CEFF002195D0 /* MapForecastWrapper.swift in Sources */,
 				96ED46DC3018CEFF002195D0 /* MapServicesNetworkProtocol.swift in Sources */,
 				96ED46DD3018CEFF002195D0 /* LocationManager.swift in Sources */,
@@ -977,6 +994,7 @@
 				96ED46ED3018CEFF002195D0 /* SearchBar.swift in Sources */,
 				96D6ABDE30486EFD003E4E5D /* GeoCodingSearchWrapper.swift in Sources */,
 				96ED46EE3018CEFF002195D0 /* CommonsNavigationBar.swift in Sources */,
+				96AF8F1B304984EA00BB11FB /* GeoCodingServiceUseCaseFactory.swift in Sources */,
 				96ED46EF3018CEFF002195D0 /* DateExtension.swift in Sources */,
 				96ED47413018E0B3002195D0 /* MapServicesApiKey.swift in Sources */,
 				96ED46F03018CEFF002195D0 /* NetworkManager.swift in Sources */,
