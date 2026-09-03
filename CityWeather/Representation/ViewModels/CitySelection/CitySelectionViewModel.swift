@@ -56,8 +56,10 @@ class CitySelectionViewModel: CitySelectionViewModelProtocol {
     private var geoCodingServiceUseCaseFactory: GeoCodingServiceUseCaseFactory
   
     init(
+        geoCodingServiceUseCaseFactory: GeoCodingServiceUseCaseFactory,
         cityStorage: UserDefaultsStorageProtocol = UserDefaultsStorage()
     ) {
+        self.geoCodingServiceUseCaseFactory = geoCodingServiceUseCaseFactory
         self.cityStorage = cityStorage
         locationManager = LocationManager.shared
     }

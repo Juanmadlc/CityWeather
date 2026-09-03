@@ -11,7 +11,7 @@ import SwiftUI
 @MainActor
 class CitySelectionConnector {
     func assembleModule() -> some View {
-        let viewModel = CitySelectionViewModel()
+        let viewModel = CitySelectionViewModel(geoCodingServiceUseCaseFactory: GeoCodingServiceUseCaseFactory())
      
         return CitySelectionView(viewModel: viewModel, connector: self)
     }

@@ -24,7 +24,7 @@ class GeoCodingServiceUseCaseFactory {
     
     private static func makeAPIClient() -> GeoCodingServicesAPIClientProtocol {
         if MocksManager.shared.shouldUseMockData() {
-            return GeoCodingServicesAPIClient()
+            return MockGeoCodingServicesAPIClient()
         } else {
             let apiNetwork = GeoCodingServicesNetwork(baseURL: GeoCodingServicesEndPoints.environment)
             return GeoCodingServicesAPIClient(network: apiNetwork)
