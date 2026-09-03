@@ -20,7 +20,6 @@ struct NextButton: View {
                .background(Color.blue)
                .cornerRadius(12)
        }
-       .padding(.horizontal)
        .padding(.bottom, 12)
    }
 }

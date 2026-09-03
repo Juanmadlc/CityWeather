@@ -17,7 +17,7 @@ struct CitySelectionView<ViewModel>: View where ViewModel: CitySelectionViewMode
 
     private var displayedCities: [String] {
         let query = searchText.trimmingCharacters(in: .whitespacesAndNewlines)
-        guard !query.isEmpty else { return viewModel.cities }
+        guard !query.isEmpty else { return [] }
         return viewModel.citySuggestions
     }
     
@@ -53,18 +53,16 @@ struct CitySelectionView<ViewModel>: View where ViewModel: CitySelectionViewMode
                         SearchBar(text: $searchText)
                             .padding(.bottom, 16)
                         
-                        ScrollView {
-                            CityList(cities: displayedCities, onSelect: { selected in
-                                self.searchText = selected
-                            })
-                        }
-                        .frame(height: cityListHeight)
+                        CityList(cities: displayedCities, onSelect: { selected in
+                            self.searchText = selected
+                        })
+                        
                         .cornerRadius(12)
                         .clipped()
                         
                         NextButton(title: "Continue", action: {
                             viewModel.didTapContinue(city: searchText)
-                        }).padding(.top, 16)
+                        })
                         
                     }.padding(.horizontal, 24)
 
@@ -163,7 +161,6 @@ struct CityRow: View {
                     .foregroundColor(.secondary)
             }
             .padding(16)
-            .frame(height: CitySelectionLayout.cityRowHeight)
         }
     }
 }
