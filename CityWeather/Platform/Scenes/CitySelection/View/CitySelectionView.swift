@@ -15,24 +15,14 @@ struct CitySelectionView<ViewModel>: View where ViewModel: CitySelectionViewMode
     
     @State private var searchText = ""
 
-    private var filteredCities: [String] {
+    private var displayedCities: [String] {
         let query = searchText.trimmingCharacters(in: .whitespacesAndNewlines)
         guard !query.isEmpty else { return viewModel.cities }
-        
-        let normalizedQuery = query
-            .folding(options: .diacriticInsensitive, locale: .current)
-            .lowercased()
-
-        return viewModel.cities.filter { city in
-            let haystack = city
-                .folding(options: .diacriticInsensitive, locale: .current)
-                .lowercased()
-            return haystack.contains(normalizedQuery)
-        }
+        return viewModel.citySuggestions
     }
     
     private var cityListHeight: CGFloat {
-        CGFloat(min(filteredCities.count, CitySelectionLayout.visibleCityRows)) * CitySelectionLayout.cityRowHeight
+        CGFloat(min(displayedCities.count, CitySelectionLayout.visibleCityRows)) * CitySelectionLayout.cityRowHeight
     }
     
     init(viewModel: ViewModel, connector: CitySelectionConnector) {
@@ -64,7 +54,7 @@ struct CitySelectionView<ViewModel>: View where ViewModel: CitySelectionViewMode
                             .padding(.bottom, 16)
                         
                         ScrollView {
-                            CityList(cities: filteredCities, onSelect: { selected in
+                            CityList(cities: displayedCities, onSelect: { selected in
                                 self.searchText = selected
                             })
                         }
@@ -87,6 +77,11 @@ struct CitySelectionView<ViewModel>: View where ViewModel: CitySelectionViewMode
         }
         .onDisappear {
             viewModel.resetLoading()
+        }
+        .onChange(of: searchText) { _, newValue in
+            Task {
+                await viewModel.loadCitySuggestions(name: newValue)
+            }
         }
         .task {
             viewModel.onAppear()
@@ -180,6 +175,7 @@ struct CitySelectionView_Previews: PreviewProvider {
         @Published var shouldNavigateToDashboard: Bool = false
         var dashboardCity: String = ""
         var isLoading: Bool = false
+        var citySuggestions: [String] = []
         let cities = [
             "New York",
             "London",
@@ -199,6 +195,15 @@ struct CitySelectionView_Previews: PreviewProvider {
             dashboardCity = city.trimmingCharacters(in: .whitespacesAndNewlines)
             shouldNavigateToDashboard = true
         }
+        
+        func loadCitySuggestions(name: String) async {
+            citySuggestions = [
+                "Madrid, ES",
+                "Madrigal de la Vera, ES",
+                "Madridejos, ES"
+            ]
+        }
+        
         func resetLoading() {return}
     }
 

@@ -13,7 +13,7 @@ public enum GeoCodingServicesRouter: NetworkCall {
     var path: URLComponents {
         var components = URLComponents()
         components.scheme = HTTPScheme.secure
-        components.host = MapServicesEndpoints.environment
+        components.host = GeoCodingServicesEndPoints.environment
         components.path = switch self {
         case .getDataSearch: GeoCodingServicesEndPoints.dataSearch
         }

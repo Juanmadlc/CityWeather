@@ -12,12 +12,14 @@ protocol CitySelectionViewModelOutput: ObservableObject {
     var dashboardCity: String { get }
     var isLoading: Bool { get }
     var cities: [String] { get }
+    var citySuggestions: [String] { get }
 }
 
 protocol CitySelectionViewModelInput: ObservableObject {
     func onAppear()
     func getCurrentCity() async -> String?
     func didTapContinue(city: String)
+    func loadCitySuggestions(name: String) async
     func resetLoading()
 }
 
@@ -30,6 +32,7 @@ class CitySelectionViewModel: CitySelectionViewModelProtocol {
     @Published private(set) var dashboardCity = ""
     @Published private(set) var errorMessage: String?
     @Published private(set) var isLoading = false
+    @Published private(set) var citySuggestions: [String] = []
     let cities = [
         "city.newYork".localized(),
         "city.london".localized(),
@@ -97,8 +100,55 @@ class CitySelectionViewModel: CitySelectionViewModelProtocol {
         return try await LocationManager.shared.currentCity()
     }
     
+    @MainActor func loadCitySuggestions(name: String) async {
+        let trimmedName = name.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard !trimmedName.isEmpty else {
+            citySuggestions = []
+            return
+        }
+        
+        do {
+            let searchUseCase = geoCodingServiceUseCaseFactory.getDataSearch(name: trimmedName)
+            if let wrapper = try await searchUseCase.execute() as? GeoCodingSearchWrapper {
+                updateCitySuggestions(from: wrapper)
+            }
+        } catch {
+            Log.error("Error: \(error)")
+            citySuggestions = []
+        }
+    }
+    
+    private func updateCitySuggestions(from wrapper: GeoCodingSearchWrapper) {
+        let results = wrapper.results ?? []
+        let shouldShowCountryCode = results.count > 1
+        var seenCities = Set<String>()
+        var suggestions: [String] = []
+        
+        for result in results {
+            guard let name = result.name, !name.isEmpty else { continue }
+            
+            let city: String
+            if shouldShowCountryCode,
+               let country = result.country,
+               !country.isEmpty {
+                city = "\(name), \(country)"
+            } else {
+                city = name
+            }
+            
+            guard !seenCities.contains(city) else { continue }
+            seenCities.insert(city)
+            suggestions.append(city)
+        }
+        
+        citySuggestions = suggestions
+    }
+    
     func didTapContinue(city: String) {
-        let trimmedCity = city.trimmingCharacters(in: .whitespacesAndNewlines)
+        let trimmedCity = city
+            .components(separatedBy: ",")
+            .first?
+            .trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
         guard !trimmedCity.isEmpty else { return }
         cityStorage.saveSelectedCity(trimmedCity)
         dashboardCity = trimmedCity
