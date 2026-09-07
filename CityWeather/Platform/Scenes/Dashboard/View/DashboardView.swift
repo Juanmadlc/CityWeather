@@ -13,6 +13,7 @@ struct DashboardView<ViewModel>: View where ViewModel: DashboardViewModelProtoco
     private let city: String
     private let country: String
     @Environment(\.scenePhase) var scenePhase
+    @Environment(\.dismiss) var dismiss
     
     init(viewModel: ViewModel, connector: DashboardConnector, city: String, country: String) {
         self._viewModel = StateObject(wrappedValue: viewModel)
@@ -40,9 +41,9 @@ struct DashboardView<ViewModel>: View where ViewModel: DashboardViewModelProtoco
                 }
             }
         }
-        .commonsNavigationBar(title: city) {
+        .commonsNavigationBar(title: city, hideBackButton: true) {
             Button(action: {
-                // TODO: 01 Acción para abrir pantalla de Ajustes (Settings)
+                dismiss()
             }) {
                 Image(systemName: "gearshape.fill")
                     .font(.system(size: 18))

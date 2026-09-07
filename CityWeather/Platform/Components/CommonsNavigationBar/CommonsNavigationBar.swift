@@ -10,9 +10,11 @@ import SwiftUI
 struct CommonsNavigationBar<Trailing: View>: ViewModifier {
     let title: String
     let trailingView: Trailing
+    let hideBackButton: Bool
     
-    init(title: String, @ViewBuilder trailingView: () -> Trailing = { EmptyView() }) {
+    init(title: String, hideBackButton: Bool = false, @ViewBuilder trailingView: () -> Trailing = { EmptyView() }) {
         self.title = title
+        self.hideBackButton = hideBackButton
         self.trailingView = trailingView()
     }
     
@@ -20,6 +22,7 @@ struct CommonsNavigationBar<Trailing: View>: ViewModifier {
         content
             .navigationTitle(title)
             .navigationBarTitleDisplayMode(.inline)
+            .navigationBarBackButtonHidden(hideBackButton)
             .toolbar {
                 ToolbarItem(placement: .principal) {
                     Text(LocalizedStringKey(title))
@@ -37,14 +40,15 @@ struct CommonsNavigationBar<Trailing: View>: ViewModifier {
 
 extension View {
 
-    func commonsNavigationBar(title: String) -> some View {
-        modifier(CommonsNavigationBar<EmptyView>(title: title))
+    func commonsNavigationBar(title: String, hideBackButton: Bool = false) -> some View {
+        modifier(CommonsNavigationBar<EmptyView>(title: title, hideBackButton: hideBackButton))
     }
     
     func commonsNavigationBar<Trailing: View>(
         title: String,
+        hideBackButton: Bool = false,
         @ViewBuilder trailing: () -> Trailing) -> some View {
-        modifier(CommonsNavigationBar(title: title, trailingView: trailing))
+        modifier(CommonsNavigationBar(title: title, hideBackButton: hideBackButton, trailingView: trailing))
     }
     
 

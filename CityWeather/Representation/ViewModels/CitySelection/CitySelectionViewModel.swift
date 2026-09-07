@@ -121,7 +121,7 @@ class CitySelectionViewModel: CitySelectionViewModelProtocol {
             citySuggestions = []
         }
     }
-    
+
     private func updateCitySuggestions(from wrapper: GeoCodingSearchWrapper) {
         let results = wrapper.results ?? []
         let shouldShowCountryCode = results.count > 1
