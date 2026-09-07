@@ -9,7 +9,7 @@ import Foundation
 
 final class MapServicesAPIClient: MapServicesAPIClientProtocol {
     // MARK: - Properties
-    private var network: MapServicesNetworkProtocol
+    private let network: MapServicesNetworkProtocol
     
     init(network: MapServicesNetworkProtocol) {
         self.network = network

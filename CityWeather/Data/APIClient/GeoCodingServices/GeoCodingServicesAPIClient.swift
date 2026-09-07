@@ -9,7 +9,7 @@ import Foundation
 
 final class GeoCodingServicesAPIClient: GeoCodingServicesAPIClientProtocol {
     // MARK: - Properties
-    private var network: GeoCodingServicesNetworkProtocol
+    private let network: GeoCodingServicesNetworkProtocol
     
     init(network: GeoCodingServicesNetworkProtocol) {
         self.network = network

@@ -12,7 +12,6 @@ protocol CitySelectionViewModelOutput: ObservableObject {
     var dashboardCity: String { get }
     var dashboardCountry: String { get }
     var isLoading: Bool { get }
-    var cities: [String] { get }
     var citySuggestions: [String] { get }
 }
 
@@ -32,33 +31,11 @@ class CitySelectionViewModel: CitySelectionViewModelProtocol {
     @Published var shouldNavigateToDashboard = false
     @Published private(set) var dashboardCity = ""
     @Published private(set) var dashboardCountry = ""
-    @Published private(set) var errorMessage: String?
     @Published private(set) var isLoading = false
     @Published private(set) var citySuggestions: [String] = []
-    let cities = [
-        "city.newYork".localized(),
-        "city.london".localized(),
-        "city.paris".localized(),
-        "city.tokyo".localized(),
-        "city.madrid".localized(),
-        "city.rome".localized(),
-        "city.berlin".localized(),
-        "city.beijing".localized(),
-        "city.sydney".localized(),
-        "city.dubai".localized(),
-        "city.losAngeles".localized(),
-        "city.mexicoCity".localized(),
-        "city.buenosAires".localized(),
-        "city.toronto".localized(),
-        "city.singapore".localized(),
-        "city.hongKong".localized(),
-        "city.seoul".localized(),
-        "city.cairo".localized()
-    ]
-
     private let cityStorage: UserDefaultsStorageProtocol
     private var hasCheckedSavedCity = false
-    private var geoCodingServiceUseCaseFactory: GeoCodingServiceUseCaseFactory
+    private let geoCodingServiceUseCaseFactory: GeoCodingServiceUseCaseFactory
     private var citySuggestionCountryCodes: [String: String] = [:]
   
     init(
@@ -93,7 +70,6 @@ class CitySelectionViewModel: CitySelectionViewModelProtocol {
         do {
             return try await getLocations()
         } catch {
-            print("getCurrentCity error:", error)
             return ""
         }
     }

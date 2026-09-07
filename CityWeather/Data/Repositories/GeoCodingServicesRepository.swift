@@ -19,5 +19,4 @@ final class GeoCodingServicesRepository: GeoCodingServicesModelProtocol {
         return try await apiClient.getDataSearch(name: name)
     }
     
-    
 }

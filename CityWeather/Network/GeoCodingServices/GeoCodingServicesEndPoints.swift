@@ -20,7 +20,6 @@ struct GeoCodingServicesEndPoints {
     static let dataSearch = "/v1/search"
     
     // MARK: PARAMS
-    static let appid = MapServicesAPIKey.appid
     static let count = "5"
     static var language: String {
         guard let preferredLanguage = Locale.preferredLanguages.first,

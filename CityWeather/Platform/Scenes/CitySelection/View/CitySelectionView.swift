@@ -21,10 +21,6 @@ struct CitySelectionView<ViewModel>: View where ViewModel: CitySelectionViewMode
         return viewModel.citySuggestions
     }
     
-    private var cityListHeight: CGFloat {
-        CGFloat(min(displayedCities.count, CitySelectionLayout.visibleCityRows)) * CitySelectionLayout.cityRowHeight
-    }
-    
     init(viewModel: ViewModel, connector: CitySelectionConnector) {
         self._viewModel = StateObject(wrappedValue: viewModel)
         self.connector = connector
@@ -48,7 +44,7 @@ struct CitySelectionView<ViewModel>: View where ViewModel: CitySelectionViewMode
                                 let current = await viewModel.getCurrentCity() ?? ""
                                 self.searchText = current
                             }
-                        })
+                        }).padding(.bottom, 8)
                         
                         SearchBar(text: $searchText)
                             .padding(.bottom, 16)
@@ -56,7 +52,7 @@ struct CitySelectionView<ViewModel>: View where ViewModel: CitySelectionViewMode
                         CityList(cities: displayedCities, onSelect: { selected in
                             self.searchText = selected
                         })
-                        
+                        .padding(.bottom, 16)
                         .cornerRadius(12)
                         .clipped()
                         
@@ -101,11 +97,6 @@ struct CitySelectionView<ViewModel>: View where ViewModel: CitySelectionViewMode
 
 
 // MARK: - Components
-
-private enum CitySelectionLayout {
-    static let visibleCityRows = 6
-    static let cityRowHeight: CGFloat = 56
-}
 
 struct UseCurrentLocationButton: View {
     let action: () -> Void

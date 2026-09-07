@@ -21,7 +21,7 @@ public enum GeoCodingServicesRouter: NetworkCall {
         return components
     }
 
-    var method: String { return HTTPMethod.get }
+    var method: String { HTTPMethod.get }
     var headers: [String: String]? {
         return ["Accept": "application/json"]
     }

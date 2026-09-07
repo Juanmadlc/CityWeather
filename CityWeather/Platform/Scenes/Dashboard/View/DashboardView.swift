@@ -114,7 +114,8 @@ struct TimeHoursView: View {
             }
         }
         .padding(.vertical, 16)
-        .background(RoundedRectangle(cornerRadius: 16).fill(Color.white))
+        .background(Color(UIColor.systemBackground))
+        .clipShape(RoundedRectangle(cornerRadius: 16))
         .padding(.horizontal, 20)
         .padding(.top, 16)
     }
