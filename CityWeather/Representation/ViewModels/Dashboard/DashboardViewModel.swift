@@ -22,7 +22,7 @@ class DashboardViewModel: DashboardViewModelProtocol {
     // MARK: - Properties
     @Published var weatherDisplayModel: WeatherDisplayModel?
     @Published var hasError: Bool = false
-    private var mapServicesUseCaseFactory: MapServicesUseCaseFactory
+    private let mapServicesUseCaseFactory: MapServicesUseCaseFactory
     
     init(mapServicesUseCaseFactory: MapServicesUseCaseFactory) {
         self.mapServicesUseCaseFactory = mapServicesUseCaseFactory

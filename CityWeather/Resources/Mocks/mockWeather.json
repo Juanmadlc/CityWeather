@@ -1,46 +1,46 @@
 {
     "coord": {
-        "lon": 2.159,
-        "lat": 41.3888
+        "lon": -3.25,
+        "lat": 37.25
     },
     "weather": [
         {
-            "id": 802,
+            "id": 801,
             "main": "Clouds",
-            "description": "nubes dispersas",
-            "icon": "03d"
+            "description": "algo de nubes",
+            "icon": "02d"
         }
     ],
     "base": "stations",
     "main": {
-        "temp": 28.76,
-        "feels_like": 30.35,
-        "temp_min": 27.53,
-        "temp_max": 31.91,
-        "pressure": 1018,
-        "humidity": 58,
-        "sea_level": 1018,
-        "grnd_level": 1011
+        "temp": 32.39,
+        "feels_like": 30.2,
+        "temp_min": 32.39,
+        "temp_max": 32.39,
+        "pressure": 1021,
+        "humidity": 17,
+        "sea_level": 1021,
+        "grnd_level": 862
     },
     "visibility": 10000,
     "wind": {
-        "speed": 0.89,
-        "deg": 105,
-        "gust": 4.47
+        "speed": 3.12,
+        "deg": 28,
+        "gust": 3.74
     },
     "clouds": {
-        "all": 33
+        "all": 17
     },
-    "dt": 1785156200,
+    "dt": 1788795664,
     "sys": {
         "type": 2,
-        "id": 18549,
+        "id": 2008325,
         "country": "ES",
-        "sunrise": 1785127271,
-        "sunset": 1785179659
+        "sunrise": 1788760107,
+        "sunset": 1788806048
     },
     "timezone": 7200,
-    "id": 3128760,
-    "name": "Barcelona",
+    "id": 2517115,
+    "name": "Granada",
     "cod": 200
 }

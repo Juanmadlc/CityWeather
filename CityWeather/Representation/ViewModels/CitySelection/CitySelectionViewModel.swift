@@ -27,12 +27,12 @@ protocol CitySelectionViewModelProtocol: CitySelectionViewModelOutput, CitySelec
 
 class CitySelectionViewModel: CitySelectionViewModelProtocol {
     // MARK: - Properties
-    @Published var locationManager: LocationManager
     @Published var shouldNavigateToDashboard = false
     @Published private(set) var dashboardCity = ""
     @Published private(set) var dashboardCountry = ""
     @Published private(set) var isLoading = false
     @Published private(set) var citySuggestions: [String] = []
+    private let locationManager: LocationManager
     private let cityStorage: UserDefaultsStorageProtocol
     private var hasCheckedSavedCity = false
     private let geoCodingServiceUseCaseFactory: GeoCodingServiceUseCaseFactory
@@ -44,7 +44,7 @@ class CitySelectionViewModel: CitySelectionViewModelProtocol {
     ) {
         self.geoCodingServiceUseCaseFactory = geoCodingServiceUseCaseFactory
         self.cityStorage = cityStorage
-        locationManager = LocationManager.shared
+        self.locationManager = .shared
     }
     
     // MARK: Funcs
@@ -76,8 +76,7 @@ class CitySelectionViewModel: CitySelectionViewModelProtocol {
     
     private func getLocations() async throws -> String? {
         locationManager.requestLocation()
-
-        return try await LocationManager.shared.currentCity()
+        return try await locationManager.currentCity()
     }
     
     @MainActor func loadCitySuggestions(name: String) async {
