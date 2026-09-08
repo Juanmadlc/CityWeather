@@ -50,8 +50,8 @@
 		96AF8F1B304984EA00BB11FB /* GeoCodingServiceUseCaseFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96AF8F19304984EA00BB11FB /* GeoCodingServiceUseCaseFactory.swift */; };
 		96AF8F1D3049876E00BB11FB /* MockGeoCodingServicesAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96AF8F1C3049876E00BB11FB /* MockGeoCodingServicesAPIClient.swift */; };
 		96AF8F1E3049876E00BB11FB /* MockGeoCodingServicesAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96AF8F1C3049876E00BB11FB /* MockGeoCodingServicesAPIClient.swift */; };
-		96AF8F2030498A0500BB11FB /* mockGeoAutocomplete.json in Resources */ = {isa = PBXBuildFile; fileRef = 96AF8F1F30498A0500BB11FB /* mockGeoAutocomplete.json */; };
-		96AF8F2130498A0500BB11FB /* mockGeoAutocomplete.json in Resources */ = {isa = PBXBuildFile; fileRef = 96AF8F1F30498A0500BB11FB /* mockGeoAutocomplete.json */; };
+		96AF8F2030498A0500BB11FB /* mockGeoDataSearch.json in Resources */ = {isa = PBXBuildFile; fileRef = 96AF8F1F30498A0500BB11FB /* mockGeoDataSearch.json */; };
+		96AF8F2130498A0500BB11FB /* mockGeoDataSearch.json in Resources */ = {isa = PBXBuildFile; fileRef = 96AF8F1F30498A0500BB11FB /* mockGeoDataSearch.json */; };
 		96D6ABCA30486669003E4E5D /* GeoCodingServicesEndPoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96D6ABC930486669003E4E5D /* GeoCodingServicesEndPoints.swift */; };
 		96D6ABCB30486669003E4E5D /* GeoCodingServicesEndPoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96D6ABC930486669003E4E5D /* GeoCodingServicesEndPoints.swift */; };
 		96D6ABCD304868D4003E4E5D /* GeoCodingServicesNetworkProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96D6ABCC304868D4003E4E5D /* GeoCodingServicesNetworkProtocol.swift */; };
@@ -191,7 +191,7 @@
 		967690302D95897800DE9D02 /* CityWeatherUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CityWeatherUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		96AF8F19304984EA00BB11FB /* GeoCodingServiceUseCaseFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeoCodingServiceUseCaseFactory.swift; sourceTree = "<group>"; };
 		96AF8F1C3049876E00BB11FB /* MockGeoCodingServicesAPIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockGeoCodingServicesAPIClient.swift; sourceTree = "<group>"; };
-		96AF8F1F30498A0500BB11FB /* mockGeoAutocomplete.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = mockGeoAutocomplete.json; sourceTree = "<group>"; };
+		96AF8F1F30498A0500BB11FB /* mockGeoDataSearch.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = mockGeoDataSearch.json; sourceTree = "<group>"; };
 		96D6ABC930486669003E4E5D /* GeoCodingServicesEndPoints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeoCodingServicesEndPoints.swift; sourceTree = "<group>"; };
 		96D6ABCC304868D4003E4E5D /* GeoCodingServicesNetworkProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeoCodingServicesNetworkProtocol.swift; sourceTree = "<group>"; };
 		96D6ABCF304869B9003E4E5D /* GeoCodingServicesNetwork.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeoCodingServicesNetwork.swift; sourceTree = "<group>"; };
@@ -214,6 +214,21 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		9603DD693050272000882233 /* Exceptions for "CityWeatherTests" folder in "CityWeatherTests" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				CityWeatherTests.swift,
+				Data/Persistente/LocalStorage/UserDefaultsStorageTest.swift,
+			);
+			target = 967690252D95897800DE9D02 /* CityWeatherTests */;
+		};
+		9603DD6A3050272000882233 /* Exceptions for "CityWeatherTests" folder in "CityWeatherUITests" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				CityWeatherTests.swift,
+			);
+			target = 9676902F2D95897800DE9D02 /* CityWeatherUITests */;
+		};
 		96ED470E3018CF00002195D0 /* Exceptions for "Preview Content" folder in "CityWeatherProRelease" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
@@ -224,17 +239,21 @@
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
+		9603DD673050271F00882233 /* CityWeatherTests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				9603DD693050272000882233 /* Exceptions for "CityWeatherTests" folder in "CityWeatherTests" target */,
+				9603DD6A3050272000882233 /* Exceptions for "CityWeatherTests" folder in "CityWeatherUITests" target */,
+			);
+			path = CityWeatherTests;
+			sourceTree = "<group>";
+		};
 		962A424B2F5B397600B79DE9 /* Preview Content */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
 				96ED470E3018CF00002195D0 /* Exceptions for "Preview Content" folder in "CityWeatherProRelease" target */,
 			);
 			path = "Preview Content";
-			sourceTree = "<group>";
-		};
-		967690292D95897800DE9D02 /* CityWeatherTests */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = CityWeatherTests;
 			sourceTree = "<group>";
 		};
 		967690332D95897800DE9D02 /* CityWeatherUITests */ = {
@@ -545,7 +564,7 @@
 			isa = PBXGroup;
 			children = (
 				962A42482F5B38B700B79DE9 /* CityWeather */,
-				967690292D95897800DE9D02 /* CityWeatherTests */,
+				9603DD673050271F00882233 /* CityWeatherTests */,
 				967690332D95897800DE9D02 /* CityWeatherUITests */,
 				967690172D95897500DE9D02 /* Products */,
 			);
@@ -617,7 +636,7 @@
 		96F5FC072FA3A77500C490BC /* Mocks */ = {
 			isa = PBXGroup;
 			children = (
-				96AF8F1F30498A0500BB11FB /* mockGeoAutocomplete.json */,
+				96AF8F1F30498A0500BB11FB /* mockGeoDataSearch.json */,
 				96F5FC082FA3A81F00C490BC /* mockWeather.json */,
 				9648675D30178B27008E1D71 /* mockForecast.json */,
 			);
@@ -700,9 +719,6 @@
 			dependencies = (
 				967690282D95897800DE9D02 /* PBXTargetDependency */,
 			);
-			fileSystemSynchronizedGroups = (
-				967690292D95897800DE9D02 /* CityWeatherTests */,
-			);
 			name = CityWeatherTests;
 			packageProductDependencies = (
 			);
@@ -724,6 +740,7 @@
 				967690322D95897800DE9D02 /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
+				9603DD673050271F00882233 /* CityWeatherTests */,
 				967690332D95897800DE9D02 /* CityWeatherUITests */,
 			);
 			name = CityWeatherUITests;
@@ -807,7 +824,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				96AF8F2130498A0500BB11FB /* mockGeoAutocomplete.json in Resources */,
+				96AF8F2130498A0500BB11FB /* mockGeoDataSearch.json in Resources */,
 				9648675E30178B27008E1D71 /* mockForecast.json in Resources */,
 				960E30362FE9475000EB974A /* Localizable.xcstrings in Resources */,
 				962A422E2F5B32BD00B79DE9 /* Assets.xcassets in Resources */,
@@ -839,7 +856,7 @@
 				96ED47063018CEFF002195D0 /* Assets.xcassets in Resources */,
 				96ED47073018CEFF002195D0 /* mockWeather.json in Resources */,
 				96ED47083018CEFF002195D0 /* Preferences.plist in Resources */,
-				96AF8F2030498A0500BB11FB /* mockGeoAutocomplete.json in Resources */,
+				96AF8F2030498A0500BB11FB /* mockGeoDataSearch.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
