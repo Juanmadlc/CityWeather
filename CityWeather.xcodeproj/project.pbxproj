@@ -226,6 +226,7 @@
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				CityWeatherTests.swift,
+				Data/Persistente/LocalStorage/UserDefaultsStorageTest.swift,
 			);
 			target = 9676902F2D95897800DE9D02 /* CityWeatherUITests */;
 		};

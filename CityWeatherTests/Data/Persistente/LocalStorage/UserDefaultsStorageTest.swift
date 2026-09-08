@@ -8,7 +8,7 @@
 import XCTest
 @testable import CityWeather
 
-final class UserDefaultsStorageTests: XCTestCase {
+final class UserDefaultsStorageTest: XCTestCase {
 
     // MARK: - Properties
 
@@ -82,11 +82,8 @@ final class UserDefaultsStorageTests: XCTestCase {
     }
 
     func testSaveCity_DoesNotModifyCountry() {
-
-        // Given
-        sut.saveSelectedCountry("ES")
-
         // When
+        sut.saveSelectedCountry("ES")
         sut.saveSelectedCity("Madrid")
 
         // Then
@@ -94,11 +91,8 @@ final class UserDefaultsStorageTests: XCTestCase {
     }
 
     func testSaveCountry_DoesNotModifyCity() {
-
-        // Given
-        sut.saveSelectedCity("Madrid")
-
         // When
+        sut.saveSelectedCity("Madrid")
         sut.saveSelectedCountry("ES")
 
         // Then
