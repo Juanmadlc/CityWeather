@@ -20,8 +20,8 @@ struct ForecastItem: Decodable {
     let weather: [Weather]
     let clouds: Clouds
     let wind: Wind
-    let visibility: Int
-    let pop: Double
+    let visibility: Int?
+    let pop: Double?
     let sys: SysForecast
     let dtTxt: String
 
@@ -33,9 +33,10 @@ struct ForecastItem: Decodable {
 
 struct MainForecast: Decodable {
     let temp, feelsLike, tempMin, tempMax: Double
-    let pressure, seaLevel, grndLevel, humidity: Int
-    let tempKf: Double
-    let dewPoint: Double
+    let pressure, humidity: Int
+    let seaLevel, grndLevel: Int?
+    let tempKf: Double?
+    let dewPoint: Double?
 
     enum CodingKeys: String, CodingKey {
         case temp

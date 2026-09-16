@@ -12,7 +12,7 @@ struct MapWrapper: Decodable {
     let weather: [Weather]
     let base: String
     let main: Main
-    let visibility: Int
+    let visibility: Int?
     let wind: Wind
     let clouds: Clouds
     let dt: Int
@@ -35,7 +35,8 @@ struct Coord: Decodable {
 // MARK: - Main
 struct Main: Decodable {
     let temp, feelsLike, tempMin, tempMax: Double
-    let pressure, humidity, seaLevel, grndLevel: Int
+    let pressure, humidity: Int
+    let seaLevel, grndLevel: Int?
 
     enum CodingKeys: String, CodingKey {
         case temp
@@ -66,5 +67,3 @@ struct Wind: Decodable {
     let deg: Int
     let gust: Double?
 }
-
-

@@ -70,6 +70,7 @@ class CitySelectionViewModel: CitySelectionViewModelProtocol {
         do {
             return try await getLocations()
         } catch {
+            Log.error("Error: \(error)")
             return ""
         }
     }
