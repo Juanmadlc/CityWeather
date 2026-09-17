@@ -174,6 +174,7 @@ struct DayForecast: View {
                 .font(.system(size: 23))
                 .symbolRenderingMode(.multicolor)
                 .foregroundColor(forecast.color)
+                .shadow(color: Color.black.opacity(0.25), radius: 1, x: 0, y: 0)
                 .frame(width: 32)
             
             Text(forecast.temperature)

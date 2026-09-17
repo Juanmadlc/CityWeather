@@ -16,6 +16,7 @@ class CitySelectionConnector {
         return CitySelectionView(viewModel: viewModel, connector: self)
     }
 
+    // MARK: Navigate
     func navigateToDashboard(city: String, country: String) -> some View {
         DashboardConnector().assembleModule(city: city, country: country)
     }
