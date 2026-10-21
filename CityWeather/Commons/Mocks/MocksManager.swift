@@ -7,7 +7,7 @@
 
 import Foundation
 
-final class MocksManager {
+final class MocksManager: Sendable {
     let isMockMode = false
     static let shared = MocksManager()
         

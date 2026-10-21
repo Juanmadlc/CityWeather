@@ -7,8 +7,8 @@
 
 import Foundation
 
-class NetworkManager: NetworkDispatcher {
-    var baseURL: String
+final class NetworkManager: NetworkDispatcher {
+    let baseURL: String
     let session: URLSession
 
     public init(baseURL: String) {

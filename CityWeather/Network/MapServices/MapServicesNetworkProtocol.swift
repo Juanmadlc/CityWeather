@@ -7,7 +7,7 @@
 
 import Foundation
 
-protocol MapServicesNetworkProtocol {
+protocol MapServicesNetworkProtocol: Sendable {
     func getDataWeather(city: String) async throws -> Data
     func getDataForecast(city: String) async throws -> Data
 }

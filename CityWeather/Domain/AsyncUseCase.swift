@@ -7,7 +7,7 @@
 
 import Foundation
 
-protocol AsyncUseCase {
+protocol AsyncUseCase: Sendable {
     associatedtype Output
 
     func execute() async throws -> Output

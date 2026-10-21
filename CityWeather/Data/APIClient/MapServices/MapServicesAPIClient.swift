@@ -7,7 +7,7 @@
 
 import Foundation
 
-final class MapServicesAPIClient: MapServicesAPIClientProtocol {
+final class MapServicesAPIClient: MapServicesAPIClientProtocol, Sendable {
     // MARK: - Properties
     private let network: MapServicesNetworkProtocol
     

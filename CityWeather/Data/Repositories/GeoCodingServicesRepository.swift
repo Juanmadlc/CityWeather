@@ -7,7 +7,7 @@
 
 import Foundation
 
-final class GeoCodingServicesRepository: GeoCodingServicesModelProtocol {
+final class GeoCodingServicesRepository: GeoCodingServicesModelProtocol, Sendable {
     
     private let apiClient: GeoCodingServicesAPIClientProtocol
     

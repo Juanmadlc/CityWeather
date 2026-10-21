@@ -7,6 +7,6 @@
 
 import Foundation
 
-protocol GeoCodingServicesAPIClientProtocol {
+protocol GeoCodingServicesAPIClientProtocol: Sendable {
     func getDataSearch(name: String) async throws -> GeoCodingSearchWrapper
 }

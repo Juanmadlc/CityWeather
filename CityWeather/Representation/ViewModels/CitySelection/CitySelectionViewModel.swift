@@ -7,6 +7,7 @@
 
 import Foundation
 
+@MainActor
 protocol CitySelectionViewModelOutput: ObservableObject {
     var shouldNavigateToDashboard: Bool { get set }
     var dashboardCity: String { get }
@@ -15,6 +16,7 @@ protocol CitySelectionViewModelOutput: ObservableObject {
     var citySuggestions: [String] { get }
 }
 
+@MainActor
 protocol CitySelectionViewModelInput: ObservableObject {
     func onAppear()
     func getCurrentCity() async -> String?
@@ -23,8 +25,10 @@ protocol CitySelectionViewModelInput: ObservableObject {
     func resetLoading()
 }
 
+@MainActor
 protocol CitySelectionViewModelProtocol: CitySelectionViewModelOutput, CitySelectionViewModelInput {}
 
+@MainActor
 class CitySelectionViewModel: CitySelectionViewModelProtocol {
     // MARK: - Properties
     @Published var shouldNavigateToDashboard = false

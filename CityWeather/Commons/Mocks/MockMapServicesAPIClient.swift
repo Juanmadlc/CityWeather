@@ -7,7 +7,7 @@
 
 import Foundation
 
-final class MockMapServicesAPIClient: MapServicesAPIClientProtocol {
+final class MockMapServicesAPIClient: MapServicesAPIClientProtocol, Sendable {
     
     func getDataWeather(city: String) async throws -> MapWrapper {
         let mockData = try MocksManager.shared.getMockDataWeather()

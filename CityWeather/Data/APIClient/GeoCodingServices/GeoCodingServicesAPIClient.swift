@@ -7,7 +7,7 @@
 
 import Foundation
 
-final class GeoCodingServicesAPIClient: GeoCodingServicesAPIClientProtocol {
+final class GeoCodingServicesAPIClient: GeoCodingServicesAPIClientProtocol, Sendable {
     // MARK: - Properties
     private let network: GeoCodingServicesNetworkProtocol
     

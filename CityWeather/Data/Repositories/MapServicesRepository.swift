@@ -7,7 +7,7 @@
 
 import Foundation
 
-final class MapServicesRepository: MapServicesModelProtocol {
+final class MapServicesRepository: MapServicesModelProtocol, Sendable {
     
     private let apiClient: MapServicesAPIClientProtocol
     

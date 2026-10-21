@@ -7,7 +7,7 @@
 
 import Foundation
 
-final class MockGeoCodingServicesAPIClient: GeoCodingServicesAPIClientProtocol {
+final class MockGeoCodingServicesAPIClient: GeoCodingServicesAPIClientProtocol, Sendable {
     
     func getDataSearch(name: String) async throws -> GeoCodingSearchWrapper {
         let mockData = try MocksManager.shared.getMockGeoDataSearch()

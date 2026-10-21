@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct GetDataWeatherForecastUseCase: AsyncUseCase {
+struct GetDataWeatherForecastUseCase: AsyncUseCase, Sendable {
     
     private let modelProtocol: MapServicesModelProtocol
     private let city: String

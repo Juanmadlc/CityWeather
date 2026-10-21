@@ -7,7 +7,14 @@
 
 import Foundation
 
-class GeoCodingServicesNetwork: NetworkManager, GeoCodingServicesNetworkProtocol {
+final class GeoCodingServicesNetwork: NetworkDispatcher, GeoCodingServicesNetworkProtocol, Sendable {
+    let baseURL: String
+    let session: URLSession
+    
+    init(baseURL: String) {
+        self.baseURL = baseURL
+        self.session = URLSession(configuration: NetworkManager.urlSessionConfiguration)
+    }
     
     func getDataSearch(name: String) async throws -> Data {
         try await call(endpoint: GeoCodingServicesRouter.getDataSearch(name: name))

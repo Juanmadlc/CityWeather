@@ -7,17 +7,21 @@
 
 import SwiftUI
 
+@MainActor
 protocol DashboardViewModelOutput: ObservableObject {
     var weatherDisplayModel: WeatherDisplayModel? { get }
     var hasError: Bool { get }
 }
 
+@MainActor
 protocol DashboardViewModelInput: ObservableObject {
     func loadWeather(city: String, country: String) async
 }
 
+@MainActor
 protocol DashboardViewModelProtocol: DashboardViewModelOutput, DashboardViewModelInput {}
 
+@MainActor
 class DashboardViewModel: DashboardViewModelProtocol {
     // MARK: - Properties
     @Published var weatherDisplayModel: WeatherDisplayModel?
@@ -29,7 +33,7 @@ class DashboardViewModel: DashboardViewModelProtocol {
     }
     
     // MARK: - Fetchs
-    @MainActor func loadWeather(city: String, country: String) async {
+    func loadWeather(city: String, country: String) async {
         hasError = false
         let queryCity = weatherQuery(city: city, country: country)
         

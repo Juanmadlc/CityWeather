@@ -11,7 +11,7 @@ enum NetworkDispatcherError: Error {
     case networkError(code: Int, errMessage: String = "Error_Network".localized())
 }
 
-protocol NetworkDispatcher {
+protocol NetworkDispatcher: Sendable {
     var session: URLSession { get }
     var baseURL: String { get }
 }

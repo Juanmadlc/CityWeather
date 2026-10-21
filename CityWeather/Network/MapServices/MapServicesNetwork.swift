@@ -7,7 +7,14 @@
 
 import Foundation
 
-class MapServicesNetwork: NetworkManager, MapServicesNetworkProtocol {
+final class MapServicesNetwork: NetworkDispatcher, MapServicesNetworkProtocol, Sendable {
+    let baseURL: String
+    let session: URLSession
+    
+    init(baseURL: String) {
+        self.baseURL = baseURL
+        self.session = URLSession(configuration: NetworkManager.urlSessionConfiguration)
+    }
     
     func getDataWeather(city: String) async throws -> Data {
         try await call(endpoint: MapServicesRouter.getDataWeather(city: city))

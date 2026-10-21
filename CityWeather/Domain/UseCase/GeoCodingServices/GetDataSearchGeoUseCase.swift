@@ -7,7 +7,7 @@
 
 import Foundation
 
-final class GetDataSearchUseCase: AsyncUseCase {
+final class GetDataSearchUseCase: AsyncUseCase, Sendable {
     // MARK: - Properties
     let modelProtocol: GeoCodingServicesModelProtocol
     private let name: String

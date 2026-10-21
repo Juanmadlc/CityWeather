@@ -11,7 +11,7 @@ enum MapServicesModelProtocolError: Error {
     case unaccessible
 }
 
-protocol MapServicesModelProtocol {
+protocol MapServicesModelProtocol: Sendable {
     func getDataWeather(city: String) async throws -> MapWrapper
     func getDataForecast(city: String) async throws -> MapForecastWrapper
 }

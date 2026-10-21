@@ -7,7 +7,7 @@
 
 import Foundation
 
-protocol MapServicesAPIClientProtocol {
+protocol MapServicesAPIClientProtocol: Sendable {
     func getDataWeather(city: String) async throws -> MapWrapper
     func getDataForecast(city: String) async throws -> MapForecastWrapper
 }

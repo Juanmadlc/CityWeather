@@ -9,6 +9,7 @@ import Foundation
 import CoreLocation
 import MapKit
 
+@MainActor
 final class LocationManager: NSObject, ObservableObject {
     static let shared = LocationManager()
 
@@ -99,7 +100,7 @@ final class LocationManager: NSObject, ObservableObject {
 
             Task { [weak self] in
                 try? await Task.sleep(nanoseconds: 10 * 1_000_000_000)
-                await self?.timeoutIfNeeded()
+                self?.timeoutIfNeeded()
             }
         }
     }
@@ -128,7 +129,7 @@ final class LocationManager: NSObject, ObservableObject {
 }
 
 // MARK: - CLLocationManagerDelegate
-extension LocationManager: CLLocationManagerDelegate {
+extension LocationManager: @preconcurrency CLLocationManagerDelegate {
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
         Task { @MainActor in
             switch manager.authorizationStatus {

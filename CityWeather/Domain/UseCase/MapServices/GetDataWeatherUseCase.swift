@@ -7,7 +7,7 @@
 
 import Foundation
 
-final class GetDataWeatherUseCase: AsyncUseCase {
+final class GetDataWeatherUseCase: AsyncUseCase, Sendable {
     // MARK: - Properties
     let modelProtocol: MapServicesModelProtocol
     private let city: String

@@ -11,7 +11,7 @@ enum GeoCodingServicesModelProtocolError: Error {
     case unaccessible
 }
 
-protocol GeoCodingServicesModelProtocol {
+protocol GeoCodingServicesModelProtocol: Sendable {
     func getDataSearch(name: String) async throws -> GeoCodingSearchWrapper
 }
 
