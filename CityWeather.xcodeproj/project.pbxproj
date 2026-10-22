@@ -218,6 +218,11 @@
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				CityWeatherTests.swift,
+				Commons/Extension/BundleExtensionTest.swift,
+				Commons/Extension/DateExtensionTest.swift,
+				Commons/Extension/StringExtensionTest.swift,
+				Commons/LocationManagerTest.swift,
+				Commons/Mocks/MocksManagerTest.swift,
 				Data/Persistente/LocalStorage/UserDefaultsStorageTest.swift,
 			);
 			target = 967690252D95897800DE9D02 /* CityWeatherTests */;
@@ -226,6 +231,11 @@
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				CityWeatherTests.swift,
+				Commons/Extension/BundleExtensionTest.swift,
+				Commons/Extension/DateExtensionTest.swift,
+				Commons/Extension/StringExtensionTest.swift,
+				Commons/LocationManagerTest.swift,
+				Commons/Mocks/MocksManagerTest.swift,
 				Data/Persistente/LocalStorage/UserDefaultsStorageTest.swift,
 			);
 			target = 9676902F2D95897800DE9D02 /* CityWeatherUITests */;
