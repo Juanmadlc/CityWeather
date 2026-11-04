@@ -217,7 +217,6 @@
 		9603DD693050272000882233 /* Exceptions for "CityWeatherTests" folder in "CityWeatherTests" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
-				CityWeatherTests.swift,
 				Commons/Extension/BundleExtensionTest.swift,
 				Commons/Extension/DateExtensionTest.swift,
 				Commons/Extension/StringExtensionTest.swift,
@@ -253,7 +252,6 @@
 		9603DD6A3050272000882233 /* Exceptions for "CityWeatherTests" folder in "CityWeatherUITests" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
-				CityWeatherTests.swift,
 				Commons/Extension/BundleExtensionTest.swift,
 				Commons/Extension/DateExtensionTest.swift,
 				Commons/Extension/StringExtensionTest.swift,
