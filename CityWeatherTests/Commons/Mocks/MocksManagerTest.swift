@@ -1,3 +1,10 @@
+//
+//  MocksManagerTest.swift
+//  CityWeather
+//
+//  Created by Juan Manuel de la Cruz on 09/11/2026.
+//
+
 import Foundation
 import Testing
 @testable import CityWeather

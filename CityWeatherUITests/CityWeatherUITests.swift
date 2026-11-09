@@ -1,8 +1,8 @@
 //
 //  CityWeatherUITests.swift
-//  CityWeatherUITests
+//  CityWeatherUITest
 //
-//  Created by Juan Manuel de la Cruz on 27/3/25.
+//  Created by Juan Manuel de la Cruz on 03/09/2026.
 //
 
 import XCTest
