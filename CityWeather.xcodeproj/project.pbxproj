@@ -227,8 +227,8 @@
 				Data/APIClient/GeoCodingServices/GeoCodingServicesAPIClientTest.swift,
 				Data/APIClient/MapServices/MapServicesAPIClientTest.swift,
 				Data/Persistente/LocalStorage/UserDefaultsStorageTest.swift,
-				Data/Repositories/GeoCodingServicesRepositoryTest.swift,
-				Data/Repositories/MapServicesRepositoryTest.swift,
+				Platform/Scenes/CitySelection/CitySelectionViewTest.swift,
+				Platform/Scenes/Dashboard/DashboardViewTest.swift,
 				Representation/ViewModels/CitySelection/CitySelectionViewModelTest.swift,
 				Representation/ViewModels/Dashboard/DashboardViewModelTest.swift,
 			);
@@ -247,8 +247,6 @@
 				Data/APIClient/GeoCodingServices/GeoCodingServicesAPIClientTest.swift,
 				Data/APIClient/MapServices/MapServicesAPIClientTest.swift,
 				Data/Persistente/LocalStorage/UserDefaultsStorageTest.swift,
-				Data/Repositories/GeoCodingServicesRepositoryTest.swift,
-				Data/Repositories/MapServicesRepositoryTest.swift,
 				Representation/ViewModels/CitySelection/CitySelectionViewModelTest.swift,
 				Representation/ViewModels/Dashboard/DashboardViewModelTest.swift,
 			);
