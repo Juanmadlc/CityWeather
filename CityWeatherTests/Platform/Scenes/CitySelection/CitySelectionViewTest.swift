@@ -15,6 +15,14 @@ import UIKit
 @Suite
 struct CitySelectionViewTest {
 
+    private let stubSuggestions: [String] = [
+        "Barcelona, ES",
+        "Barcelia, MX",
+        "Barcelo, MX",
+        "Barceló, MX",
+        "Barcelona, VE"
+    ]
+
     // MARK: - CitySelectionView Rendering States
 
     @Test
@@ -46,12 +54,10 @@ struct CitySelectionViewTest {
     }
 
     @Test
-    func `CitySelectionView renders with suggestions from mockGeoDataSearch fixture`() async throws {
-        let suggestions = try await loadSuggestionsFromMock()
-
+    func `CitySelectionView renders with suggestions`() {
         let mockVM = MockCitySelectionViewModel()
         mockVM.isLoading = false
-        mockVM.citySuggestions = suggestions
+        mockVM.citySuggestions = stubSuggestions
 
         let connector = CitySelectionConnector()
         let view = CitySelectionView(viewModel: mockVM, connector: connector)
@@ -88,11 +94,10 @@ struct CitySelectionViewTest {
     // MARK: - CityList Component
 
     @Test
-    func `CityList renders items from mockGeoDataSearch and invokes onSelect`() async throws {
-        let suggestions = try await loadSuggestionsFromMock()
+    func `CityList renders items and invokes onSelect`() {
         var selectedCity: String?
 
-        let cityList = CityList(cities: suggestions) { selected in
+        let cityList = CityList(cities: stubSuggestions) { selected in
             selectedCity = selected
         }
 
@@ -263,14 +268,4 @@ private func renderInWindow<V: View>(_ view: V) -> UIViewController {
     controller.view.layoutIfNeeded()
     _ = controller.sizeThatFits(in: CGSize(width: 393, height: 852))
     return controller
-}
-
-@MainActor
-private func loadSuggestionsFromMock() async throws -> [String] {
-    let apiClient = MockGeoCodingServicesAPIClient()
-    let repository = GeoCodingServicesRepository(apiClient: apiClient)
-    let factory = GeoCodingServiceUseCaseFactory(modelProtocol: repository)
-    let vm = CitySelectionViewModel(geoCodingServiceUseCaseFactory: factory)
-    await vm.loadCitySuggestions(name: "Barce")
-    return vm.citySuggestions
 }

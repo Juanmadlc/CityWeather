@@ -49,8 +49,8 @@ struct DashboardViewTest {
     }
 
     @Test
-    func `DashboardView renders content when weatherDisplayModel is loaded from mock fixtures`() async throws {
-        let displayModel = try await loadDisplayModelFromMocks()
+    func `DashboardView renders content when weatherDisplayModel is populated`() {
+        let displayModel = makeStubWeatherDisplayModel()
 
         let mockVM = MockDashboardViewModel()
         mockVM.hasError = false
@@ -92,8 +92,8 @@ struct DashboardViewTest {
     // MARK: - TemperatureView Component
 
     @Test
-    func `TemperatureView renders correctly with data from mockWeather fixture`() async throws {
-        let displayModel = try await loadDisplayModelFromMocks()
+    func `TemperatureView renders correctly with display model`() {
+        let displayModel = makeStubWeatherDisplayModel()
         let tempView = TemperatureView(model: displayModel)
 
         let controller = renderInWindow(tempView)
@@ -108,8 +108,8 @@ struct DashboardViewTest {
     // MARK: - TimeHoursView Component
 
     @Test
-    func `TimeHoursView renders hourly items with divider for first item from mockForecast fixture`() async throws {
-        let displayModel = try await loadDisplayModelFromMocks()
+    func `TimeHoursView renders hourly items with divider for first item`() {
+        let displayModel = makeStubWeatherDisplayModel()
         let hoursView = TimeHoursView(hours: displayModel.hourlyForecast)
 
         let controller = renderInWindow(hoursView)
@@ -134,8 +134,8 @@ struct DashboardViewTest {
     // MARK: - DayForecast Component
 
     @Test
-    func `DayForecast renders daily forecast items and header from mockForecast fixture`() async throws {
-        let displayModel = try await loadDisplayModelFromMocks()
+    func `DayForecast renders daily forecast items and header`() {
+        let displayModel = makeStubWeatherDisplayModel()
         let dayForecastView = DayForecast(forecastDays: displayModel.dailyForecast)
 
         let controller = renderInWindow(dayForecastView)
@@ -233,11 +233,27 @@ private func renderInWindow<V: View>(_ view: V) -> UIHostingController<V> {
 }
 
 @MainActor
-private func loadDisplayModelFromMocks() async throws -> WeatherDisplayModel {
-    let apiClient = MockMapServicesAPIClient()
-    let repository = MapServicesRepository(apiClient: apiClient)
-    let factory = MapServicesUseCaseFactory(modelProtocol: repository)
-    let vm = DashboardViewModel(mapServicesUseCaseFactory: factory)
-    await vm.loadWeather(city: "Granada", country: "ES")
-    return try #require(vm.weatherDisplayModel)
+private func makeStubWeatherDisplayModel() -> WeatherDisplayModel {
+    let hourly = [
+        HourlyForecastModel(time: "6 PM", icon: "cloud.sun.fill", color: .orange),
+        HourlyForecastModel(time: "9 PM", icon: "cloud.fill", color: .gray),
+        HourlyForecastModel(time: "12 AM", icon: "cloud.moon.fill", color: .indigo),
+        HourlyForecastModel(time: "3 AM", icon: "cloud.fill", color: .gray),
+        HourlyForecastModel(time: "6 AM", icon: "cloud.sun.fill", color: .orange)
+    ]
+    let daily = [
+        DailyForecastModel(day: "Martes", temperature: "29°", description: "Muy Nuboso", icon: "cloud.fill", color: .gray),
+        DailyForecastModel(day: "Miércoles", temperature: "27°", description: "Nubes", icon: "cloud.fill", color: .gray),
+        DailyForecastModel(day: "Jueves", temperature: "24°", description: "Muy Nuboso", icon: "cloud.fill", color: .gray),
+        DailyForecastModel(day: "Viernes", temperature: "26°", description: "Cielo Claro", icon: "sun.max.fill", color: .yellow),
+        DailyForecastModel(day: "Sábado", temperature: "28°", description: "Cielo Claro", icon: "sun.max.fill", color: .yellow)
+    ]
+    return WeatherDisplayModel(
+        temp: "32°",
+        description: "Algo De Nubes",
+        minTemp: "32°",
+        maxTemp: "32°",
+        hourlyForecast: hourly,
+        dailyForecast: daily
+    )
 }
