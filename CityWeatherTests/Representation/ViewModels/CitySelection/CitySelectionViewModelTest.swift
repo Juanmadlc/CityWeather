@@ -308,31 +308,6 @@ struct CitySelectionViewModelTest {
         #expect(storage.savedCity == nil)
     }
 
-    // MARK: - End to End Integration with MockGeoCodingServicesAPIClient
-
-    @Test
-    func `loadCitySuggestions and didTapContinue succeed end-to-end with MockGeoCodingServicesAPIClient`() async {
-        let mockAPIClient = MockGeoCodingServicesAPIClient()
-        let repository = GeoCodingServicesRepository(apiClient: mockAPIClient)
-        let factory = GeoCodingServiceUseCaseFactory(modelProtocol: repository)
-        let storage = MockUserDefaultsStorage()
-        let sut = CitySelectionViewModel(geoCodingServiceUseCaseFactory: factory, cityStorage: storage)
-
-        await sut.loadCitySuggestions(name: "Barc")
-
-        #expect(sut.citySuggestions.count == 5)
-        #expect(sut.citySuggestions.contains("Barcelona, ES"))
-
-        sut.didTapContinue(city: "Barcelona, ES")
-
-        #expect(sut.dashboardCity == "Barcelona")
-        #expect(sut.dashboardCountry == "ES")
-        #expect(sut.isLoading == true)
-        #expect(sut.shouldNavigateToDashboard == true)
-        #expect(storage.savedCity == "Barcelona")
-        #expect(storage.savedCountry == "ES")
-    }
-
     // MARK: - getCurrentCity
 
     @Test

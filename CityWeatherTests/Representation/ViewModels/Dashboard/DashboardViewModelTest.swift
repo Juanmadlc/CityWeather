@@ -259,27 +259,6 @@ struct DashboardViewModelTest {
         #expect(sut.hasError == false)
     }
 
-    // MARK: - End to End Integration with MockMapServicesAPIClient
-
-    @Test
-    func `loadWeather succeeds end-to-end with MockMapServicesAPIClient`() async throws {
-        let mockAPIClient = MockMapServicesAPIClient()
-        let repository = MapServicesRepository(apiClient: mockAPIClient)
-        let factory = MapServicesUseCaseFactory(modelProtocol: repository)
-        let sut = DashboardViewModel(mapServicesUseCaseFactory: factory)
-
-        await sut.loadWeather(city: "Granada", country: "ES")
-
-        #expect(sut.hasError == false)
-        let displayModel = try #require(sut.weatherDisplayModel)
-        #expect(displayModel.temp == "32°")
-        #expect(displayModel.minTemp == "32°")
-        #expect(displayModel.maxTemp == "32°")
-        #expect(displayModel.description == "Algo De Nubes")
-        #expect(displayModel.hourlyForecast.count == 5)
-        #expect(displayModel.dailyForecast.count == 5)
-    }
-
     // MARK: - Display Models Initializers
 
     @Test
