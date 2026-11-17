@@ -214,46 +214,6 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		9603DD693050272000882233 /* Exceptions for "CityWeatherTests" folder in "CityWeatherTests" target */ = {
-			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
-			membershipExceptions = (
-				Commons/Extension/BundleExtensionTest.swift,
-				Commons/Extension/DateExtensionTest.swift,
-				Commons/Extension/StringExtensionTest.swift,
-				Commons/LocationManagerTest.swift,
-				Commons/Mocks/MockGeoCodingServicesAPIClientTest.swift,
-				Commons/Mocks/MockMapServicesAPIClientTest.swift,
-				Commons/Mocks/MocksManagerTest.swift,
-				Data/APIClient/GeoCodingServices/GeoCodingServicesAPIClientTest.swift,
-				Data/APIClient/MapServices/MapServicesAPIClientTest.swift,
-				Data/Persistente/LocalStorage/UserDefaultsStorageTest.swift,
-				Platform/Scenes/CitySelection/CitySelectionViewTest.swift,
-				Platform/Scenes/Dashboard/DashboardViewTest.swift,
-				Representation/ViewModels/CitySelection/CitySelectionViewModelTest.swift,
-				Representation/ViewModels/Dashboard/DashboardViewModelTest.swift,
-			);
-			target = 967690252D95897800DE9D02 /* CityWeatherTests */;
-		};
-		9603DD6A3050272000882233 /* Exceptions for "CityWeatherTests" folder in "CityWeatherUITests" target */ = {
-			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
-			membershipExceptions = (
-				Commons/Extension/BundleExtensionTest.swift,
-				Commons/Extension/DateExtensionTest.swift,
-				Commons/Extension/StringExtensionTest.swift,
-				Commons/LocationManagerTest.swift,
-				Commons/Mocks/MockGeoCodingServicesAPIClientTest.swift,
-				Commons/Mocks/MockMapServicesAPIClientTest.swift,
-				Commons/Mocks/MocksManagerTest.swift,
-				Data/APIClient/GeoCodingServices/GeoCodingServicesAPIClientTest.swift,
-				Data/APIClient/MapServices/MapServicesAPIClientTest.swift,
-				Data/Persistente/LocalStorage/UserDefaultsStorageTest.swift,
-				Platform/Scenes/CitySelection/CitySelectionViewTest.swift,
-				Platform/Scenes/Dashboard/DashboardViewTest.swift,
-				Representation/ViewModels/CitySelection/CitySelectionViewModelTest.swift,
-				Representation/ViewModels/Dashboard/DashboardViewModelTest.swift,
-			);
-			target = 9676902F2D95897800DE9D02 /* CityWeatherUITests */;
-		};
 		96ED470E3018CF00002195D0 /* Exceptions for "Preview Content" folder in "CityWeatherProRelease" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
@@ -266,10 +226,6 @@
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		9603DD673050271F00882233 /* CityWeatherTests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			exceptions = (
-				9603DD693050272000882233 /* Exceptions for "CityWeatherTests" folder in "CityWeatherTests" target */,
-				9603DD6A3050272000882233 /* Exceptions for "CityWeatherTests" folder in "CityWeatherUITests" target */,
-			);
 			path = CityWeatherTests;
 			sourceTree = "<group>";
 		};
@@ -744,6 +700,9 @@
 			dependencies = (
 				967690282D95897800DE9D02 /* PBXTargetDependency */,
 			);
+			fileSystemSynchronizedGroups = (
+				9603DD673050271F00882233 /* CityWeatherTests */,
+			);
 			name = CityWeatherTests;
 			packageProductDependencies = (
 			);
@@ -765,7 +724,6 @@
 				967690322D95897800DE9D02 /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
-				9603DD673050271F00882233 /* CityWeatherTests */,
 				967690332D95897800DE9D02 /* CityWeatherUITests */,
 			);
 			name = CityWeatherUITests;
