@@ -21,7 +21,6 @@ struct MapServicesEndpoints {
     static let dataForecast = "/data/2.5/forecast"
     
     // MARK: PARAMS
-    static let appid = MapServicesAPIKey.appid
     static let units = "metric"
     static var language: String {
         guard let preferredLanguage = Locale.preferredLanguages.first,

@@ -24,5 +24,9 @@ struct Constants {
         static let defaultLongitude = -3.7061925
         static let deltaZoom = 0.03
     }
-    
+
+    struct Search {
+        static let debounce: Duration = .milliseconds(300)
+    }
+
 }

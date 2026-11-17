@@ -172,10 +172,12 @@ struct CitySelectionViewModelTest {
         let storage = MockUserDefaultsStorage()
         let sut = CitySelectionViewModel(geoCodingServiceUseCaseFactory: factory, cityStorage: storage)
 
-        await sut.loadCitySuggestions(name: "")
+        sut.loadCitySuggestions(name: "")
+        await sut.searchTask?.value
         #expect(sut.citySuggestions.isEmpty)
 
-        await sut.loadCitySuggestions(name: "   \n\t  ")
+        sut.loadCitySuggestions(name: "   \n\t  ")
+        await sut.searchTask?.value
         #expect(sut.citySuggestions.isEmpty)
         #expect(mockModel.capturedSearchName == nil)
     }
@@ -188,7 +190,8 @@ struct CitySelectionViewModelTest {
         let storage = MockUserDefaultsStorage()
         let sut = CitySelectionViewModel(geoCodingServiceUseCaseFactory: factory, cityStorage: storage)
 
-        await sut.loadCitySuggestions(name: "  Barcelona  ")
+        sut.loadCitySuggestions(name: "  Barcelona  ")
+        await sut.searchTask?.value
 
         #expect(mockModel.capturedSearchName == "Barcelona")
         #expect(sut.citySuggestions.count == 5)
@@ -209,7 +212,8 @@ struct CitySelectionViewModelTest {
         let storage = MockUserDefaultsStorage()
         let sut = CitySelectionViewModel(geoCodingServiceUseCaseFactory: factory, cityStorage: storage)
 
-        await sut.loadCitySuggestions(name: "Granada")
+        sut.loadCitySuggestions(name: "Granada")
+        await sut.searchTask?.value
 
         #expect(sut.citySuggestions.isEmpty)
     }
@@ -221,9 +225,80 @@ struct CitySelectionViewModelTest {
         let storage = MockUserDefaultsStorage()
         let sut = CitySelectionViewModel(geoCodingServiceUseCaseFactory: factory, cityStorage: storage)
 
-        await sut.loadCitySuggestions(name: "Madrid")
+        sut.loadCitySuggestions(name: "Madrid")
+        await sut.searchTask?.value
 
         #expect(sut.citySuggestions.isEmpty)
+    }
+
+    @Test
+    func `New search cancels the previous one and stale results are never shown`() async throws {
+        let model = GatedGeoCodingServicesModel(
+            gatedName: "Mad",
+            results: ["Mad": try searchWrapper(names: ["Madeira"]), "Madrid": try searchWrapper(names: ["Madrid"])]
+        )
+        let sut = makeSearchSUT(model: model)
+
+        sut.loadCitySuggestions(name: "Mad")
+        let staleTask = sut.searchTask
+        await model.probe.waitUntilGateEntered()
+
+        sut.loadCitySuggestions(name: "Madrid")
+        await sut.searchTask?.value
+        #expect(sut.citySuggestions == ["Madrid"])
+
+        await model.probe.openGate()
+        await staleTask?.value
+        #expect(sut.citySuggestions == ["Madrid"])
+    }
+
+    @Test
+    func `Empty search text cancels the in-flight search and clears suggestions`() async throws {
+        let model = GatedGeoCodingServicesModel(gatedName: "Mad", results: ["Mad": try searchWrapper(names: ["Madeira"])])
+        let sut = makeSearchSUT(model: model)
+
+        sut.loadCitySuggestions(name: "Mad")
+        let staleTask = sut.searchTask
+        await model.probe.waitUntilGateEntered()
+
+        sut.loadCitySuggestions(name: "   ")
+        #expect(sut.citySuggestions.isEmpty)
+
+        await model.probe.openGate()
+        await staleTask?.value
+        #expect(sut.citySuggestions.isEmpty)
+    }
+
+    @Test
+    func `Debounce only sends the last query typed in quick succession`() async throws {
+        let model = GatedGeoCodingServicesModel(gatedName: nil, results: ["Madrid": try searchWrapper(names: ["Madrid"])])
+        let sut = makeSearchSUT(model: model, debounce: .milliseconds(100))
+
+        sut.loadCitySuggestions(name: "Ma")
+        sut.loadCitySuggestions(name: "Madrid")
+        await sut.searchTask?.value
+
+        #expect(await model.probe.requestedNames == ["Madrid"])
+        #expect(sut.citySuggestions == ["Madrid"])
+    }
+
+    @Test
+    func `Cancellation errors keep current suggestions and are not treated as failures`() async throws {
+        let mockModel = MockGeoCodingServicesModel()
+        mockModel.searchResult = .success(try searchWrapper(names: ["Madrid"]))
+        let sut = makeSearchSUT(model: mockModel)
+        sut.loadCitySuggestions(name: "Madrid")
+        await sut.searchTask?.value
+
+        mockModel.searchResult = .failure(CancellationError())
+        sut.loadCitySuggestions(name: "Mad")
+        await sut.searchTask?.value
+        #expect(sut.citySuggestions == ["Madrid"])
+
+        mockModel.searchResult = .failure(URLError(.cancelled))
+        sut.loadCitySuggestions(name: "Mad")
+        await sut.searchTask?.value
+        #expect(sut.citySuggestions == ["Madrid"])
     }
 
     // MARK: - didTapContinue
@@ -236,7 +311,8 @@ struct CitySelectionViewModelTest {
         let storage = MockUserDefaultsStorage()
         let sut = CitySelectionViewModel(geoCodingServiceUseCaseFactory: factory, cityStorage: storage)
 
-        await sut.loadCitySuggestions(name: "Barcelona")
+        sut.loadCitySuggestions(name: "Barcelona")
+        await sut.searchTask?.value
 
         sut.didTapContinue(city: "Barcelona, ES")
 
@@ -372,7 +448,76 @@ private final class NonGeoCodingWrapperFactory: GeoCodingServiceUseCaseFactory, 
     }
 }
 
+private actor SearchProbe {
+    private(set) var requestedNames: [String] = []
+    private var isGateOpen = false
+    private var hasEnteredGate = false
+    private var gateContinuation: CheckedContinuation<Void, Never>?
+    private var enteredContinuation: CheckedContinuation<Void, Never>?
+
+    func record(_ name: String) {
+        requestedNames.append(name)
+    }
+
+    func waitAtGate() async {
+        hasEnteredGate = true
+        enteredContinuation.take()?.resume()
+        guard !isGateOpen else { return }
+        await withCheckedContinuation { gateContinuation = $0 }
+    }
+
+    func waitUntilGateEntered() async {
+        guard !hasEnteredGate else { return }
+        await withCheckedContinuation { enteredContinuation = $0 }
+    }
+
+    func openGate() {
+        isGateOpen = true
+        gateContinuation.take()?.resume()
+    }
+}
+
+private final class GatedGeoCodingServicesModel: GeoCodingServicesModelProtocol, Sendable {
+    let probe = SearchProbe()
+    private let gatedName: String?
+    private let results: [String: GeoCodingSearchWrapper]
+
+    init(gatedName: String?, results: [String: GeoCodingSearchWrapper]) {
+        self.gatedName = gatedName
+        self.results = results
+    }
+
+    func getDataSearch(name: String) async throws -> GeoCodingSearchWrapper {
+        await probe.record(name)
+        if name == gatedName {
+            await probe.waitAtGate()
+        }
+        guard let result = results[name] else {
+            throw GeoCodingServicesModelProtocolError.unaccessible
+        }
+        return result
+    }
+}
+
+@MainActor
+private func makeSearchSUT(
+    model: GeoCodingServicesModelProtocol,
+    debounce: Duration = .zero
+) -> CitySelectionViewModel {
+    CitySelectionViewModel(
+        geoCodingServiceUseCaseFactory: GeoCodingServiceUseCaseFactory(modelProtocol: model),
+        cityStorage: MockUserDefaultsStorage(),
+        searchDebounce: debounce
+    )
+}
+
 // MARK: - Mocks Loading Helpers
+
+private func searchWrapper(names: [String]) throws -> GeoCodingSearchWrapper {
+    let json: [String: Any] = ["results": names.map { ["name": $0] }]
+    let data = try JSONSerialization.data(withJSONObject: json)
+    return try JSONDecoder().decode(GeoCodingSearchWrapper.self, from: data)
+}
 
 private func loadMockGeoSearch() throws -> GeoCodingSearchWrapper {
     let data = try MocksManager.shared.getMockGeoDataSearch()

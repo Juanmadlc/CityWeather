@@ -200,7 +200,7 @@ struct CitySelectionViewTest {
         #expect(mockVM.didTapContinueCalled == true)
         #expect(mockVM.capturedContinueCity == "Barcelona, ES")
 
-        await mockVM.loadCitySuggestions(name: "Barce")
+        mockVM.loadCitySuggestions(name: "Barce")
         #expect(mockVM.loadCitySuggestionsCalled == true)
         #expect(mockVM.capturedSearchQuery == "Barce")
 
@@ -244,7 +244,7 @@ private final class MockCitySelectionViewModel: CitySelectionViewModelProtocol, 
         capturedContinueCity = city
     }
 
-    func loadCitySuggestions(name: String) async {
+    func loadCitySuggestions(name: String) {
         loadCitySuggestionsCalled = true
         capturedSearchQuery = name
     }

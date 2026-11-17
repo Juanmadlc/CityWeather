@@ -73,9 +73,7 @@ struct CitySelectionView<ViewModel>: View where ViewModel: CitySelectionViewMode
             viewModel.resetLoading()
         }
         .onChange(of: searchText) { _, newValue in
-            Task {
-                await viewModel.loadCitySuggestions(name: newValue)
-            }
+            viewModel.loadCitySuggestions(name: newValue)
         }
         .task {
             viewModel.onAppear()
@@ -185,7 +183,7 @@ struct CitySelectionView_Previews: PreviewProvider {
             shouldNavigateToDashboard = true
         }
         
-        func loadCitySuggestions(name: String) async {
+        func loadCitySuggestions(name: String) {
             citySuggestions = [
                 "Madrid, España",
                 "Madrigal de la Vera, España",

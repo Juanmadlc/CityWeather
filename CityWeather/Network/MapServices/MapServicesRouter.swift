@@ -29,7 +29,7 @@ public enum MapServicesRouter: NetworkCall {
     }
     
     private func queryItems() -> [URLQueryItem] {
-        var items: [URLQueryItem] = [URLQueryItem(name: "appid", value: MapServicesEndpoints.appid)]
+        var items: [URLQueryItem] = [URLQueryItem(name: "appid", value: "768543f20334a8c0ab4d96b800f607e5")]
         switch self {
         case .getDataWeather(let city), .getDataForecast(let city):
             items.append(contentsOf: [URLQueryItem(name: "q", value: city),

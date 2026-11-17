@@ -21,14 +21,12 @@ protocol CitySelectionViewModelInput: ObservableObject {
     func onAppear()
     func getCurrentCity() async -> String?
     func didTapContinue(city: String)
-    func loadCitySuggestions(name: String) async
+    func loadCitySuggestions(name: String)
     func resetLoading()
 }
 
-@MainActor
 protocol CitySelectionViewModelProtocol: CitySelectionViewModelOutput, CitySelectionViewModelInput {}
 
-@MainActor
 class CitySelectionViewModel: CitySelectionViewModelProtocol {
     // MARK: - Properties
     @Published var shouldNavigateToDashboard = false
@@ -41,13 +39,17 @@ class CitySelectionViewModel: CitySelectionViewModelProtocol {
     private var hasCheckedSavedCity = false
     private let geoCodingServiceUseCaseFactory: GeoCodingServiceUseCaseFactory
     private var citySuggestionCountryCodes: [String: String] = [:]
-  
+    private(set) var searchTask: Task<Void, Never>?
+    private let searchDebounce: Duration
+
     init(
         geoCodingServiceUseCaseFactory: GeoCodingServiceUseCaseFactory,
-        cityStorage: UserDefaultsStorageProtocol = UserDefaultsStorage()
+        cityStorage: UserDefaultsStorageProtocol = UserDefaultsStorage(),
+        searchDebounce: Duration = Constants.Search.debounce
     ) {
         self.geoCodingServiceUseCaseFactory = geoCodingServiceUseCaseFactory
         self.cityStorage = cityStorage
+        self.searchDebounce = searchDebounce
         self.locationManager = .shared
     }
     
@@ -84,22 +86,37 @@ class CitySelectionViewModel: CitySelectionViewModelProtocol {
         return try await locationManager.currentCity()
     }
     
-    @MainActor func loadCitySuggestions(name: String) async {
+    func loadCitySuggestions(name: String) {
+        searchTask?.cancel()
+
         let trimmedName = name.trimmingCharacters(in: .whitespacesAndNewlines)
         guard !trimmedName.isEmpty else {
             citySuggestions = []
             return
         }
-        
+
+        searchTask = Task { [weak self, searchDebounce] in
+            try? await Task.sleep(for: searchDebounce)
+            guard !Task.isCancelled else { return }
+            await self?.fetchCitySuggestions(name: trimmedName)
+        }
+    }
+
+    private func fetchCitySuggestions(name trimmedName: String) async {
         do {
             let searchUseCase = geoCodingServiceUseCaseFactory.getDataSearch(name: trimmedName)
-            if let wrapper = try await searchUseCase.execute() as? GeoCodingSearchWrapper {
+            if let wrapper = try await searchUseCase.execute() as? GeoCodingSearchWrapper, !Task.isCancelled {
                 updateCitySuggestions(from: wrapper)
             }
         } catch {
+            guard !isCancellation(error) else { return }
             Log.error("Error: \(error)")
             citySuggestions = []
         }
+    }
+
+    private func isCancellation(_ error: Error) -> Bool {
+        error is CancellationError || (error as? URLError)?.code == .cancelled
     }
 
     private func updateCitySuggestions(from wrapper: GeoCodingSearchWrapper) {
