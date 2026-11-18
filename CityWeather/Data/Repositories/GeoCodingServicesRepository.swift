@@ -10,13 +10,20 @@ import Foundation
 final class GeoCodingServicesRepository: GeoCodingServicesModelProtocol, Sendable {
     
     private let apiClient: GeoCodingServicesAPIClientProtocol
+    private let cache: GeoCodingSearchCache
     
-    init(apiClient: GeoCodingServicesAPIClientProtocol) {
+    init(apiClient: GeoCodingServicesAPIClientProtocol, cache: GeoCodingSearchCache = GeoCodingSearchCache()) {
         self.apiClient = apiClient
+        self.cache = cache
     }
     
     func getDataSearch(name: String) async throws -> GeoCodingSearchWrapper {
-        return try await apiClient.getDataSearch(name: name)
+        if let cached = await cache.value(for: name) {
+            return cached
+        }
+        let result = try await apiClient.getDataSearch(name: name)
+        await cache.store(result, for: name)
+        return result
     }
     
 }
