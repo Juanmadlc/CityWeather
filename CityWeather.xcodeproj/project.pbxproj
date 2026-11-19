@@ -317,8 +317,7 @@
 				964055362F76E43E0021407D /* Data */,
 				962A42572F5B3B9000B79DE9 /* Commons */,
 				964055352F76BEE70021407D /* Domain */,
-				96F5FC132FA3B29600C490BC /* Platform */,
-				960E30302FE9440F00EB974A /* Representation */,
+				962FD6C030AF9AB4002508FD /* Presentation */,
 				962A425E2F5B3EC000B79DE9 /* Resources */,
 				962A424B2F5B397600B79DE9 /* Preview Content */,
 			);
@@ -430,6 +429,15 @@
 				96E095C82FE9408B005C2313 /* View */,
 			);
 			path = CitySelection;
+			sourceTree = "<group>";
+		};
+		962FD6C030AF9AB4002508FD /* Presentation */ = {
+			isa = PBXGroup;
+			children = (
+				96F5FC132FA3B29600C490BC /* Platform */,
+				960E30302FE9440F00EB974A /* Representation */,
+			);
+			path = Presentation;
 			sourceTree = "<group>";
 		};
 		964055262F76A4F30021407D /* MapServices */ = {
