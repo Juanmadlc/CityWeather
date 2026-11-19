@@ -68,6 +68,10 @@ struct CitySelectionView<ViewModel>: View where ViewModel: CitySelectionViewMode
         .onDisappear {
             viewModel.resetLoading()
         }
+        .onChange(of: viewModel.shouldNavigateToDashboard) { _, isShowingDashboard in
+            guard !isShowingDashboard else { return }
+            viewModel.didReturnFromDashboard()
+        }
         .onChange(of: searchText) { _, newValue in
             viewModel.loadCitySuggestions(name: newValue)
         }
@@ -98,7 +102,7 @@ struct UseCurrentLocationButton: View {
     var body: some View {
         Button(action: action) {
             HStack(spacing: 8) {
-                Image(systemName: "plus.circle.fill")
+                Image(systemName: "location.fill")
                     .font(.system(size: 20))
                 Text("Use Current Location")
                     .font(.system(size: 16, weight: .semibold))
@@ -188,6 +192,8 @@ struct CitySelectionView_Previews: PreviewProvider {
         }
         
         func resetLoading() {return}
+
+        func didReturnFromDashboard() {}
     }
 
     class PreviewCitySelectionConnector: CitySelectionConnector {}

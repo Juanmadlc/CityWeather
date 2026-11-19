@@ -23,6 +23,7 @@ protocol CitySelectionViewModelInput: ObservableObject {
     func didTapContinue(city: String)
     func loadCitySuggestions(name: String)
     func resetLoading()
+    func didReturnFromDashboard()
 }
 
 protocol CitySelectionViewModelProtocol: CitySelectionViewModelOutput, CitySelectionViewModelInput {}
@@ -71,7 +72,11 @@ class CitySelectionViewModel: CitySelectionViewModelProtocol {
     func resetLoading() {
         isLoading = false
     }
-    
+
+    func didReturnFromDashboard() {
+        cityStorage.removeSelectedCityCountry()
+    }
+
     func getCurrentCity() async -> String? {
         do {
             return try await getLocations()

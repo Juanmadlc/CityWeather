@@ -19,6 +19,8 @@ struct SearchBar: View {
                     .padding(.leading, 8)
 
                 TextField("Search for a city", text: $text)
+                    .autocorrectionDisabled()
+                    .textInputAutocapitalization(.words)
                     .focused($isFocused)
                     .font(.system(size: 16))
                     .padding(.vertical, 8)

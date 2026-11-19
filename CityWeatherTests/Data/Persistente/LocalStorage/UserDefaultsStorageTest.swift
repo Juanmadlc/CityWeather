@@ -98,4 +98,16 @@ final class UserDefaultsStorageTest: XCTestCase {
         // Then
         XCTAssertEqual(sut.getSelectedCity(), "Madrid")
     }
+
+    func testRemoveSelectedCityCountry() {
+        // When
+        sut.saveSelectedCity("Madrid")
+        sut.saveSelectedCountry("ES")
+
+        sut.removeSelectedCityCountry()
+
+        // Then
+        XCTAssertNil(sut.getSelectedCity())
+        XCTAssertNil(sut.getSelectedCountry())
+    }
 }

@@ -163,6 +163,18 @@ struct CitySelectionViewModelTest {
         #expect(sut.isLoading == false)
     }
 
+    @Test
+    func `didReturnFromDashboard removes the saved city`() {
+        let factory = GeoCodingServiceUseCaseFactory(modelProtocol: MockGeoCodingServicesModel())
+        let storage = MockUserDefaultsStorage()
+        storage.savedCity = "Bilbao"
+        let sut = CitySelectionViewModel(geoCodingServiceUseCaseFactory: factory, cityStorage: storage)
+
+        sut.didReturnFromDashboard()
+
+        #expect(storage.removeSelectedCityCalled == true)
+    }
+
     // MARK: - loadCitySuggestions with mockGeoDataSearch
 
     @Test
@@ -441,6 +453,12 @@ private final class MockUserDefaultsStorage: UserDefaultsStorageProtocol, @unche
 
     func getSelectedCountry() -> String? {
         savedCountry
+    }
+
+    private(set) var removeSelectedCityCalled = false
+
+    func removeSelectedCityCountry() {
+        removeSelectedCityCalled = true
     }
 }
 

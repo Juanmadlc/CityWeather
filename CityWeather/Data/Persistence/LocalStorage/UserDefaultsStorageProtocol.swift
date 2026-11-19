@@ -12,4 +12,5 @@ protocol UserDefaultsStorageProtocol {
     func saveSelectedCountry(_ country: String)
     func getSelectedCity() -> String?
     func getSelectedCountry() -> String?
+    func removeSelectedCityCountry()
 }

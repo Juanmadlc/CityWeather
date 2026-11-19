@@ -29,4 +29,9 @@ class UserDefaultsStorage: UserDefaultsStorageProtocol {
     func getSelectedCountry() -> String? {
         UserDefaults.standard.string(forKey: Keys.selectedCountry)
     }
+
+    func removeSelectedCityCountry() {
+        UserDefaults.standard.removeObject(forKey: Keys.selectedCity)
+        UserDefaults.standard.removeObject(forKey: Keys.selectedCountry)
+    }
 }

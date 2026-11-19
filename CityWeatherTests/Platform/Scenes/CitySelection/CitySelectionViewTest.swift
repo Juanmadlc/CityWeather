@@ -253,6 +253,8 @@ private final class MockCitySelectionViewModel: CitySelectionViewModelProtocol, 
         resetLoadingCalled = true
         isLoading = false
     }
+
+    func didReturnFromDashboard() {}
 }
 
 // MARK: - Helpers
