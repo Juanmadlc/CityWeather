@@ -103,10 +103,11 @@ class CitySelectionViewModel: CitySelectionViewModelProtocol {
     }
 
     private func fetchCitySuggestions(name trimmedName: String) async {
+        let searchTerms = searchTerms(from: trimmedName)
         do {
-            let searchUseCase = geoCodingServiceUseCaseFactory.getDataSearch(name: trimmedName)
+            let searchUseCase = geoCodingServiceUseCaseFactory.getDataSearch(name: searchTerms.city)
             if let wrapper = try await searchUseCase.execute() as? GeoCodingSearchWrapper, !Task.isCancelled {
-                updateCitySuggestions(from: wrapper)
+                updateCitySuggestions(from: wrapper, countryCode: searchTerms.countryCode)
             }
         } catch {
             guard !isCancellation(error) else { return }
@@ -119,9 +120,21 @@ class CitySelectionViewModel: CitySelectionViewModelProtocol {
         error is CancellationError || (error as? URLError)?.code == .cancelled
     }
 
-    private func updateCitySuggestions(from wrapper: GeoCodingSearchWrapper) {
-        let results = wrapper.results ?? []
-        let shouldShowCountryCode = results.count > 1
+    private func searchTerms(from query: String) -> (city: String, countryCode: String) {
+        let parts = query
+            .split(separator: ",", maxSplits: 1)
+            .map { $0.trimmingCharacters(in: .whitespacesAndNewlines) }
+        let city = parts.first ?? query
+        let countryCode = parts.count > 1 ? parts[1].uppercased() : ""
+        return (city, countryCode)
+    }
+
+    private func updateCitySuggestions(from wrapper: GeoCodingSearchWrapper, countryCode filterCountryCode: String) {
+        let allResults = wrapper.results ?? []
+        let results = filterCountryCode.isEmpty
+            ? allResults
+            : allResults.filter { $0.countryCode?.uppercased() == filterCountryCode }
+        let shouldShowCountryCode = results.count > 1 || !filterCountryCode.isEmpty
         var seenCities = Set<String>()
         var suggestions: [String] = []
         var countryCodes: [String: String] = [:]
@@ -152,15 +165,8 @@ class CitySelectionViewModel: CitySelectionViewModelProtocol {
     }
     
     func didTapContinue(city: String) {
-        let country: String
-        if let foundCountry = citySuggestionCountryCodes[city], !foundCountry.isEmpty {
-            country = foundCountry
-        } else if city.contains(","), let components = city.components(separatedBy: ",").last {
-            country = components.trimmingCharacters(in: .whitespacesAndNewlines)
-        } else {
-            country = ""
-        }
-        
+        let country = citySuggestionCountryCodes[city] ?? ""
+
         let trimmedCity = city
             .components(separatedBy: ",")
             .first?

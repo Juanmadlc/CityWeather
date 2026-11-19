@@ -204,6 +204,45 @@ struct CitySelectionViewModelTest {
         ])
     }
 
+    @Test(arguments: ["Barcelona, ES", "  barcelona ,  es  "])
+    func `loadCitySuggestions with country code searches by city and keeps only that country`(query: String) async throws {
+        let mockModel = MockGeoCodingServicesModel()
+        mockModel.searchResult = .success(try loadMockGeoSearch())
+        let factory = GeoCodingServiceUseCaseFactory(modelProtocol: mockModel)
+        let sut = CitySelectionViewModel(
+            geoCodingServiceUseCaseFactory: factory,
+            cityStorage: MockUserDefaultsStorage(),
+            searchDebounce: .zero
+        )
+
+        sut.loadCitySuggestions(name: query)
+        await sut.searchTask?.value
+
+        #expect(mockModel.capturedSearchName?.lowercased() == "barcelona")
+        #expect(sut.citySuggestions == ["Barcelona, ES"])
+    }
+
+    @Test
+    func `Selecting a suggestion filtered by country navigates with that country`() async throws {
+        let mockModel = MockGeoCodingServicesModel()
+        mockModel.searchResult = .success(try loadMockGeoSearch())
+        let factory = GeoCodingServiceUseCaseFactory(modelProtocol: mockModel)
+        let storage = MockUserDefaultsStorage()
+        let sut = CitySelectionViewModel(
+            geoCodingServiceUseCaseFactory: factory,
+            cityStorage: storage,
+            searchDebounce: .zero
+        )
+
+        sut.loadCitySuggestions(name: "Barcelona, ES")
+        await sut.searchTask?.value
+        sut.didTapContinue(city: "Barcelona, ES")
+
+        #expect(sut.dashboardCity == "Barcelona")
+        #expect(sut.dashboardCountry == "ES")
+        #expect(sut.shouldNavigateToDashboard == true)
+    }
+
     @Test
     func `loadCitySuggestions sets empty suggestions when search service throws`() async {
         let mockModel = MockGeoCodingServicesModel()
@@ -323,24 +362,6 @@ struct CitySelectionViewModelTest {
 
         #expect(storage.savedCity == "Barcelona")
         #expect(storage.savedCountry == "ES")
-    }
-
-    @Test
-    func `didTapContinue with comma-separated city and country not in suggestions map`() {
-        let mockModel = MockGeoCodingServicesModel()
-        let factory = GeoCodingServiceUseCaseFactory(modelProtocol: mockModel)
-        let storage = MockUserDefaultsStorage()
-        let sut = CitySelectionViewModel(geoCodingServiceUseCaseFactory: factory, cityStorage: storage)
-
-        sut.didTapContinue(city: "Paris, FR")
-
-        #expect(sut.dashboardCity == "Paris")
-        #expect(sut.dashboardCountry == "FR")
-        #expect(sut.isLoading == true)
-        #expect(sut.shouldNavigateToDashboard == true)
-
-        #expect(storage.savedCity == "Paris")
-        #expect(storage.savedCountry == "FR")
     }
 
     @Test

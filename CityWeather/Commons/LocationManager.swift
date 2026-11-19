@@ -78,7 +78,9 @@ final class LocationManager: NSObject, ObservableObject {
             throw NSError(domain: "LocationManager", code: 2, userInfo: [NSLocalizedDescriptionKey: "No placemark found for location"])
         }
         
-        return placemark.locality ?? placemark.subAdministrativeArea ?? placemark.administrativeArea ?? "Unknown"
+        let city = placemark.locality ?? placemark.subAdministrativeArea ?? placemark.administrativeArea ?? ""
+        guard !city.isEmpty, let countryCode = placemark.isoCountryCode, !countryCode.isEmpty else { return city }
+        return "\(city), \(countryCode)"
     }
 
     // MARK: - Private helpers

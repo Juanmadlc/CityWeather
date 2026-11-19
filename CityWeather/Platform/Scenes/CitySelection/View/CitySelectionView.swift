@@ -50,16 +50,12 @@ struct CitySelectionView<ViewModel>: View where ViewModel: CitySelectionViewMode
                             .padding(.bottom, 16)
                         
                         CityList(cities: displayedCities, onSelect: { selected in
-                            self.searchText = selected
+                            viewModel.didTapContinue(city: selected)
                         })
                         .padding(.bottom, 16)
                         .cornerRadius(12)
                         .clipped()
-                        
-                        NextButton(title: "Continue", action: {
-                            viewModel.didTapContinue(city: searchText)
-                        })
-                        
+
                     }.padding(.horizontal, 24)
 
                 }
