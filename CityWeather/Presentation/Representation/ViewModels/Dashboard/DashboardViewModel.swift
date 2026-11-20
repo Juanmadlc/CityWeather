@@ -18,10 +18,10 @@ protocol DashboardViewModelInput: ObservableObject {
     func loadWeather(city: String, country: String) async
 }
 
-@MainActor
+
 protocol DashboardViewModelProtocol: DashboardViewModelOutput, DashboardViewModelInput {}
 
-@MainActor
+
 class DashboardViewModel: DashboardViewModelProtocol {
     // MARK: - Properties
     @Published var weatherDisplayModel: WeatherDisplayModel?

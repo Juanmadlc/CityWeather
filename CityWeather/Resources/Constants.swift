@@ -26,7 +26,7 @@ struct Constants {
     }
 
     struct Search {
-        static let debounce: Duration = .milliseconds(300)
+        static let debounce: Duration = .milliseconds(100)
         static let cacheTimeToLive: TimeInterval = 300
     }
 

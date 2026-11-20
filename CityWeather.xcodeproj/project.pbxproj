@@ -145,6 +145,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		DA2CF4D3165B456D8ACB4E4D /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		960E30332FE9449400EB974A /* CitySelectionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CitySelectionViewModel.swift; sourceTree = "<group>"; };
 		960E30352FE9475000EB974A /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
 		962A42282F5B32BD00B79DE9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -540,6 +541,7 @@
 		9676900D2D95897500DE9D02 = {
 			isa = PBXGroup;
 			children = (
+				DA2CF4D3165B456D8ACB4E4D /* README.md */,
 				962A42482F5B38B700B79DE9 /* CityWeather */,
 				9603DD673050271F00882233 /* CityWeatherTests */,
 				967690332D95897800DE9D02 /* CityWeatherUITests */,
