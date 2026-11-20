@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ErrorWeatherView: View {
-    let message: String
+    let message: LocalizedStringKey
     
     var body: some View {
         VStack(spacing: 16) {
@@ -27,6 +27,6 @@ struct ErrorWeatherView: View {
 
 struct ErrorWeatherView_Previews: PreviewProvider {
     static var previews: some View {
-        ErrorWeatherView(message: "Ocurrió un error al seleccionar la ciudad, comprueba la conexión o cambia de ciudad desde ajustes")
+        ErrorWeatherView(message: "An error occurred while selecting the city. Check your connection or change the city from settings.")
     }
 }

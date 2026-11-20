@@ -14,6 +14,7 @@ protocol CitySelectionViewModelOutput: ObservableObject {
     var dashboardCountry: String { get }
     var isLoading: Bool { get }
     var citySuggestions: [String] { get }
+    var shouldShowLocationDeniedAlert: Bool { get set }
 }
 
 @MainActor
@@ -35,6 +36,7 @@ class CitySelectionViewModel: CitySelectionViewModelProtocol {
     @Published private(set) var dashboardCountry = ""
     @Published private(set) var isLoading = false
     @Published private(set) var citySuggestions: [String] = []
+    @Published var shouldShowLocationDeniedAlert = false
     private let locationManager: LocationManager
     private let cityStorage: UserDefaultsStorageProtocol
     private var hasCheckedSavedCity = false
@@ -78,6 +80,10 @@ class CitySelectionViewModel: CitySelectionViewModelProtocol {
     }
 
     func getCurrentCity() async -> String? {
+        guard !locationManager.isAuthorizationDenied else {
+            shouldShowLocationDeniedAlert = true
+            return ""
+        }
         do {
             return try await getLocations()
         } catch {

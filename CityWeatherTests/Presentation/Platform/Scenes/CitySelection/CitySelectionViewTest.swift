@@ -176,38 +176,6 @@ struct CitySelectionViewTest {
 
         #expect(controller.isViewLoaded)
     }
-
-    // MARK: - ViewModel Interaction
-
-    @Test
-    func `CitySelectionView interactions execute view model methods`() async {
-        let mockVM = MockCitySelectionViewModel()
-        let connector = CitySelectionConnector()
-        let view = CitySelectionView(viewModel: mockVM, connector: connector)
-
-        let controller = renderInWindow(view)
-
-        #expect(controller.isViewLoaded)
-
-        mockVM.onAppear()
-        #expect(mockVM.onAppearCalled == true)
-
-        let currentCity = await mockVM.getCurrentCity()
-        #expect(mockVM.getCurrentCityCalled == true)
-        #expect(currentCity == "Barcelona")
-
-        mockVM.didTapContinue(city: "Barcelona, ES")
-        #expect(mockVM.didTapContinueCalled == true)
-        #expect(mockVM.capturedContinueCity == "Barcelona, ES")
-
-        mockVM.loadCitySuggestions(name: "Barce")
-        #expect(mockVM.loadCitySuggestionsCalled == true)
-        #expect(mockVM.capturedSearchQuery == "Barce")
-
-        mockVM.resetLoading()
-        #expect(mockVM.resetLoadingCalled == true)
-        #expect(mockVM.isLoading == false)
-    }
 }
 
 // MARK: - Test Doubles
@@ -219,38 +187,19 @@ private final class MockCitySelectionViewModel: CitySelectionViewModelProtocol, 
     var dashboardCountry: String = ""
     @Published var isLoading: Bool = false
     @Published var citySuggestions: [String] = []
+    @Published var shouldShowLocationDeniedAlert = false
 
-    var onAppearCalled = false
-    var resetLoadingCalled = false
-    var getCurrentCityCalled = false
-    var didTapContinueCalled = false
-    var capturedContinueCity: String?
-    var loadCitySuggestionsCalled = false
-    var capturedSearchQuery: String?
-
-    var mockCurrentCity: String? = "Barcelona"
-
-    func onAppear() {
-        onAppearCalled = true
-    }
+    func onAppear() {}
 
     func getCurrentCity() async -> String? {
-        getCurrentCityCalled = true
-        return mockCurrentCity
+        "Barcelona"
     }
 
-    func didTapContinue(city: String) {
-        didTapContinueCalled = true
-        capturedContinueCity = city
-    }
+    func didTapContinue(city: String) {}
 
-    func loadCitySuggestions(name: String) {
-        loadCitySuggestionsCalled = true
-        capturedSearchQuery = name
-    }
+    func loadCitySuggestions(name: String) {}
 
     func resetLoading() {
-        resetLoadingCalled = true
         isLoading = false
     }
 

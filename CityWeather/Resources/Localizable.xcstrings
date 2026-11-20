@@ -4,6 +4,16 @@
     "5-DAY FORECAST" : {
 
     },
+    "An error occurred while selecting the city. Check your connection or change the city from settings." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Ocurrió un error al seleccionar la ciudad, comprueba la conexión o cambia de ciudad desde ajustes"
+          }
+        }
+      }
+    },
     "Cancel" : {
       "localizations" : {
         "es" : {
@@ -52,6 +62,26 @@
         }
       }
     },
+    "Go to Settings" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Ir a Ajustes"
+          }
+        }
+      }
+    },
+    "Location unavailable" : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Ubicación no disponible"
+          }
+        }
+      }
+    },
     "Min: %@  Max: %@" : {
       "localizations" : {
         "en" : {
@@ -81,7 +111,17 @@
           }
         }
       }
+    },
+    "You have denied access to your location. To use your current location, you can enable it in Settings." : {
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "machine_translated",
+            "value" : "Has denegado el acceso a tu ubicación. Para usar tu ubicación actual, puedes activarla en los Ajustes del sistema."
+          }
+        }
+      }
     }
   },
-  "version" : "1.2"
+  "version" : "1.3"
 }

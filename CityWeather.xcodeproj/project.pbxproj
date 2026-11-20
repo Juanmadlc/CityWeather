@@ -145,7 +145,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		DA2CF4D3165B456D8ACB4E4D /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		960E30332FE9449400EB974A /* CitySelectionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CitySelectionViewModel.swift; sourceTree = "<group>"; };
 		960E30352FE9475000EB974A /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
 		962A42282F5B32BD00B79DE9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -209,6 +208,7 @@
 		96F5FC082FA3A81F00C490BC /* mockWeather.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = mockWeather.json; sourceTree = "<group>"; };
 		96F5FC0B2FA3ABCE00C490BC /* AsyncUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncUseCase.swift; sourceTree = "<group>"; };
 		96F5FC112FA3AEC000C490BC /* GetDataWeatherUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetDataWeatherUseCase.swift; sourceTree = "<group>"; };
+		DA2CF4D3165B456D8ACB4E4D /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -233,11 +233,6 @@
 				96ED470E3018CF00002195D0 /* Exceptions for "Preview Content" folder in "CityWeatherProRelease" target */,
 			);
 			path = "Preview Content";
-			sourceTree = "<group>";
-		};
-		967690332D95897800DE9D02 /* CityWeatherUITests */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = CityWeatherUITests;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -544,7 +539,6 @@
 				DA2CF4D3165B456D8ACB4E4D /* README.md */,
 				962A42482F5B38B700B79DE9 /* CityWeather */,
 				9603DD673050271F00882233 /* CityWeatherTests */,
-				967690332D95897800DE9D02 /* CityWeatherUITests */,
 				967690172D95897500DE9D02 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -728,9 +722,6 @@
 			);
 			dependencies = (
 				967690322D95897800DE9D02 /* PBXTargetDependency */,
-			);
-			fileSystemSynchronizedGroups = (
-				967690332D95897800DE9D02 /* CityWeatherUITests */,
 			);
 			name = CityWeatherUITests;
 			packageProductDependencies = (

@@ -43,6 +43,10 @@ final class LocationManager: NSObject, ObservableObject {
         self.userLocation = locationManager.location
     }
 
+    var isAuthorizationDenied: Bool {
+        [.denied, .restricted].contains(locationManager.authorizationStatus)
+    }
+
     func requestLocationAuthorization() {
         switch locationManager.authorizationStatus {
         case .notDetermined:
@@ -61,7 +65,9 @@ final class LocationManager: NSObject, ObservableObject {
 
     func requestLocation() {
         requestLocationAuthorization()
-        locationManager.requestLocation()
+        if locationManager.authorizationStatus == .authorizedWhenInUse || locationManager.authorizationStatus == .authorizedAlways {
+            locationManager.requestLocation()
+        }
     }
 
  
@@ -98,7 +104,9 @@ final class LocationManager: NSObject, ObservableObject {
         return try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<CLLocation, Error>) in
             self.locationContinuation = continuation
 
-            self.locationManager.startUpdatingLocation()
+            if self.locationManager.authorizationStatus == .authorizedWhenInUse || self.locationManager.authorizationStatus == .authorizedAlways {
+                self.locationManager.startUpdatingLocation()
+            }
 
             Task { [weak self] in
                 try? await Task.sleep(nanoseconds: 10 * 1_000_000_000)
@@ -137,6 +145,9 @@ extension LocationManager: @preconcurrency CLLocationManagerDelegate {
             switch manager.authorizationStatus {
             case .authorizedWhenInUse, .authorizedAlways:
                 locationActivated = true
+                if locationContinuation != nil {
+                    locationManager.startUpdatingLocation()
+                }
             case .denied, .restricted:
                 locationActivated = false
                 resumeOnce(throwing: NSError(domain: "LocationManager", code: 4, userInfo: [NSLocalizedDescriptionKey: "Location permission denied or restricted"]))

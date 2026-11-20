@@ -10,6 +10,7 @@ import SwiftUI
 struct CitySelectionView<ViewModel>: View where ViewModel: CitySelectionViewModelProtocol {
     
     @StateObject private var viewModel: ViewModel
+    @Environment(\.openURL) private var openURL
     private let connector: CitySelectionConnector
     private let navBarTitle = Constants.Config.cityWeather
     
@@ -62,6 +63,16 @@ struct CitySelectionView<ViewModel>: View where ViewModel: CitySelectionViewMode
         .commonsNavigationBar(title: navBarTitle)
         .navigationDestination(isPresented: $viewModel.shouldNavigateToDashboard) {
             connector.navigateToDashboard(city: viewModel.dashboardCity, country: viewModel.dashboardCountry)
+        }
+        .alert("Location unavailable", isPresented: $viewModel.shouldShowLocationDeniedAlert) {
+            Button("Cancel", role: .cancel) {}
+            Button("Go to Settings") {
+                if let settingsURL = URL(string: UIApplication.openSettingsURLString) {
+                    openURL(settingsURL)
+                }
+            }
+        } message: {
+            Text("You have denied access to your location. To use your current location, you can enable it in Settings.")
         }
         .onDisappear {
             viewModel.resetLoading()
@@ -164,6 +175,7 @@ struct CitySelectionView_Previews: PreviewProvider {
         var dashboardCountry: String = ""
         var isLoading: Bool = false
         var citySuggestions: [String] = []
+        var shouldShowLocationDeniedAlert = false
         let cities = [
             "New York",
             "London",

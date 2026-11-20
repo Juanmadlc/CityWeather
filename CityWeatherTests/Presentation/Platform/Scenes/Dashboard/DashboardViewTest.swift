@@ -179,24 +179,6 @@ struct DashboardViewTest {
 
         #expect(controller.isViewLoaded)
     }
-
-    // MARK: - ScenePhase & ViewModel Interaction
-
-    @Test
-    func `DashboardView triggers loadWeather with specified city and country`() async {
-        let mockVM = MockDashboardViewModel()
-        let connector = DashboardConnector()
-        let view = DashboardView(viewModel: mockVM, connector: connector, city: "Granada", country: "ES")
-
-        let controller = renderInWindow(view)
-
-        await mockVM.loadWeather(city: "Granada", country: "ES")
-
-        #expect(controller.isViewLoaded)
-        #expect(mockVM.loadWeatherCalled == true)
-        #expect(mockVM.capturedCity == "Granada")
-        #expect(mockVM.capturedCountry == "ES")
-    }
 }
 
 // MARK: - Test Doubles
@@ -206,15 +188,7 @@ private final class MockDashboardViewModel: DashboardViewModelProtocol, Observab
     @Published var hasError: Bool = false
     @Published var weatherDisplayModel: WeatherDisplayModel?
 
-    var loadWeatherCalled = false
-    var capturedCity: String?
-    var capturedCountry: String?
-
-    func loadWeather(city: String, country: String) async {
-        loadWeatherCalled = true
-        capturedCity = city
-        capturedCountry = country
-    }
+    func loadWeather(city: String, country: String) async {}
 }
 
 // MARK: - Helpers

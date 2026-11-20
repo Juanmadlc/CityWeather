@@ -30,7 +30,7 @@ struct DashboardView<ViewModel>: View where ViewModel: DashboardViewModelProtoco
             ScrollView {
                 VStack(spacing: 0) {
                     if viewModel.hasError {
-                        ErrorWeatherView(message: "Ocurrió un error al seleccionar la ciudad, comprueba la conexión o cambia de ciudad desde ajustes")
+                        ErrorWeatherView(message: "An error occurred while selecting the city. Check your connection or change the city from settings.")
                     } else if let displayModel = viewModel.weatherDisplayModel, !displayModel.hourlyForecast.isEmpty {
                         TemperatureView(model: displayModel)
                         TimeHoursView(hours: displayModel.hourlyForecast)
