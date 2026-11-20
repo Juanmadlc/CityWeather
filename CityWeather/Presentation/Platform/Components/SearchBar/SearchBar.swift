@@ -21,6 +21,7 @@ struct SearchBar: View {
                 TextField("Search for a city", text: $text)
                     .autocorrectionDisabled()
                     .textInputAutocapitalization(.words)
+                    .submitLabel(.search)
                     .focused($isFocused)
                     .font(.system(size: 16))
                     .padding(.vertical, 8)
@@ -42,9 +43,9 @@ struct SearchBar: View {
                     text = ""
                     isFocused = false
                 }
+                .transition(.opacity)
             }
         }
         .padding(.top, 4)
-        .animation(.default, value: isFocused)
     }
 }

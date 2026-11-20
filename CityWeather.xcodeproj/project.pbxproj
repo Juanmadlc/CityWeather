@@ -799,9 +799,9 @@
 			projectRoot = "";
 			targets = (
 				967690152D95897500DE9D02 /* CityWeather */,
+				96ED46D83018CEFF002195D0 /* CityWeatherProRelease */,
 				967690252D95897800DE9D02 /* CityWeatherTests */,
 				9676902F2D95897800DE9D02 /* CityWeatherUITests */,
-				96ED46D83018CEFF002195D0 /* CityWeatherProRelease */,
 			);
 		};
 /* End PBXProject section */

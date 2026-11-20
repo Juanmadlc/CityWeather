@@ -53,8 +53,6 @@ struct CitySelectionView<ViewModel>: View where ViewModel: CitySelectionViewMode
                             viewModel.didTapContinue(city: selected)
                         })
                         .padding(.bottom, 16)
-                        .cornerRadius(12)
-                        .clipped()
 
                     }.padding(.horizontal, 24)
 
@@ -127,10 +125,13 @@ struct CityList: View {
                 CityRow(name: city) {
                     onSelect(city)
                 }
-                Divider().padding(.leading, 16)
+                if city != cities.last {
+                    Divider().padding(.leading, 16)
+                }
             }
         }
         .background(Color(.secondarySystemGroupedBackground))
+        .clipShape(RoundedRectangle(cornerRadius: 12))
     }
 }
 
