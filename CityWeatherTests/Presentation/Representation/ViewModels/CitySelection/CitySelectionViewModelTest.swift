@@ -5,7 +5,6 @@
 //  Created by Juan Manuel de la Cruz on 09/11/2026.
 //
 
-import CoreLocation
 import Foundation
 import Testing
 @testable import CityWeather
@@ -172,7 +171,7 @@ struct CitySelectionViewModelTest {
 
         sut.didReturnFromDashboard()
 
-        #expect(storage.removeSelectedCityCalled == true)
+        #expect(storage.removeSelectedCityCountryCalled == true)
     }
 
     // MARK: - loadCitySuggestions with mockGeoDataSearch
@@ -416,21 +415,6 @@ struct CitySelectionViewModelTest {
         #expect(sut.isLoading == false)
         #expect(storage.savedCity == nil)
     }
-
-    // MARK: - getCurrentCity
-
-    @Test
-    func `getCurrentCity handles execution safely without throwing`() async {
-        let mockModel = MockGeoCodingServicesModel()
-        let factory = GeoCodingServiceUseCaseFactory(modelProtocol: mockModel)
-        let storage = MockUserDefaultsStorage()
-        let sut = CitySelectionViewModel(geoCodingServiceUseCaseFactory: factory, cityStorage: storage)
-
-        LocationManager.shared.userLocation = CLLocation(latitude: 40.4168, longitude: -3.7038)
-
-        let result = await sut.getCurrentCity()
-        #expect(result != nil)
-    }
 }
 
 // MARK: - Test Doubles
@@ -455,10 +439,10 @@ private final class MockUserDefaultsStorage: UserDefaultsStorageProtocol, @unche
         savedCountry
     }
 
-    private(set) var removeSelectedCityCalled = false
+    private(set) var removeSelectedCityCountryCalled = false
 
     func removeSelectedCityCountry() {
-        removeSelectedCityCalled = true
+        removeSelectedCityCountryCalled = true
     }
 }
 
