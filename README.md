@@ -12,6 +12,13 @@ Para volver a seleccionar otra ciudad, basta con pulsar el icono del engranaje s
 La aplicación admite español e inglés, adaptándose al idioma configurado en iOS. También respeta automáticamente la apariencia del dispositivo (modo claro u oscuro).
 
 
+<img width="1206" height="2622" alt="City_clearmode" src="https://github.com/user-attachments/assets/538664b2-bc3e-4bbb-952f-d6540c8d1a54" />
+<img width="1206" height="2622" alt="Dashboard_clearmode" src="https://github.com/user-attachments/assets/7cb90f71-eb23-4502-8fbd-79d16931dfd2" />
+</br>
+<img width="1206" height="2622" alt="City_darkmode" src="https://github.com/user-attachments/assets/9486b6f9-194f-4ebd-b798-037f5207f2ea" />
+<img width="1206" height="2622" alt="Dashboard_darkmode" src="https://github.com/user-attachments/assets/616efe83-51aa-44ad-814f-12b9f2f7487b" />
+
+
 ---
 ## 1. API pública elegida
 
@@ -39,7 +46,7 @@ https://openweathermap.org/api/forecast5?collection=current_forecast
 
 Requisitos: Xcode 27 y un simulador o dispositivo con iOS 18 o superior.
 
-1. Clona el repositorio y abre `CityWeather.xcodeproj`.
+1. Clona el repositorio y abre `CityWeather.xcodeproj`. Por ejemplo abre Terminal, sitúate en el directorio donde quieras descargar el proyecto y ejecuta: git clone https://github.com/Juanmadlc/CityWeather.git
 2. Selecciona el esquema **CityWeather** y un dispositivo.
 3. Pulsa **⌘R** para ejecutar.
 
@@ -49,6 +56,12 @@ Ejecutar los tests: **⌘U** con el mismo esquema
 
 La ciudad seleccionada se guarda en datos persistentes para que, en los siguientes arranques, la aplicación acceda directamente al Dashboard.
 Para volver a seleccionar otra ciudad, basta con pulsar el icono del engranaje situado en el Dashboard arriba a la derecha, que permite regresar a CitySelection.
+
+Si se ejecuta con simulador recomiendo:
+- Activar en el simulador la ubicación simulada. Pulsar en device y después en Location y elegir cualquier ciudad.
+- Si queremos visualizar el teclado táctil en el simulador (en vez de escribir con el teclado del mac), pulsar en Device -> Keyboard -> Keyboard Capture (desactivar Simulate Hardware Keyboard)
+
+<img width="1308" height="917" alt="simulador berlin" src="https://github.com/user-attachments/assets/c51f3679-ad71-4254-a9ca-b27a03ca8df0" />
 
 ---
 ## 3. Requisitos funcionales
