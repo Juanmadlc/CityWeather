@@ -2,7 +2,14 @@
   "sourceLanguage" : "en",
   "strings" : {
     "5-DAY FORECAST" : {
-
+      "localizations" : {
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "PREVISIÓN 5 DÍAS"
+          }
+        }
+      }
     },
     "An error occurred while selecting the city. Check your connection or change the city from settings." : {
       "localizations" : {
