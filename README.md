@@ -15,8 +15,9 @@ La aplicación admite español e inglés, adaptándose al idioma configurado en 
 <img width="250" alt="City_clearmode" src="https://github.com/user-attachments/assets/538664b2-bc3e-4bbb-952f-d6540c8d1a54" />
 <img width="250" alt="Dashboard_clearmode" src="https://github.com/user-attachments/assets/7cb90f71-eb23-4502-8fbd-79d16931dfd2" />
 </br>
-<img width="250" alt="City_darkmode" src="https://github.com/user-attachments/assets/9486b6f9-194f-4ebd-b798-037f5207f2ea" />
-<img width="250" alt="Dashboard_darkmode" src="https://github.com/user-attachments/assets/616efe83-51aa-44ad-814f-12b9f2f7487b" />
+<img width="250" alt="Dashboard_clearmode1" src="https://github.com/user-attachments/assets/5acc8a83-09f7-46af-b3c5-310601b2ecbe" />
+<img width="250" alt="Dashboard_clearmode1" src="https://github.com/user-attachments/assets/dcc48e86-038c-4225-9a40-9e3bcbf93358" />
+
 
 
 ---
