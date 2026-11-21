@@ -28,8 +28,10 @@ Los de OpenWeatherMap, en `CityWeather/Network/MapServices/MapServicesRouter.swi
 Para la API que se utiliza en la pantalla de Búsqueda (Open-Meteo) puedes ver la documentación desde aquí
 https://open-meteo.com/en/docs/geocoding-api?language=es
 
-Para la API OpenWeather que se utiliza en el Dashboard puedes ver la documentación aquí 
-https://openweathermap.org/api/current?collection=current_forecast 
+Para la API OpenWeather que se utiliza en el Dashboard puedes ver la documentación aquí
+
+https://openweathermap.org/api/current?collection=current_forecast
+
 https://openweathermap.org/api/forecast5?collection=current_forecast
 
 ---
@@ -77,6 +79,7 @@ El debounce de 100 ms viene de `Constants.Search.debounce` y se inyecta en el `i
 Un texto vacío cancela la búsqueda en curso y vacía la lista (inicio de `loadCitySuggestions(name:)`).
 
 ### 3.3 Pantalla de detalle (llamada Dashboard)
+
 - Al tocar una fila de `CityList` en `CitySelectionView`, se llama a `CitySelectionViewModel.didTapContinue(city:)`, que guarda la ciudad y activa la navegación.
 - La navegación está en `CitySelectionView` (`navigationDestination`) y crea el Dashboard con `CitySelectionConnector.navigateToDashboard(city:country:)`.
 - El Dashboard es `DashboardView` (`Presentation/Platform/Scenes/Dashboard/View/`) y muestra estos campos:
@@ -96,7 +99,7 @@ El proyecto se organiza en diferentes capas, dentro de `CityWeather/`:
 |---|---|---|
 | **Data** | `Data/` y `Network/` | Habla con la red (`URLSession`), decodifica el JSON, implementa los repositorios y gestiona la caché y el almacenamiento local. |
 | **Domain** | `Domain/` | Casos de uso (`AsyncUseCase`) y contratos de repositorio (`ModelProtocol`). No depende de SwiftUI ni de la red. |
-| **Presentation** | `Presentation/Representation/` y `Presentation/Platform/` | ViewModels, factorías de casos de uso, vistas SwiftUI, conectores de navegación y componentes. |
+| **Presentation** | `Presentation/Representation/` (lógica) y `Presentation/Platform/` (SwiftUI) | `Representation/`: ViewModels y factorías de casos de uso. `Platform/`: vistas, conectores de navegación y componentes. |
 
 **Regla de dependencias:** `Presentation → Domain ← Data`. El ViewModel solo conoce casos de uso; el caso de uso solo conoce el protocolo del repositorio; el repositorio de Data implementa ese protocolo.
 
@@ -104,15 +107,14 @@ Ejemplo de la cadena para la búsqueda (la monta `GeoCodingServiceUseCaseFactory
 
 `CitySelectionViewModel` → `GetDataSearchUseCase` → `GeoCodingServicesModelProtocol` (Domain) ← `GeoCodingServicesRepository` (Data)
 
-**Por qué `Presentation/` tiene dos carpetas:** `Representation/` contiene la lógica de presentación (ViewModels y factorías), que se testea con tests unitarios normales; `Platform/` contiene lo dependiente de SwiftUI (vistas, conectores, componentes y `App`). Ambas forman la capa Presentation.
+**Por qué `Presentation/` tiene dos carpetas:** `Representation/` contiene la lógica de presentación (ViewModels y factorías); `Platform/` contiene lo dependiente de SwiftUI (vistas, conectores, componentes y `App`). Ambas forman la capa Presentation.
 
 ### 4.2 UI en SwiftUI
 Todas las pantallas están en SwiftUI: `CityWeatherApp` (`App`, con `NavigationStack`), `CitySelectionView` y `DashboardView`. 
 
 ### 4.3 Concurrencia y asincronía
+
 - Toda la lógica de búsqueda es `async/await`: el caso de uso (`GetDataSearchUseCase.execute()`), el repositorio (`GeoCodingServicesRepository.getDataSearch(name:)`) y el cliente de red (`NetworkDispatcher.call(endpoint:)`).
-- La cancelación usa `Task` y `Task.isCancelled`, además aborta la petición HTTP cuando su tarea se cancela.
-- La caché es un **`actor`** (`GeoCodingSearchCache.swift`), así que el diccionario interno solo lo toca una tarea a la vez.
 
 ### 4.4 Caché por búsqueda con caducidad
 Se ha implementado el requisito por query, caducidad de 5 minutos, devolver el cacheado sin red si es válido y renovarlo si caduca.
@@ -121,7 +123,6 @@ Se ha implementado el requisito por query, caducidad de 5 minutos, devolver el c
 - **Tiempo de vida:** 5 minutos (`Constants.Search.cacheTimeToLive = 300` segundos).
 - **Clave normalizada:** quita espacios y pasa a minúsculas, así `"Madrid"` y `" madrid "` comparten entrada.
 - **Uso:** `GeoCodingServicesRepository.getDataSearch(name:)` devuelve la entrada si es válida; si no existe o ha caducado, llama a la red y guarda el resultado. Si la red falla, no se guarda nada.
-- **Reloj inyectable:** `now` se pasa al crear la caché, así los tests controlan el tiempo sin esperas.
 
 ¿Por qué la caché está en el repositorio y no en el ViewModel, en el caso de uso o en el APIClient? El repositorio es quien coordina las fuentes de datos (red y memoria). Domain no sabe que la caché existe y Presentation tampoco. La caché es un detalle de Data.
 
