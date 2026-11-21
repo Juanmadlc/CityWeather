@@ -164,7 +164,8 @@ struct DashboardViewTest {
         let connector = DashboardConnector()
         let assembledView = connector.assembleModule(city: "Granada", country: "ES")
 
-        let controller = renderInWindow(AnyView(assembledView))
+        let controller = UIHostingController(rootView: assembledView)
+        controller.loadViewIfNeeded()
 
         #expect(controller.isViewLoaded)
     }

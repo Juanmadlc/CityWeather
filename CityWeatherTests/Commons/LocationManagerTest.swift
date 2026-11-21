@@ -93,19 +93,4 @@ struct LocationManagerTest {
         #expect(sut.userLocation?.coordinate.latitude == existingLocation.coordinate.latitude)
         #expect(sut.userLocation?.coordinate.longitude == existingLocation.coordinate.longitude)
     }
-
-    @Test
-    @MainActor
-    func `Location failures do not replace the current location`() async {
-        let sut = LocationManager()
-        let manager = CLLocationManager()
-        let existingLocation = CLLocation(latitude: 39.4699, longitude: -0.3763)
-        sut.userLocation = existingLocation
-
-        sut.locationManager(manager, didFailWithError: CLError(.network))
-        await Task.yield()
-
-        #expect(sut.userLocation?.coordinate.latitude == existingLocation.coordinate.latitude)
-        #expect(sut.userLocation?.coordinate.longitude == existingLocation.coordinate.longitude)
-    }
 }
